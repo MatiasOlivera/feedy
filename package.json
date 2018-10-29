@@ -11,5 +11,8 @@
     "opinions"
   ],
   "author": "Matías Olivera",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "1.14.3"
+  }
 }
