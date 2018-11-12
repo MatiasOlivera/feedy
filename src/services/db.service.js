@@ -23,6 +23,6 @@ const knex = Knex({
 });
 
 const bookshelf = Bookshelf(knex);
-bookshelf.plugin('registry');
+bookshelf.plugin(['registry', 'pagination', 'bookshelf-camelcase']);
 
 module.exports = bookshelf;
