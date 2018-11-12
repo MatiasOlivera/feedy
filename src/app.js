@@ -2,6 +2,8 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 const { NODE_ENV, isDevelopment, SERVER_PORT } = require('./config');
+// eslint-disable-next-line no-unused-vars
+const models = require('./models');
 
 const schema = buildSchema(`
   type Query {
