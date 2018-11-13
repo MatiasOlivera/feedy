@@ -1,5 +1,4 @@
 const Knex = require('knex');
-const Bookshelf = require('bookshelf');
 const {
   DB_CLIENT,
   DB_HOST,
@@ -21,8 +20,3 @@ const knex = Knex({
     password: DB_PASSWORD
   }
 });
-
-const bookshelf = Bookshelf(knex);
-bookshelf.plugin(['registry', 'pagination', 'bookshelf-camelcase']);
-
-module.exports = bookshelf;
