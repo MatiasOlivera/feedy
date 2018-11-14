@@ -1,0 +1,116 @@
+# Queries
+
+type Query {
+  user(id: ID!): User
+  users(pagination: Pagination!): [User!]
+}
+
+# Objects
+
+"""
+An user
+"""
+type User implements Entity {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  gender: GENDER!
+  username: String!
+  password: String
+  email: String!
+  bio: String
+  createdAt: String!
+  updatedAt: String!
+  products: [Product!]
+  organizations: [Organization!]
+  issues: [Issue!]
+  comments: [Comment!]
+}
+
+"""
+An organization. Eg. a company
+"""
+type Organization implements Entity {
+  id: ID!
+  name: String!
+  bio: String
+  createdAt: String!
+  updatedAt: String!
+  products: [Product!]
+  members: [User!]!
+}
+
+"""
+A product or a service
+"""
+type Product implements Entity {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: String!
+  updatedAt: String!
+  owner: ProductOwner!
+  issues: [Issue!]
+}
+
+"""
+A thread created by a user
+"""
+type Issue implements Entity {
+  id: ID!
+  title: String!
+  body: String!
+  createdAt: String!
+  updatedAt: String!
+  author: User!
+  product: Product!
+  comments: [Comment!]
+}
+
+"""
+A comment created by a user
+"""
+type Comment implements Entity {
+  id: ID!
+  body: String!
+  createdAt: String!
+  updatedAt: String!
+  author: User!
+  issue: Issue
+  parent: Comment
+  children: [Comment!]
+}
+
+# Unions
+
+union ProductOwner = User | Organization
+
+# Interfaces
+
+interface Entity {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+}
+
+# Enums
+
+enum GENDER {
+  Female
+  Male
+  Other
+}
+
+enum ORDER {
+  ASC
+  DESC
+}
+
+# Inputs
+
+input Pagination {
+  limit: Int = 10
+  page: Int = 1
+  sort: String = "id"
+  order: ORDER = ASC
+}
