@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
-// eslint-disable-next-line prefer-destructuring
-const Model = require('objection').Model;
+const Model = require('./Model');
 
 class Issue extends Model {
   static get tableName() {
