@@ -2,7 +2,12 @@
 
 type Query {
   user(id: ID!): User
-  users(pagination: Pagination!): [User!]
+  users(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [User!]
 }
 
 # Objects
@@ -104,13 +109,4 @@ enum GENDER {
 enum ORDER {
   ASC
   DESC
-}
-
-# Inputs
-
-input Pagination {
-  limit: Int = 10
-  page: Int = 1
-  sort: String = "id"
-  order: ORDER = ASC
 }
