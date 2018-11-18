@@ -8,6 +8,14 @@ type Query {
     orderBy: String = "id"
     direction: ORDER = ASC
   ): [User!]
+
+  organization(id: ID!): Organization
+  organizations(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Organization!]
 }
 
 # Objects
