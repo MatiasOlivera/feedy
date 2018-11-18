@@ -11,5 +11,8 @@
     "eslint:recommended",
     "airbnb-base",
     "plugin:prettier/recommended"
-  ]
+  ],
+  "rules": {
+    "no-prototype-builtins": "off"
+  }
 }
