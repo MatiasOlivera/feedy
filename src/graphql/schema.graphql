@@ -16,6 +16,14 @@ type Query {
     orderBy: String = "id"
     direction: ORDER = ASC
   ): [Organization!]
+
+  product(id: ID!): Product
+  products(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Product!]
 }
 
 # Objects
