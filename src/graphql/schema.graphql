@@ -24,6 +24,14 @@ type Query {
     orderBy: String = "id"
     direction: ORDER = ASC
   ): [Product!]
+
+  issue(id: ID!): Issue
+  issues(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Issue!]
 }
 
 # Objects
