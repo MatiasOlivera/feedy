@@ -51,6 +51,7 @@ type User implements Entity {
   id: ID!
   firstName: String!
   lastName: String!
+  fullName: String!
   gender: GENDER!
   username: String!
   email: String!

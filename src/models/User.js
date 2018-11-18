@@ -6,6 +6,10 @@ class User extends Model {
     return 'users';
   }
 
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
   static get relationMappings() {
     const ProductOwner = require('./ProductOwner');
     const Organization = require('./Organization');
