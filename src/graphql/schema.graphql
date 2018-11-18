@@ -32,6 +32,14 @@ type Query {
     orderBy: String = "id"
     direction: ORDER = ASC
   ): [Issue!]
+
+  comment(id: ID!): Comment
+  comments(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Comment!]
 }
 
 # Objects
