@@ -56,8 +56,8 @@ type User implements Entity {
   username: String!
   email: String!
   bio: String
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
   products: [Product!]
   organizations: [Organization!]
   issues: [Issue!]
@@ -71,8 +71,8 @@ type Organization implements Entity {
   id: ID!
   name: String!
   bio: String
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
   products: [Product!]
   members: [User!]!
 }
@@ -84,8 +84,8 @@ type Product implements Entity {
   id: ID!
   name: String!
   description: String
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
   owner: ProductOwner!
   issues: [Issue!]
 }
@@ -97,8 +97,8 @@ type Issue implements Entity {
   id: ID!
   title: String!
   body: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
   author: User!
   product: Product!
   comments: [Comment!]
@@ -110,8 +110,8 @@ A comment created by a user
 type Comment implements Entity {
   id: ID!
   body: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
   author: User!
   issue: Issue
   parent: Comment
@@ -126,9 +126,13 @@ union ProductOwner = User | Organization
 
 interface Entity {
   id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
+
+# Custom scalars
+
+scalar Date
 
 # Enums
 
