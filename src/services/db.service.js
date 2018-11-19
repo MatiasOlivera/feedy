@@ -1,6 +1,7 @@
 const Knex = require('knex');
 const { Model } = require('objection');
 const _ = require('lodash');
+const { UserError } = require('graphql-errors');
 const {
   DB_CLIENT,
   DB_HOST,
@@ -72,16 +73,16 @@ function validateColumn(columns, column) {
 function validatePaginationArgs(page, limit, { column, columns }) {
   try {
     if (page < 1) {
-      throw new Error('Page must be a positive integer');
+      throw new UserError('Page must be a positive integer');
     }
 
     if (limit < 1) {
-      throw new Error('Limit must be a positive integer');
+      throw new UserError('Limit must be a positive integer');
     }
 
     const isValidColumn = validateColumn(columns, column);
     if (!isValidColumn) {
-      throw new Error(`OrderBy must be a valid object property`);
+      throw new UserError('OrderBy must be a valid object property');
     }
   } catch (error) {
     throw error;

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { makeExecutableSchema } = require('graphql-tools');
+const { maskErrors } = require('graphql-errors');
 const Query = require('./queries');
 const Types = require('./types');
 const Scalars = require('./scalars');
@@ -15,5 +16,8 @@ const resolvers = {
 };
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// Mask the error messages
+maskErrors(schema);
 
 module.exports = schema;

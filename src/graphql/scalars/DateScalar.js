@@ -1,10 +1,11 @@
 const { Kind } = require('graphql/language');
+const { UserError } = require('graphql-errors');
 
 function validateDate(value) {
   const date = Date.parse(value);
   // eslint-disable-next-line no-restricted-globals
   if (isNaN(date)) {
-    throw new Error('Not a valid date');
+    throw new UserError('Not a valid date');
   }
 }
 
@@ -16,7 +17,7 @@ const DateScalar = {
 
   parseLiteral(ast) {
     if (ast.kind !== Kind.STRING) {
-      throw new Error('Can only parse dates strings');
+      throw new UserError('Can only parse dates strings');
     }
 
     validateDate(ast.value);
