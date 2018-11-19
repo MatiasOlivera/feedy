@@ -26,6 +26,7 @@
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.0.2",
+    "graphql-errors": "^2.1.0",
     "graphql-tools": "^4.0.3",
     "knex": "^0.13.0",
     "lodash": "^4.17.11",
