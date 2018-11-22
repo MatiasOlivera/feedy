@@ -2,6 +2,7 @@ const Knex = require('knex');
 const { Model } = require('objection');
 const _ = require('lodash');
 const { UserError } = require('graphql-errors');
+const { logger } = require('./log.service');
 const {
   DB_CLIENT,
   DB_HOST,
@@ -33,9 +34,16 @@ function initDBService() {
       Model.knex(knex);
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.error(err);
-      process.exit(1);
+      if (err.code === 'ECONNREFUSED') {
+        logger.error('[db service] Database connection was refused.', {
+          error: err
+        });
+      }
+
+      logger.error(
+        '[db service] There was a problem with the database connection.',
+        { error: err }
+      );
     });
 }
 

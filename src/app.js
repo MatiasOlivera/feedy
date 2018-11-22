@@ -2,6 +2,7 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { isDevelopment, SERVER_PORT } = require('./config');
 const { initDBService } = require('./services/db.service');
+const { logger } = require('./services/log.service');
 const schema = require('./graphql');
 
 async function initServer() {
@@ -19,8 +20,9 @@ async function initServer() {
 
     app.listen(SERVER_PORT);
 
-    // eslint-disable-next-line no-console
-    console.log(`Server running on http://localhost:${SERVER_PORT}/graphql 🔥`);
+    logger.info(
+      `[App] Server running on http://localhost:${SERVER_PORT}/graphql 🔥`
+    );
   } catch (err) {
     throw err;
   }
