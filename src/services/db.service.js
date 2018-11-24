@@ -13,25 +13,27 @@ const {
   DB_PASSWORD
 } = require('../config');
 
-function initDBService() {
-  // Create a new knex instance
-  const knex = Knex({
-    client: DB_CLIENT,
-    connection: {
-      host: DB_HOST,
-      port: DB_PORT,
-      database: DB_DATABASE,
-      charset: DB_CHARSET,
-      user: DB_USERNAME,
-      password: DB_PASSWORD
-    }
-  });
+// Create a new knex instance
+const knex = Knex({
+  client: DB_CLIENT,
+  connection: {
+    host: DB_HOST,
+    port: DB_PORT,
+    database: DB_DATABASE,
+    charset: DB_CHARSET,
+    user: DB_USERNAME,
+    password: DB_PASSWORD
+  }
+});
 
+// Bind all models to a knex instance
+Model.knex(knex);
+
+function testDBService() {
   return knex
     .raw('select true')
     .then(() => {
-      // Bind all models to a knex instance
-      Model.knex(knex);
+      logger.info('[db service] Database connection was successful.');
     })
     .catch((err) => {
       if (err.code === 'ECONNREFUSED') {
@@ -97,4 +99,10 @@ function validatePaginationArgs(page, limit, { column, columns }) {
   }
 }
 
-module.exports = { initDBService, validatePaginationArgs, getColumn, getPage };
+module.exports = {
+  testDBService,
+  knex,
+  validatePaginationArgs,
+  getColumn,
+  getPage
+};

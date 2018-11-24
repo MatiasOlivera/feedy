@@ -1,13 +1,13 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { isDevelopment, SERVER_PORT } = require('./config');
-const { initDBService } = require('./services/db.service');
+const { testDBService } = require('./services/db.service');
 const { logger } = require('./services/log.service');
 const schema = require('./graphql');
 
 async function initServer() {
   try {
-    await initDBService();
+    await testDBService();
 
     const app = express();
 
