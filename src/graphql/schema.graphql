@@ -42,6 +42,12 @@ type Query {
   ): [Comment!]
 }
 
+# Mutations
+
+type Mutation {
+  createUser(user: UserInput!): UserResponse
+}
+
 # Objects
 
 """
@@ -62,6 +68,23 @@ type User implements Entity {
   organizations: [Organization!]
   issues: [Issue!]
   comments: [Comment!]
+}
+
+type UserValidation {
+  firstName: String
+  lastName: String
+  gender: String
+  username: String
+  password: String
+  passwordConfirmation: String
+  email: String
+  bio: String
+}
+
+type UserResponse {
+  operation: Operation!
+  user: User
+  errors: UserValidation
 }
 
 """
@@ -116,6 +139,24 @@ type Comment implements Entity {
   issue: Issue
   parent: Comment
   children: [Comment!]
+}
+
+type Operation {
+  status: Boolean!
+  message: String!
+}
+
+# Inputs
+
+input UserInput {
+  firstName: String!
+  lastName: String!
+  gender: GENDER!
+  username: String!
+  password: String!
+  passwordConfirmation: String!
+  email: String!
+  bio: String
 }
 
 # Unions
