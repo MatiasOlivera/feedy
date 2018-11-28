@@ -45,7 +45,7 @@ type Query {
 # Mutations
 
 type Mutation {
-  createUser(user: UserInput!): UserResponse
+  createUser(user: CreateUserInput!): UserPayload
 }
 
 # Objects
@@ -81,7 +81,7 @@ type UserValidation {
   bio: String
 }
 
-type UserResponse {
+type UserPayload {
   operation: Operation!
   user: User
   errors: UserValidation
@@ -148,7 +148,7 @@ type Operation {
 
 # Inputs
 
-input UserInput {
+input CreateUserInput {
   firstName: String!
   lastName: String!
   gender: GENDER!
