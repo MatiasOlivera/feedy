@@ -1,7 +1,7 @@
 const objection = require('objection');
-const { CreateUserValidator } = require('../../app/validators');
-const { knex } = require('../../services/db.service');
-const { ProductOwner } = require('../../models');
+const { CreateUserValidator } = require('../../../app/validators');
+const { knex } = require('../../../services/db.service');
+const { ProductOwner } = require('../../../models');
 
 const createUser = async (root, args) => {
   const { user } = args;
@@ -9,17 +9,18 @@ const createUser = async (root, args) => {
   try {
     const validator = new CreateUserValidator();
     await validator.validate(user);
-  } catch (errors) {
+  } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },
       user: null,
-      errors
+      errors: err
     };
   }
 
   const tsx = await objection.transaction.start(knex);
   try {
-    // ER_BAD_FIELD_ERROR: Unknown column 'password_confirmation' in 'field list'
+    // ER_BAD_FIELD_ERROR:
+    // Unknown column 'password_confirmation' in 'field list'
     delete user.passwordConfirmation;
 
     const newProductOwner = await ProductOwner.query(tsx).insert({});
@@ -40,6 +41,4 @@ const createUser = async (root, args) => {
   }
 };
 
-module.exports = {
-  createUser
-};
+module.exports = createUser;
