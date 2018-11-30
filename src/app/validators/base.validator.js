@@ -2,7 +2,8 @@ const Validator = require('validatorjs');
 const customRules = require('./custom_rules');
 
 class BaseValidator {
-  constructor() {
+  constructor(data) {
+    this.data = data;
     this.errors = null;
     this.registerCustomRules();
   }
@@ -19,9 +20,9 @@ class BaseValidator {
     return {};
   }
 
-  validate(data) {
+  validate() {
     return new Promise((resolve, reject) => {
-      const validator = new Validator(data, this.rules());
+      const validator = new Validator(this.data, this.rules());
       const handleFails = () => {
         this.errors = validator.errors.all();
         reject(this.formattedErrors);

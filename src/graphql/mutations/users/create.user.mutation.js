@@ -7,8 +7,8 @@ const createUser = async (root, args) => {
   const { user } = args;
 
   try {
-    const validator = new CreateUserValidator();
-    await validator.validate(user);
+    const validator = new CreateUserValidator(user);
+    await validator.validate();
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },
