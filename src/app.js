@@ -3,12 +3,17 @@ const graphqlHTTP = require('express-graphql');
 const { isDevelopment, SERVER_PORT } = require('./config');
 const { testDBService } = require('./services/db.service');
 const { logger } = require('./services/log.service');
-const schema = require('./graphql');
+const createSchema = require('./graphql');
 
 async function initServer() {
+  let schema;
   try {
-    await testDBService();
+    [schema] = await Promise.all([createSchema(), testDBService()]);
+  } catch (err) {
+    process.exit(1);
+  }
 
+  try {
     const app = express();
 
     const graphqlServer = graphqlHTTP({

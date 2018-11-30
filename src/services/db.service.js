@@ -40,12 +40,14 @@ function testDBService() {
         logger.error('[db service] Database connection was refused.', {
           error: err
         });
+      } else {
+        logger.error(
+          '[db service] There was a problem with the database connection.',
+          { error: err }
+        );
       }
 
-      logger.error(
-        '[db service] There was a problem with the database connection.',
-        { error: err }
-      );
+      throw err;
     });
 }
 
