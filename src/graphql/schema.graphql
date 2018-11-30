@@ -45,8 +45,8 @@ type Query {
 # Mutations
 
 type Mutation {
-  createUser(user: CreateUserInput!): UserPayload
-  updateUser(id: ID!, user: UpdateUserInput!): UserPayload
+  createUser(user: CreateUserInput!): CreateUserPayload
+  updateUser(id: ID!, user: UpdateUserInput!): UpdateUserPayload
 }
 
 # Objects
@@ -71,7 +71,7 @@ type User implements Entity {
   comments: [Comment!]
 }
 
-type UserValidation {
+type CreateUserValidation {
   firstName: String
   lastName: String
   gender: String
@@ -82,10 +82,25 @@ type UserValidation {
   bio: String
 }
 
-type UserPayload {
+type CreateUserPayload {
   operation: Operation!
   user: User
-  errors: UserValidation
+  errors: CreateUserValidation
+}
+
+type UpdateUserValidation {
+  firstName: String
+  lastName: String
+  gender: String
+  username: String
+  email: String
+  bio: String
+}
+
+type UpdateUserPayload {
+  operation: Operation!
+  user: User
+  errors: UpdateUserValidation
 }
 
 """
