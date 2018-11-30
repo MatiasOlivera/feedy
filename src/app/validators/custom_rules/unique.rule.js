@@ -8,9 +8,11 @@ const callback = async (value, args, attribute, passes) => {
   const hasMultipleArgs = args.includes(',');
   let table = null;
   let column = null;
+  let except = null;
+  let idColumn = null;
 
   if (hasMultipleArgs) {
-    [table, column] = args.split(',');
+    [table, column, except, idColumn = 'id'] = args.split(',');
   } else {
     table = args;
     column = attribute;
@@ -19,12 +21,18 @@ const callback = async (value, args, attribute, passes) => {
   if (!table) throw new Error('The table name must be specified.');
 
   try {
-    const [row] = await knex
+    const query = knex
       .select(column)
       .from(table)
       .where(column, value);
 
-    if (!row) return passes();
+    if (except) {
+      query.whereNot(idColumn, except);
+    }
+
+    const row = await query;
+
+    if (row.length === 0) return passes();
 
     return passes(false, 'The value has already been taken.');
   } catch (error) {
