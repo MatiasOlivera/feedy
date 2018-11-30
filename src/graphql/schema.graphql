@@ -47,6 +47,7 @@ type Query {
 type Mutation {
   createUser(user: CreateUserInput!): CreateUserPayload
   updateUser(id: ID!, user: UpdateUserInput!): UpdateUserPayload
+  deleteUser(id: ID!): DeleteUserPayload
 }
 
 # Objects
@@ -101,6 +102,11 @@ type UpdateUserPayload {
   operation: Operation!
   user: User
   errors: UpdateUserValidation
+}
+
+type DeleteUserPayload {
+  operation: Operation!
+  user: User
 }
 
 """
