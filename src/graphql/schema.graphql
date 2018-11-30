@@ -46,6 +46,7 @@ type Query {
 
 type Mutation {
   createUser(user: CreateUserInput!): UserPayload
+  updateUser(id: ID!, user: UpdateUserInput!): UserPayload
 }
 
 # Objects
@@ -156,6 +157,15 @@ input CreateUserInput {
   password: String!
   passwordConfirmation: String!
   email: String!
+  bio: String
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  gender: GENDER
+  username: String
+  email: String
   bio: String
 }
 
