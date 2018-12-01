@@ -127,7 +127,7 @@ type User implements Entity {
   """
   The gender. Eg. Male
   """
-  gender: GENDER!
+  gender: String!
   """
   The username. Eg. JohnDoe
   """
@@ -459,7 +459,7 @@ input CreateUserInput {
   """
   The gender
   """
-  gender: GENDER!
+  gender: String!
   """
   The username
   """
@@ -497,7 +497,7 @@ input UpdateUserInput {
   """
   The gender
   """
-  gender: GENDER
+  gender: String
   """
   The username
   """
@@ -547,24 +547,6 @@ A date
 scalar Date
 
 # Enums
-
-"""
-The gender
-"""
-enum GENDER {
-  """
-  Female
-  """
-  FEMALE
-  """
-  Male
-  """
-  MALE
-  """
-  Other
-  """
-  OTHER
-}
 
 """
 The sort direction
