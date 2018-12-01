@@ -100,6 +100,11 @@ type Mutation {
   Delete an existing user
   """
   deleteUser(id: ID!): DeleteUserPayload
+
+  """
+  Create a new organization
+  """
+  createOrganization(org: CreateOrganizationInput!): OrganizationPayload
 }
 
 # Objects
@@ -319,6 +324,38 @@ type Organization implements Entity {
 }
 
 """
+The possible validation errors returned when creating or updating an organization
+"""
+type OrganizationValidation {
+  """
+  The validation error of the name
+  """
+  name: String
+  """
+  The validation error of the biography
+  """
+  bio: String
+}
+
+"""
+The payload returned when a new organization is created or updated
+"""
+type OrganizationPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created or updated organization
+  """
+  organization: Organization
+  """
+  The validation errors
+  """
+  errors: OrganizationValidation
+}
+
+"""
 A product or a service
 """
 type Product implements Entity {
@@ -506,6 +543,20 @@ input UpdateUserInput {
   The email address
   """
   email: String
+  """
+  The biography
+  """
+  bio: String
+}
+
+"""
+The properties needed to create a new organization
+"""
+input CreateOrganizationInput {
+  """
+  The name
+  """
+  name: String!
   """
   The biography
   """
