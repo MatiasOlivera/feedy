@@ -555,15 +555,15 @@ enum GENDER {
   """
   Female
   """
-  Female
+  FEMALE
   """
   Male
   """
-  Male
+  MALE
   """
   Other
   """
-  Other
+  OTHER
 }
 
 """
