@@ -113,6 +113,11 @@ type Mutation {
     id: ID!
     org: UpdateOrganizationInput!
   ): OrganizationPayload
+
+  """
+  Delete an existing organization
+  """
+  deleteOrganization(id: ID!): DeleteOrganizationPayload
 }
 
 # Objects
@@ -361,6 +366,20 @@ type OrganizationPayload {
   The validation errors
   """
   errors: OrganizationValidation
+}
+
+"""
+The payload returned when a organization is deleted
+"""
+type DeleteOrganizationPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The deleted organization
+  """
+  organization: Organization
 }
 
 """
