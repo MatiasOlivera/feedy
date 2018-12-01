@@ -105,6 +105,14 @@ type Mutation {
   Create a new organization
   """
   createOrganization(org: CreateOrganizationInput!): OrganizationPayload
+
+  """
+  Update an existing organization
+  """
+  updateOrganization(
+    id: ID!
+    org: UpdateOrganizationInput!
+  ): OrganizationPayload
 }
 
 # Objects
@@ -557,6 +565,20 @@ input CreateOrganizationInput {
   The name
   """
   name: String!
+  """
+  The biography
+  """
+  bio: String
+}
+
+"""
+The properties used to update an existing organization
+"""
+input UpdateOrganizationInput {
+  """
+  The name
+  """
+  name: String
   """
   The biography
   """
