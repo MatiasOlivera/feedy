@@ -1,18 +1,9 @@
-const { Comment } = require('../../models');
+const { Comment } = require('../../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../services/db.service');
-
-const commentQuery = async (root, args) => {
-  try {
-    const { id } = args;
-    return await Comment.query().findById(id);
-  } catch (err) {
-    throw err;
-  }
-};
+} = require('../../../../../services/db.service');
 
 const commentsQuery = async (root, args) => {
   try {
@@ -36,7 +27,6 @@ const commentsQuery = async (root, args) => {
 
 module.exports = {
   Query: {
-    comment: commentQuery,
     comments: commentsQuery
   }
 };

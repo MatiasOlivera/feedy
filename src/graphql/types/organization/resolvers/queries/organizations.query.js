@@ -1,18 +1,9 @@
-const { Organization } = require('../../models');
+const { Organization } = require('../../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../services/db.service');
-
-const organizationQuery = async (root, args) => {
-  try {
-    const { id } = args;
-    return await Organization.query().findById(id);
-  } catch (err) {
-    throw err;
-  }
-};
+} = require('../../../../../services/db.service');
 
 const organizationsQuery = async (root, args) => {
   try {
@@ -36,7 +27,6 @@ const organizationsQuery = async (root, args) => {
 
 module.exports = {
   Query: {
-    organization: organizationQuery,
     organizations: organizationsQuery
   }
 };

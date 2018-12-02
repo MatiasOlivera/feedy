@@ -1,18 +1,9 @@
-const { Issue } = require('../../models');
+const { Issue } = require('../../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../services/db.service');
-
-const issueQuery = async (root, args) => {
-  try {
-    const { id } = args;
-    return await Issue.query().findById(id);
-  } catch (err) {
-    throw err;
-  }
-};
+} = require('../../../../../services/db.service');
 
 const issuesQuery = async (root, args) => {
   try {
@@ -36,7 +27,6 @@ const issuesQuery = async (root, args) => {
 
 module.exports = {
   Query: {
-    issue: issueQuery,
     issues: issuesQuery
   }
 };
