@@ -47,4 +47,4 @@ const updateOrganization = async (root, args) => {
   }
 };
 
-module.exports = updateOrganization;
+module.exports = { Mutation: { updateOrganization } };

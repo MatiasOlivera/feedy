@@ -35,6 +35,8 @@ const usersQuery = async (root, args) => {
 };
 
 module.exports = {
-  user: userQuery,
-  users: usersQuery
+  Query: {
+    user: userQuery,
+    users: usersQuery
+  }
 };

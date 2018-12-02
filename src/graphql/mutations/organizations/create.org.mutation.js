@@ -40,4 +40,4 @@ const createOrganization = async (root, args) => {
   }
 };
 
-module.exports = createOrganization;
+module.exports = { Mutation: { createOrganization } };

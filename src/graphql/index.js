@@ -1,5 +1,9 @@
 const path = require('path');
-const { fileLoader, mergeTypes } = require('merge-graphql-schemas');
+const {
+  fileLoader,
+  mergeTypes,
+  mergeResolvers
+} = require('merge-graphql-schemas');
 const { makeExecutableSchema } = require('graphql-tools');
 const { maskErrors } = require('graphql-errors');
 const { logger } = require('../services/log.service');
@@ -13,11 +17,20 @@ function mergeTypeDefinitions() {
   return mergeTypes(types, { all: true });
 }
 
+function mergeResolverFunctions() {
+  const resolvers = fileLoader(path.join(__dirname, '.'), {
+    extensions: ['.js'],
+    recursive: true
+  });
+
+  return mergeResolvers(resolvers);
+}
+
 async function createSchema() {
   try {
     const typeDefs = mergeTypeDefinitions();
 
-    const resolvers = {};
+    const resolvers = mergeResolverFunctions();
 
     const loggerHandler = {
       log: (err) =>

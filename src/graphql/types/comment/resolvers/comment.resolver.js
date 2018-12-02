@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { Comment } = require('../../models');
+const { Comment } = require('../../../../models');
 
 const author = async function(parent) {
   const comment = await Comment.query()
@@ -35,8 +35,10 @@ const children = async function(_parent) {
 };
 
 module.exports = {
-  author,
-  issue,
-  parent,
-  children
+  Comment: {
+    author,
+    issue,
+    parent,
+    children
+  }
 };

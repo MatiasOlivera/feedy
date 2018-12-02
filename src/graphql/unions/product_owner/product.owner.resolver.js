@@ -5,6 +5,4 @@ const __resolveType = function(parent) {
   return parent.hasOwnProperty('username') ? 'User' : 'Organization';
 };
 
-module.exports = {
-  __resolveType
-};
+module.exports = { ProductOwner: { __resolveType } };

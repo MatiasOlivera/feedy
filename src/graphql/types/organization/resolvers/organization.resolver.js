@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { Organization } = require('../../models');
+const { Organization } = require('../../../../models');
 
 const products = async function(parent) {
   const organization = await Organization.query()
@@ -19,6 +19,8 @@ const members = async function(parent) {
 };
 
 module.exports = {
-  products,
-  members
+  Organization: {
+    products,
+    members
+  }
 };

@@ -29,4 +29,4 @@ const deleteUser = async (root, args) => {
   }
 };
 
-module.exports = deleteUser;
+module.exports = { Mutation: { deleteUser } };

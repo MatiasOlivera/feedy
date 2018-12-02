@@ -41,4 +41,4 @@ const createUser = async (root, args) => {
   }
 };
 
-module.exports = createUser;
+module.exports = { Mutation: { createUser } };

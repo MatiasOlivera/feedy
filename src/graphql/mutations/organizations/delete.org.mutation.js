@@ -34,4 +34,4 @@ const deleteOrganization = async (root, args) => {
   }
 };
 
-module.exports = deleteOrganization;
+module.exports = { Mutation: { deleteOrganization } };

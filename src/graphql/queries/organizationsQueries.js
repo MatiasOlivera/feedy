@@ -35,6 +35,8 @@ const organizationsQuery = async (root, args) => {
 };
 
 module.exports = {
-  organization: organizationQuery,
-  organizations: organizationsQuery
+  Query: {
+    organization: organizationQuery,
+    organizations: organizationsQuery
+  }
 };

@@ -35,6 +35,8 @@ const issuesQuery = async (root, args) => {
 };
 
 module.exports = {
-  issue: issueQuery,
-  issues: issuesQuery
+  Query: {
+    issue: issueQuery,
+    issues: issuesQuery
+  }
 };

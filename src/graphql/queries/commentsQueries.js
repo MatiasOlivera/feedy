@@ -35,6 +35,8 @@ const commentsQuery = async (root, args) => {
 };
 
 module.exports = {
-  comment: commentQuery,
-  comments: commentsQuery
+  Query: {
+    comment: commentQuery,
+    comments: commentsQuery
+  }
 };

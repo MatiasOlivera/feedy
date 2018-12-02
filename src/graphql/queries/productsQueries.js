@@ -35,6 +35,8 @@ const productsQuery = async (root, args) => {
 };
 
 module.exports = {
-  product: productQuery,
-  products: productsQuery
+  Query: {
+    product: productQuery,
+    products: productsQuery
+  }
 };

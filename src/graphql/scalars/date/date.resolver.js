@@ -29,4 +29,4 @@ const DateScalar = {
   }
 };
 
-module.exports = DateScalar;
+module.exports = { Date: DateScalar };
