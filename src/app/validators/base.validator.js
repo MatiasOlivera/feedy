@@ -10,9 +10,10 @@ class BaseValidator {
 
   // eslint-disable-next-line class-methods-use-this
   registerCustomRules() {
-    const { uniqueRule } = customRules;
+    const { uniqueRule, existsRule } = customRules;
 
     Validator.registerAsync(uniqueRule.name, uniqueRule.callback);
+    Validator.registerAsync(existsRule.name, existsRule.callback);
   }
 
   // eslint-disable-next-line class-methods-use-this
