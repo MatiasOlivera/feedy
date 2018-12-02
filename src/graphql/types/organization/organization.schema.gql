@@ -1,0 +1,144 @@
+"""
+An organization. Eg. a company
+"""
+type Organization {
+  """
+  The identifier
+  """
+  id: ID!
+  """
+  The name. Eg. Tesla Motors
+  """
+  name: String!
+  """
+  The main activity. Eg. Manufacturer of electric vehicles
+  """
+  bio: String
+  """
+  The date it was created in ISO8601 format
+  """
+  createdAt: Date!
+  """
+  The date it was last updated in ISO8601 format
+  """
+  updatedAt: Date!
+  """
+  The products or services that belong to the organization
+  """
+  products: [Product!]
+  """
+  Users who are members of the organization
+  """
+  members: [User!]!
+}
+
+type Query {
+  """
+  Fetch an organization by its id
+  """
+  organization(id: ID!): Organization
+
+  """
+  Fetch a list of organizations
+  """
+  organizations(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Organization!]
+}
+
+type Mutation {
+  """
+  Create a new organization
+  """
+  createOrganization(org: CreateOrganizationInput!): OrganizationPayload
+
+  """
+  Update an existing organization
+  """
+  updateOrganization(
+    id: ID!
+    org: UpdateOrganizationInput!
+  ): OrganizationPayload
+
+  """
+  Delete an existing organization
+  """
+  deleteOrganization(id: ID!): DeleteOrganizationPayload
+}
+
+"""
+The possible validation errors returned when creating or updating an organization
+"""
+type OrganizationValidation {
+  """
+  The validation error of the name
+  """
+  name: String
+  """
+  The validation error of the biography
+  """
+  bio: String
+}
+
+"""
+The payload returned when a new organization is created or updated
+"""
+type OrganizationPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created or updated organization
+  """
+  organization: Organization
+  """
+  The validation errors
+  """
+  errors: OrganizationValidation
+}
+
+"""
+The payload returned when a organization is deleted
+"""
+type DeleteOrganizationPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The deleted organization
+  """
+  organization: Organization
+}
+
+"""
+The properties needed to create a new organization
+"""
+input CreateOrganizationInput {
+  """
+  The name
+  """
+  name: String!
+  """
+  The biography
+  """
+  bio: String
+}
+
+"""
+The properties used to update an existing organization
+"""
+input UpdateOrganizationInput {
+  """
+  The name
+  """
+  name: String
+  """
+  The biography
+  """
+  bio: String
+}

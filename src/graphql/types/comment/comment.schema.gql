@@ -1,0 +1,54 @@
+"""
+A comment created by a user
+"""
+type Comment {
+  """
+  The identifier
+  """
+  id: ID!
+  """
+  The comment itself
+  """
+  body: String!
+  """
+  The date it was created in ISO8601 format
+  """
+  createdAt: Date!
+  """
+  The date it was last updated in ISO8601 format
+  """
+  updatedAt: Date!
+  """
+  The user who wrote the comment
+  """
+  author: User!
+  """
+  The thread to which it belongs
+  """
+  issue: Issue
+  """
+  The comment that is being answered
+  """
+  parent: Comment
+  """
+  Comments that respond to this comment
+  """
+  children: [Comment!]
+}
+
+type Query {
+  """
+  Fetch a comment by its id
+  """
+  comment(id: ID!): Comment
+
+  """
+  Fetch a list of comments
+  """
+  comments(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Comment!]
+}
