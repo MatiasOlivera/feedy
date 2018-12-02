@@ -1,0 +1,54 @@
+"""
+A thread created by a user
+"""
+type Issue {
+  """
+  The identifier
+  """
+  id: ID!
+  """
+  The title of the issue
+  """
+  title: String!
+  """
+  The detailed explanation of the issue
+  """
+  body: String!
+  """
+  The date it was created in ISO8601 format
+  """
+  createdAt: Date!
+  """
+  The date it was last updated in ISO8601 format
+  """
+  updatedAt: Date!
+  """
+  The user who started the thread
+  """
+  author: User!
+  """
+  The product that is discussed in the issue
+  """
+  product: Product!
+  """
+  The comments made by users
+  """
+  comments: [Comment!]
+}
+
+type Query {
+  """
+  Fetch an issue by its id
+  """
+  issue(id: ID!): Issue
+
+  """
+  Fetch a list of issues
+  """
+  issues(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Issue!]
+}

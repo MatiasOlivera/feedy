@@ -1,36 +1,36 @@
-const fs = require('fs');
 const path = require('path');
-const util = require('util');
+const {
+  fileLoader,
+  mergeTypes,
+  mergeResolvers
+} = require('merge-graphql-schemas');
 const { makeExecutableSchema } = require('graphql-tools');
 const { maskErrors } = require('graphql-errors');
-const Mutation = require('./mutations');
-const Query = require('./queries');
-const Types = require('./types');
-const Scalars = require('./scalars');
 const { logger } = require('../services/log.service');
+
+function mergeTypeDefinitions() {
+  const types = fileLoader(path.join(__dirname, '.'), {
+    extensions: ['.gql'],
+    recursive: true
+  });
+
+  return mergeTypes(types, { all: true });
+}
+
+function mergeResolverFunctions() {
+  const resolvers = fileLoader(path.join(__dirname, '.'), {
+    extensions: ['.js'],
+    recursive: true
+  });
+
+  return mergeResolvers(resolvers);
+}
 
 async function createSchema() {
   try {
-    let typeDefs;
+    const typeDefs = mergeTypeDefinitions();
 
-    try {
-      const readFile = util.promisify(fs.readFile);
-      const schemaFile = path.join(__dirname, 'schema.graphql');
-      typeDefs = await readFile(schemaFile, 'utf8');
-    } catch (err) {
-      logger.error('[gql service] Error when reading the schema file', {
-        error: err
-      });
-
-      throw err;
-    }
-
-    const resolvers = {
-      Mutation,
-      Query,
-      ...Types,
-      ...Scalars
-    };
+    const resolvers = mergeResolverFunctions();
 
     const loggerHandler = {
       log: (err) =>

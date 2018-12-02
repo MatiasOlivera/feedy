@@ -1,0 +1,50 @@
+"""
+A product or a service
+"""
+type Product {
+  """
+  The identifier
+  """
+  id: ID!
+  """
+  The name. Eg. Model S
+  """
+  name: String!
+  """
+  The description. Eg. High-end electric liftback
+  """
+  description: String
+  """
+  The date it was created in ISO8601 format
+  """
+  createdAt: Date!
+  """
+  The date it was last updated in ISO8601 format
+  """
+  updatedAt: Date!
+  """
+  The user or organization that owns the product
+  """
+  owner: ProductOwner!
+  """
+  The issues of the product
+  """
+  issues: [Issue!]
+}
+
+type Query {
+  """
+  Fetch a product by its id
+  """
+  product(id: ID!): Product
+
+  """
+  Fetch a list of products
+  """
+  products(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+  ): [Product!]
+}
