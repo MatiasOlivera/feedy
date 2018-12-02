@@ -48,3 +48,64 @@ type Query {
     direction: ORDER = ASC
   ): [Product!]
 }
+
+type Mutation {
+  """
+  Create a new product
+  """
+  createProduct(product: CreateProductInput!): ProductPayload
+}
+
+"""
+The possible validation errors returned when creating or updating a product
+"""
+type ProductValidation {
+  """
+  The validation error of the name
+  """
+  name: String
+  """
+  The validation error of the description
+  """
+  description: String
+  """
+  The validation error of the owner's identifier
+  """
+  ownerId: String
+}
+
+"""
+The payload returned when a new product is created or updated
+"""
+type ProductPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created or updated product
+  """
+  product: Product
+  """
+  The validation errors
+  """
+  errors: ProductValidation
+}
+
+"""
+The properties needed to create a new product
+"""
+input CreateProductInput {
+  """
+  The name
+  """
+  name: String!
+  """
+  The description
+  """
+  description: String
+  """
+  The owner's identifier
+  """
+  ownerId: ID!
+}
