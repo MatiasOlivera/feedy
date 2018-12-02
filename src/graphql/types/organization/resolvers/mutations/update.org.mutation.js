@@ -1,5 +1,7 @@
-const { UpdateOrganizationValidator } = require('../../../app/validators');
-const { Organization } = require('../../../models');
+const {
+  UpdateOrganizationValidator
+} = require('../../../../../app/validators');
+const { Organization } = require('../../../../../models');
 
 const updateOrganization = async (root, args) => {
   let org;

@@ -1,4 +1,4 @@
-const { Organization } = require('../../../models');
+const { Organization } = require('../../../../../models');
 
 const deleteOrganization = async (root, args) => {
   let org;
