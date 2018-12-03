@@ -54,6 +54,11 @@ type Mutation {
   Create a new product
   """
   createProduct(product: CreateProductInput!): ProductPayload
+
+  """
+  Update an existing product
+  """
+  updateProduct(id: ID!, product: UpdateProductInput!): ProductPayload
 }
 
 """
@@ -108,4 +113,22 @@ input CreateProductInput {
   The owner's identifier
   """
   ownerId: ID!
+}
+
+"""
+The properties used to update an existing product
+"""
+input UpdateProductInput {
+  """
+  The name
+  """
+  name: String
+  """
+  The description
+  """
+  description: String
+  """
+  The owner's identifier
+  """
+  ownerId: ID
 }
