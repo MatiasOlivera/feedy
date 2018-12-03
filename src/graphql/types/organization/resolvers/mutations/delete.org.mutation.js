@@ -13,7 +13,7 @@ const deleteOrganization = async (root, args) => {
         },
         organization: null,
         errors: null
-      };
+      }; // FIXME: delete errors key
   } catch (err) {
     throw err;
   }
