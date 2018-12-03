@@ -59,6 +59,11 @@ type Mutation {
   Update an existing product
   """
   updateProduct(id: ID!, product: UpdateProductInput!): ProductPayload
+
+  """
+  Delete an existing product
+  """
+  deleteProduct(id: ID!): DeleteProductPayload
 }
 
 """
@@ -95,6 +100,20 @@ type ProductPayload {
   The validation errors
   """
   errors: ProductValidation
+}
+
+"""
+The payload returned when a product is deleted
+"""
+type DeleteProductPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The deleted product
+  """
+  product: Product
 }
 
 """
