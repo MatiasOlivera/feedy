@@ -52,3 +52,72 @@ type Query {
     direction: ORDER = ASC
   ): [Issue!]
 }
+
+type Mutation {
+  """
+  Create a new issue
+  """
+  createIssue(issue: CreateIssueInput!): IssuePayload
+}
+
+"""
+The possible validation errors returned when creating or updating an issue
+"""
+type IssueValidation {
+  """
+  The validation error of the title
+  """
+  title: String
+  """
+  The validation error of the body
+  """
+  body: String
+  """
+  The validation error of the user's identifier
+  """
+  userId: String
+  """
+  The validation error of the product's identifier
+  """
+  productId: String
+}
+
+"""
+The payload returned when a new issue is created or updated
+"""
+type IssuePayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created or updated issue
+  """
+  issue: Issue
+  """
+  The validation errors
+  """
+  errors: IssueValidation
+}
+
+"""
+The properties needed to create a new issue
+"""
+input CreateIssueInput {
+  """
+  The title
+  """
+  title: String!
+  """
+  The body
+  """
+  body: String!
+  """
+  The user's identifier
+  """
+  userId: String!
+  """
+  The product's identifier
+  """
+  productId: String!
+}
