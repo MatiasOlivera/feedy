@@ -5,6 +5,7 @@ const UpdateOrganizationValidator = require('./organizations/update.org.validato
 const CreateProductValidator = require('./products/create.product.validator');
 const UpdateProductValidator = require('./products/update.product.validator');
 const CreateIssueValidator = require('./issues/create.issue.validator');
+const UpdateIssueValidator = require('./issues/update.issue.validator');
 
 module.exports = {
   CreateUserValidator,
@@ -13,5 +14,6 @@ module.exports = {
   UpdateOrganizationValidator,
   CreateProductValidator,
   UpdateProductValidator,
-  CreateIssueValidator
+  CreateIssueValidator,
+  UpdateIssueValidator
 };
