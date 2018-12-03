@@ -63,6 +63,11 @@ type Mutation {
   Update an existing issue
   """
   updateIssue(id: ID!, issue: UpdateIssueInput!): IssuePayload
+
+  """
+  Delete an existing issue
+  """
+  deleteIssue(id: ID!): DeleteIssuePayload
 }
 
 """
@@ -103,6 +108,20 @@ type IssuePayload {
   The validation errors
   """
   errors: IssueValidation
+}
+
+"""
+The payload returned when an issue is deleted
+"""
+type DeleteIssuePayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The deleted issue
+  """
+  issue: Issue
 }
 
 """
