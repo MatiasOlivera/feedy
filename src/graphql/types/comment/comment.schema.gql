@@ -63,6 +63,11 @@ type Mutation {
   Update an existing comment
   """
   updateComment(id: ID!, comment: UpdateCommentInput!): UpdateCommentPayload
+
+  """
+  Delete an existing comment
+  """
+  deleteComment(id: ID!): DeleteCommentPayload
 }
 
 """
@@ -131,6 +136,20 @@ type UpdateCommentPayload {
   The validation errors
   """
   errors: UpdateCommentValidation
+}
+
+"""
+The payload returned when a comment is deleted
+"""
+type DeleteCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The deleted comment
+  """
+  comment: Comment
 }
 
 """
