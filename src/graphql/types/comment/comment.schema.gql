@@ -57,13 +57,18 @@ type Mutation {
   """
   Create a new comment
   """
-  createComment(comment: CreateCommentInput!): CommentPayload
+  createComment(comment: CreateCommentInput!): CreateCommentPayload
+
+  """
+  Update an existing comment
+  """
+  updateComment(id: ID!, comment: UpdateCommentInput!): UpdateCommentPayload
 }
 
 """
-The possible validation errors returned when creating or updating a comment
+The possible validation errors returned when creating a comment
 """
-type CommentValidation {
+type CreateCommentValidation {
   """
   The validation error of the body
   """
@@ -83,21 +88,49 @@ type CommentValidation {
 }
 
 """
-The payload returned when a new comment is created or updated
+The payload returned when a new comment is created
 """
-type CommentPayload {
+type CreateCommentPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The created or updated comment
+  The created comment
   """
   comment: Comment
   """
   The validation errors
   """
-  errors: CommentValidation
+  errors: CreateCommentValidation
+}
+
+"""
+The possible validation errors returned when updating a comment
+"""
+type UpdateCommentValidation {
+  """
+  The validation error of the body
+  """
+  body: String
+}
+
+"""
+The payload returned when a comment is updated
+"""
+type UpdateCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The updated comment
+  """
+  comment: Comment
+  """
+  The validation errors
+  """
+  errors: UpdateCommentValidation
 }
 
 """
@@ -120,4 +153,14 @@ input CreateCommentInput {
   The parent identifier
   """
   parentId: ID
+}
+
+"""
+The properties used to update an existing comment
+"""
+input UpdateCommentInput {
+  """
+  The body
+  """
+  body: String!
 }
