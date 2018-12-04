@@ -4,9 +4,9 @@ class CreateCommentValidator extends CommentValidator {
   rules() {
     const rules = super.rules();
 
-    rules.body = ['required', ...rules.body];
-    rules.userId = ['required', ...rules.userId];
-    rules.issueId = ['required', ...rules.issueId];
+    rules.parentId = ['integer', 'exists:comments,id'];
+    rules.userId = ['required', 'integer', 'exists:users,id'];
+    rules.issueId = ['required', 'integer', 'exists:issues,id'];
 
     return rules;
   }
