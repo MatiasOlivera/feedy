@@ -52,3 +52,134 @@ type Query {
     direction: ORDER = ASC
   ): [Comment!]
 }
+
+type Mutation {
+  """
+  Create a new comment
+  """
+  createComment(comment: CreateCommentInput!): CreateCommentPayload
+
+  """
+  Update an existing comment
+  """
+  updateComment(id: ID!, comment: UpdateCommentInput!): UpdateCommentPayload
+
+  """
+  Delete an existing comment
+  """
+  deleteComment(id: ID!): DeleteCommentPayload
+}
+
+"""
+The possible validation errors returned when creating a comment
+"""
+type CreateCommentValidation {
+  """
+  The validation error of the body
+  """
+  body: String
+  """
+  The validation error of the author's identifier
+  """
+  userId: String
+  """
+  The validation error of the issue's identifier
+  """
+  issueId: String
+  """
+  The validation error of the parent's identifier
+  """
+  parentId: String
+}
+
+"""
+The payload returned when a new comment is created
+"""
+type CreateCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created comment
+  """
+  comment: Comment
+  """
+  The validation errors
+  """
+  errors: CreateCommentValidation
+}
+
+"""
+The possible validation errors returned when updating a comment
+"""
+type UpdateCommentValidation {
+  """
+  The validation error of the body
+  """
+  body: String
+}
+
+"""
+The payload returned when a comment is updated
+"""
+type UpdateCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The updated comment
+  """
+  comment: Comment
+  """
+  The validation errors
+  """
+  errors: UpdateCommentValidation
+}
+
+"""
+The payload returned when a comment is deleted
+"""
+type DeleteCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The deleted comment
+  """
+  comment: Comment
+}
+
+"""
+The properties needed to create a new comment
+"""
+input CreateCommentInput {
+  """
+  The body
+  """
+  body: String!
+  """
+  The author identifier
+  """
+  userId: ID!
+  """
+  The issue identifier
+  """
+  issueId: ID!
+  """
+  The parent identifier
+  """
+  parentId: ID
+}
+
+"""
+The properties used to update an existing comment
+"""
+input UpdateCommentInput {
+  """
+  The body
+  """
+  body: String!
+}
