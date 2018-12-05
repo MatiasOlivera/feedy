@@ -9,8 +9,7 @@ const deleteUser = async (root, args) => {
     if (!user)
       return {
         operation: { status: false, message: 'The user does not exists' },
-        user: null,
-        errors: null
+        user: null
       };
   } catch (err) {
     throw err;
@@ -21,8 +20,7 @@ const deleteUser = async (root, args) => {
 
     return {
       operation: { status: true, message: 'The user was deleted succesfully' },
-      user,
-      errors: null
+      user
     };
   } catch (err) {
     throw err;

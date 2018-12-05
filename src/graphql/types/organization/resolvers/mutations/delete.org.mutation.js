@@ -11,9 +11,8 @@ const deleteOrganization = async (root, args) => {
           status: false,
           message: 'The organization does not exists'
         },
-        organization: null,
-        errors: null
-      }; // FIXME: delete errors key
+        organization: null
+      };
   } catch (err) {
     throw err;
   }
@@ -26,8 +25,7 @@ const deleteOrganization = async (root, args) => {
         status: true,
         message: 'The organization was deleted succesfully'
       },
-      organization: org,
-      errors: null
+      organization: org
     };
   } catch (err) {
     throw err;
