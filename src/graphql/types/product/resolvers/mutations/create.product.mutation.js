@@ -16,8 +16,7 @@ const createProduct = async (root, args) => {
   }
 
   try {
-    const newProduct = await Product.query().insert(product);
-    // fixme: insert and fetch
+    const newProduct = await Product.query().insertAndFetch(product);
 
     return {
       operation: {
