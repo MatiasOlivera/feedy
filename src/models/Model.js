@@ -1,6 +1,7 @@
 const { Model: ObjectionModel, snakeCaseMappers } = require('objection');
+const softDelete = require('../services/soft.delete.query.builder');
 
-class Model extends ObjectionModel {
+class Model extends softDelete()(ObjectionModel) {
   $beforeInsert() {
     this.created_at = new Date();
   }
