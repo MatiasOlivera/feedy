@@ -19,6 +19,10 @@ type Comment {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The user who wrote the comment
   """
   author: User!

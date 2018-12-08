@@ -23,6 +23,10 @@ type Issue {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The user who started the thread
   """
   author: User!

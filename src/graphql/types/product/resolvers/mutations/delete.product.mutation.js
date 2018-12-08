@@ -19,6 +19,7 @@ const deleteProduct = async (root, args) => {
 
   try {
     await Product.query().deleteById(args.id);
+    product = await Product.query().findById(args.id);
 
     return {
       operation: {

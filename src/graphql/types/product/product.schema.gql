@@ -23,6 +23,10 @@ type Product {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The user or organization that owns the product
   """
   owner: ProductOwner!

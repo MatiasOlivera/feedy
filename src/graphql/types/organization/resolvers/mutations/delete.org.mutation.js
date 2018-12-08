@@ -1,4 +1,6 @@
-const { Organization } = require('../../../../../models');
+const objection = require('objection');
+const { knex } = require('../../../../../services/db.service');
+const { ProductOwner, Organization } = require('../../../../../models');
 
 const deleteOrganization = async (root, args) => {
   let org;
@@ -17,8 +19,13 @@ const deleteOrganization = async (root, args) => {
     throw err;
   }
 
+  const tsx = await objection.transaction.start(knex);
   try {
-    await Organization.query().deleteById(args.id);
+    await ProductOwner.query(tsx).deleteById(args.id);
+    await Organization.query(tsx).deleteById(args.id);
+    await tsx.commit();
+
+    org = await Organization.query().findById(args.id);
 
     return {
       operation: {
@@ -28,6 +35,7 @@ const deleteOrganization = async (root, args) => {
       organization: org
     };
   } catch (err) {
+    await tsx.rollback();
     throw err;
   }
 };

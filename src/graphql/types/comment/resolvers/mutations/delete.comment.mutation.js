@@ -27,6 +27,8 @@ const deleteComment = async (root, args) => {
 
     await tsx.commit();
 
+    comment = await Comment.query().findById(args.id);
+
     return {
       operation: {
         status: true,

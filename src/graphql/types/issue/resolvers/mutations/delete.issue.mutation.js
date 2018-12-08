@@ -19,6 +19,7 @@ const deleteIssue = async (root, args) => {
 
   try {
     await Issue.query().deleteById(args.id);
+    issue = await Issue.query().findById(args.id);
 
     return {
       operation: {

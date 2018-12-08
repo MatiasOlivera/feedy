@@ -43,6 +43,10 @@ type User {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The products or services that belong to the user
   """
   products: [Product!]
