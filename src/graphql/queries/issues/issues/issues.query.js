@@ -1,9 +1,9 @@
-const { Issue } = require('../../../../../models');
+const { Issue } = require('../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../../../../services/db.service');
+} = require('../../../../services/db.service');
 
 const issuesQuery = async (root, args) => {
   try {

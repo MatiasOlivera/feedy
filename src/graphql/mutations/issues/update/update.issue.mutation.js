@@ -1,5 +1,5 @@
-const { UpdateIssueValidator } = require('../../../../../app/validators');
-const { Issue } = require('../../../../../models');
+const { UpdateIssueValidator } = require('../../../../app/validators');
+const { Issue } = require('../../../../models');
 
 const updateIssue = async (root, args) => {
   let issue;

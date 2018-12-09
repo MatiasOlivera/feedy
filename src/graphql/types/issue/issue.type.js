@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { Issue } = require('../../../../models');
+const { Issue } = require('../../../models');
 
 const author = async function(parent) {
   const product = await Issue.query()

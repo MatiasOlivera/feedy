@@ -1,4 +1,4 @@
-const { Issue } = require('../../../../../models');
+const { Issue } = require('../../../../models');
 
 const deleteIssue = async (root, args) => {
   let issue;
