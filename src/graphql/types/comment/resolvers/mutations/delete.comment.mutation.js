@@ -1,5 +1,3 @@
-const objection = require('objection');
-const { knex } = require('../../../../../services/db.service');
 const { Comment } = require('../../../../../models');
 
 const deleteComment = async (root, args) => {
@@ -17,16 +15,8 @@ const deleteComment = async (root, args) => {
     throw err;
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    await comment
-      .$relatedQuery('issue', tsx)
-      .unrelate()
-      .where('comment_id', args.id);
-    await Comment.query(tsx).deleteById(args.id);
-
-    await tsx.commit();
-
+    await Comment.query().deleteById(args.id);
     comment = await Comment.query().findById(args.id);
 
     return {
@@ -37,7 +27,6 @@ const deleteComment = async (root, args) => {
       comment
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };
