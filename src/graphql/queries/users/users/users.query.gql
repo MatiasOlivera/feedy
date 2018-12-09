@@ -1,0 +1,12 @@
+type Query {
+  """
+  Fetch a list of users
+  """
+  users(
+    page: Int = 1
+    limit: Int = 10
+    orderBy: String = "id"
+    direction: ORDER = ASC
+    deleted: Boolean = false
+  ): [User!]
+}

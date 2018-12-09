@@ -1,0 +1,100 @@
+type Mutation {
+  """
+  Create a new user
+  """
+  createUser(user: CreateUserInput!): CreateUserPayload
+}
+
+"""
+The properties needed to create a new user
+"""
+input CreateUserInput {
+  """
+  The first name
+  """
+  firstName: String!
+  """
+  The last name
+  """
+  lastName: String!
+  """
+  The gender
+  """
+  gender: String!
+  """
+  The username
+  """
+  username: String!
+  """
+  The password
+  """
+  password: String!
+  """
+  The password confirmation
+  """
+  passwordConfirmation: String!
+  """
+  The email address
+  """
+  email: String!
+  """
+  The biography
+  """
+  bio: String
+}
+
+"""
+The payload returned when a new user is created
+"""
+type CreateUserPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created user
+  """
+  user: User
+  """
+  The validation errors
+  """
+  errors: CreateUserValidation
+}
+
+"""
+The possible validation errors returned when creating a user
+"""
+type CreateUserValidation {
+  """
+  The validation error of the first name
+  """
+  firstName: String
+  """
+  The validation error of the last name
+  """
+  lastName: String
+  """
+  The validation error of the gender
+  """
+  gender: String
+  """
+  The validation error of the username
+  """
+  username: String
+  """
+  The validation error of the password
+  """
+  password: String
+  """
+  The validation error of the password confirmation
+  """
+  passwordConfirmation: String
+  """
+  The validation error of the email
+  """
+  email: String
+  """
+  The validation error of the biography
+  """
+  bio: String
+}

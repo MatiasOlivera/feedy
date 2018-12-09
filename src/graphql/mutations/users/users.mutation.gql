@@ -1,0 +1,13 @@
+"""
+The payload returned when a user is deleted or restored
+"""
+type SimpleUserPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The user
+  """
+  user: User
+}
