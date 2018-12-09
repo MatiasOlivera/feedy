@@ -71,7 +71,12 @@ type Mutation {
   """
   Delete an existing issue
   """
-  deleteIssue(id: ID!): DeleteIssuePayload
+  deleteIssue(id: ID!): SimpleIssuePayload
+
+  """
+  Restore a deleted issue
+  """
+  restoreIssue(id: ID!): SimpleIssuePayload
 }
 
 """
@@ -115,15 +120,15 @@ type IssuePayload {
 }
 
 """
-The payload returned when an issue is deleted
+The payload returned when an issue is deleted or restored
 """
-type DeleteIssuePayload {
+type SimpleIssuePayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted issue
+  The issue
   """
   issue: Issue
 }
