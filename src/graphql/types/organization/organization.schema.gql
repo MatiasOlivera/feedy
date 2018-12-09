@@ -70,7 +70,12 @@ type Mutation {
   """
   Delete an existing organization
   """
-  deleteOrganization(id: ID!): DeleteOrganizationPayload
+  deleteOrganization(id: ID!): SimpleOrganizationPayload
+
+  """
+  Restore a deleted organization
+  """
+  restoreOrganization(id: ID!): SimpleOrganizationPayload
 }
 
 """
@@ -106,15 +111,15 @@ type OrganizationPayload {
 }
 
 """
-The payload returned when a organization is deleted
+The payload returned when a organization is deleted or restored
 """
-type DeleteOrganizationPayload {
+type SimpleOrganizationPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted organization
+  The organization
   """
   organization: Organization
 }
