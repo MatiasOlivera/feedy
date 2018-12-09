@@ -10,8 +10,8 @@ class Model extends softDelete()(ObjectionModel) {
     }
   }
 
-  $beforeUpdate() {
-    if (this.constructor.timestamps) {
+  $beforeUpdate(opt, queryContext) {
+    if (!queryContext.restore && this.constructor.timestamps) {
       this.updated_at = new Date();
     }
   }
