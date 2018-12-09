@@ -71,7 +71,12 @@ type Mutation {
   """
   Delete an existing comment
   """
-  deleteComment(id: ID!): DeleteCommentPayload
+  deleteComment(id: ID!): SimpleCommentPayload
+
+  """
+  Restore a deleted comment
+  """
+  restoreComment(id: ID!): SimpleCommentPayload
 }
 
 """
@@ -143,15 +148,15 @@ type UpdateCommentPayload {
 }
 
 """
-The payload returned when a comment is deleted
+The payload returned when a comment is deleted or restored
 """
-type DeleteCommentPayload {
+type SimpleCommentPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted comment
+  The comment
   """
   comment: Comment
 }
