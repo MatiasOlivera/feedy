@@ -2,10 +2,9 @@ const objection = require('objection');
 const { knex } = require('../../../../../services/db.service');
 const { ProductOwner, Organization } = require('../../../../../models');
 
-const deleteOrganization = async (root, args) => {
-  let org;
+const restoreOrganization = async (root, args) => {
   try {
-    org = await Organization.query().findById(args.id);
+    const org = await Organization.query().findById(args.id);
 
     if (!org)
       return {
@@ -21,18 +20,24 @@ const deleteOrganization = async (root, args) => {
 
   const tsx = await objection.transaction.start(knex);
   try {
-    await ProductOwner.query(tsx).deleteById(args.id);
-    await Organization.query(tsx).deleteById(args.id);
+    await ProductOwner.query(tsx)
+      .where('id', args.id)
+      .restore();
+
+    await Organization.query(tsx)
+      .where('id', args.id)
+      .restore();
+
     await tsx.commit();
 
-    org = await Organization.query().findById(args.id);
+    const organization = await Organization.query().findById(args.id);
 
     return {
       operation: {
         status: true,
-        message: 'The organization was deleted succesfully'
+        message: 'The organization was restored succesfully'
       },
-      organization: org
+      organization
     };
   } catch (err) {
     await tsx.rollback();
@@ -40,4 +45,4 @@ const deleteOrganization = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteOrganization } };
+module.exports = { Mutation: { restoreOrganization } };

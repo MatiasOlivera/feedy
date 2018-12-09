@@ -2,11 +2,9 @@ const objection = require('objection');
 const { knex } = require('../../../../../services/db.service');
 const { ProductOwner, User } = require('../../../../../models');
 
-const deleteUser = async (root, args) => {
-  let user;
-
+const restoreUser = async (root, args) => {
   try {
-    user = await User.query().findById(args.id);
+    const user = await User.query().findById(args.id);
 
     if (!user)
       return {
@@ -19,14 +17,20 @@ const deleteUser = async (root, args) => {
 
   const tsx = await objection.transaction.start(knex);
   try {
-    await ProductOwner.query(tsx).deleteById(args.id);
-    await User.query(tsx).deleteById(args.id);
+    await ProductOwner.query(tsx)
+      .where('id', args.id)
+      .restore();
+
+    await User.query(tsx)
+      .where('id', args.id)
+      .restore();
+
     await tsx.commit();
 
-    user = await User.query().findById(args.id);
+    const user = await User.query().findById(args.id);
 
     return {
-      operation: { status: true, message: 'The user was deleted succesfully' },
+      operation: { status: true, message: 'The user was restored succesfully' },
       user
     };
   } catch (err) {
@@ -35,4 +39,4 @@ const deleteUser = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteUser } };
+module.exports = { Mutation: { restoreUser } };

@@ -1,9 +1,8 @@
 const { Product } = require('../../../../../models');
 
-const deleteProduct = async (root, args) => {
-  let product;
+const restoreProduct = async (root, args) => {
   try {
-    product = await Product.query().findById(args.id);
+    const product = await Product.query().findById(args.id);
 
     if (!product)
       return {
@@ -18,13 +17,16 @@ const deleteProduct = async (root, args) => {
   }
 
   try {
-    await Product.query().deleteById(args.id);
-    product = await Product.query().findById(args.id);
+    await Product.query()
+      .where('id', args.id)
+      .restore();
+
+    const product = await Product.query().findById(args.id);
 
     return {
       operation: {
         status: true,
-        message: 'The product was deleted succesfully'
+        message: 'The product was restored succesfully'
       },
       product
     };
@@ -33,4 +35,4 @@ const deleteProduct = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteProduct } };
+module.exports = { Mutation: { restoreProduct } };

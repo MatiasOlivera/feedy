@@ -6,6 +6,10 @@ class ProductOwner extends Model {
     return 'product_owners';
   }
 
+  static get timestamps() {
+    return false;
+  }
+
   static get relationMappings() {
     const User = require('./User');
     const Organization = require('./Organization');

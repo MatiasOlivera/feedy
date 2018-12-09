@@ -43,6 +43,10 @@ type User {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The products or services that belong to the user
   """
   products: [Product!]
@@ -74,6 +78,7 @@ type Query {
     limit: Int = 10
     orderBy: String = "id"
     direction: ORDER = ASC
+    deleted: Boolean = false
   ): [User!]
 }
 
@@ -91,7 +96,12 @@ type Mutation {
   """
   Delete an existing user
   """
-  deleteUser(id: ID!): DeleteUserPayload
+  deleteUser(id: ID!): SimpleUserPayload
+
+  """
+  Restore a deleted user
+  """
+  restoreUser(id: ID!): SimpleUserPayload
 }
 
 """
@@ -199,15 +209,15 @@ type UpdateUserPayload {
 }
 
 """
-The payload returned when a user is deleted
+The payload returned when a user is deleted or restored
 """
-type DeleteUserPayload {
+type SimpleUserPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted user
+  The user
   """
   user: User
 }

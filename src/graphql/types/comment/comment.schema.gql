@@ -19,6 +19,10 @@ type Comment {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The user who wrote the comment
   """
   author: User!
@@ -50,6 +54,7 @@ type Query {
     limit: Int = 10
     orderBy: String = "id"
     direction: ORDER = ASC
+    deleted: Boolean = false
   ): [Comment!]
 }
 
@@ -67,7 +72,12 @@ type Mutation {
   """
   Delete an existing comment
   """
-  deleteComment(id: ID!): DeleteCommentPayload
+  deleteComment(id: ID!): SimpleCommentPayload
+
+  """
+  Restore a deleted comment
+  """
+  restoreComment(id: ID!): SimpleCommentPayload
 }
 
 """
@@ -139,15 +149,15 @@ type UpdateCommentPayload {
 }
 
 """
-The payload returned when a comment is deleted
+The payload returned when a comment is deleted or restored
 """
-type DeleteCommentPayload {
+type SimpleCommentPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted comment
+  The comment
   """
   comment: Comment
 }

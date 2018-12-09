@@ -1,10 +1,8 @@
 const { Comment } = require('../../../../../models');
 
-const deleteComment = async (root, args) => {
-  let comment;
-
+const restoreComment = async (root, args) => {
   try {
-    comment = await Comment.query().findById(args.id);
+    const comment = await Comment.query().findById(args.id);
 
     if (!comment)
       return {
@@ -16,13 +14,16 @@ const deleteComment = async (root, args) => {
   }
 
   try {
-    await Comment.query().deleteById(args.id);
-    comment = await Comment.query().findById(args.id);
+    await Comment.query()
+      .where('id', args.id)
+      .restore();
+
+    const comment = await Comment.query().findById(args.id);
 
     return {
       operation: {
         status: true,
-        message: 'The comment was deleted succesfully'
+        message: 'The comment was restored succesfully'
       },
       comment
     };
@@ -31,4 +32,4 @@ const deleteComment = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteComment } };
+module.exports = { Mutation: { restoreComment } };

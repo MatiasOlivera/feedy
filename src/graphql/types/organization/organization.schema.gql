@@ -23,6 +23,10 @@ type Organization {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The products or services that belong to the organization
   """
   products: [Product!]
@@ -46,6 +50,7 @@ type Query {
     limit: Int = 10
     orderBy: String = "id"
     direction: ORDER = ASC
+    deleted: Boolean = false
   ): [Organization!]
 }
 
@@ -66,7 +71,12 @@ type Mutation {
   """
   Delete an existing organization
   """
-  deleteOrganization(id: ID!): DeleteOrganizationPayload
+  deleteOrganization(id: ID!): SimpleOrganizationPayload
+
+  """
+  Restore a deleted organization
+  """
+  restoreOrganization(id: ID!): SimpleOrganizationPayload
 }
 
 """
@@ -102,15 +112,15 @@ type OrganizationPayload {
 }
 
 """
-The payload returned when a organization is deleted
+The payload returned when a organization is deleted or restored
 """
-type DeleteOrganizationPayload {
+type SimpleOrganizationPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted organization
+  The organization
   """
   organization: Organization
 }

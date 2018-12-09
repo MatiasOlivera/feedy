@@ -1,9 +1,8 @@
 const { Issue } = require('../../../../../models');
 
-const deleteIssue = async (root, args) => {
-  let issue;
+const restoreIssue = async (root, args) => {
   try {
-    issue = await Issue.query().findById(args.id);
+    const issue = await Issue.query().findById(args.id);
 
     if (!issue)
       return {
@@ -18,13 +17,16 @@ const deleteIssue = async (root, args) => {
   }
 
   try {
-    await Issue.query().deleteById(args.id);
-    issue = await Issue.query().findById(args.id);
+    await Issue.query()
+      .where('id', args.id)
+      .restore();
+
+    const issue = await Issue.query().findById(args.id);
 
     return {
       operation: {
         status: true,
-        message: 'The issue was deleted succesfully'
+        message: 'The issue was restored succesfully'
       },
       issue
     };
@@ -33,4 +35,4 @@ const deleteIssue = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteIssue } };
+module.exports = { Mutation: { restoreIssue } };

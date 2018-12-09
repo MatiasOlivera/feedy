@@ -23,6 +23,10 @@ type Product {
   """
   updatedAt: Date!
   """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
   The user or organization that owns the product
   """
   owner: ProductOwner!
@@ -46,6 +50,7 @@ type Query {
     limit: Int = 10
     orderBy: String = "id"
     direction: ORDER = ASC
+    deleted: Boolean = false
   ): [Product!]
 }
 
@@ -63,7 +68,12 @@ type Mutation {
   """
   Delete an existing product
   """
-  deleteProduct(id: ID!): DeleteProductPayload
+  deleteProduct(id: ID!): SimpleProductPayload
+
+  """
+  Restore a deleted product
+  """
+  restoreProduct(id: ID!): SimpleProductPayload
 }
 
 """
@@ -103,15 +113,15 @@ type ProductPayload {
 }
 
 """
-The payload returned when a product is deleted
+The payload returned when a product is deleted or restored
 """
-type DeleteProductPayload {
+type SimpleProductPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted product
+  The product
   """
   product: Product
 }
