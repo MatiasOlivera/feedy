@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { User } = require('../../../../models');
+const { User } = require('../../../models');
 
 const products = async function(parent) {
   const user = await User.query()

@@ -1,9 +1,9 @@
-const { User } = require('../../../../../models');
+const { User } = require('../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../../../../services/db.service');
+} = require('../../../../services/db.service');
 
 const usersQuery = async (root, args) => {
   try {

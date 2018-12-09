@@ -1,6 +1,6 @@
 const objection = require('objection');
-const { knex } = require('../../../../../services/db.service');
-const { ProductOwner, User } = require('../../../../../models');
+const { knex } = require('../../../../services/db.service');
+const { ProductOwner, User } = require('../../../../models');
 
 const restoreUser = async (root, args) => {
   try {
