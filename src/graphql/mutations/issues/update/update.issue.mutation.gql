@@ -1,0 +1,28 @@
+type Mutation {
+  """
+  Update an existing issue
+  """
+  updateIssue(id: ID!, issue: UpdateIssueInput!): IssuePayload
+}
+
+"""
+The properties needed to update an existing issue
+"""
+input UpdateIssueInput {
+  """
+  The title
+  """
+  title: String
+  """
+  The body
+  """
+  body: String
+  """
+  The user's identifier
+  """
+  userId: String
+  """
+  The product's identifier
+  """
+  productId: String
+}

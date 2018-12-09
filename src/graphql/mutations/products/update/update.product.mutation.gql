@@ -1,0 +1,24 @@
+type Mutation {
+  """
+  Update an existing product
+  """
+  updateProduct(id: ID!, product: UpdateProductInput!): ProductPayload
+}
+
+"""
+The properties used to update an existing product
+"""
+input UpdateProductInput {
+  """
+  The name
+  """
+  name: String
+  """
+  The description
+  """
+  description: String
+  """
+  The owner's identifier
+  """
+  ownerId: ID
+}

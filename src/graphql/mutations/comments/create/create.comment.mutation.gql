@@ -1,0 +1,68 @@
+type Mutation {
+  """
+  Create a new comment
+  """
+  createComment(comment: CreateCommentInput!): CreateCommentPayload
+}
+
+"""
+The properties needed to create a new comment
+"""
+input CreateCommentInput {
+  """
+  The body
+  """
+  body: String!
+  """
+  The author identifier
+  """
+  userId: ID!
+  """
+  The issue identifier
+  """
+  issueId: ID!
+  """
+  The parent identifier
+  """
+  parentId: ID
+}
+
+"""
+The payload returned when a new comment is created
+"""
+type CreateCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created comment
+  """
+  comment: Comment
+  """
+  The validation errors
+  """
+  errors: CreateCommentValidation
+}
+
+"""
+The possible validation errors returned when creating a comment
+"""
+type CreateCommentValidation {
+  """
+  The validation error of the body
+  """
+  body: String
+  """
+  The validation error of the author's identifier
+  """
+  userId: String
+  """
+  The validation error of the issue's identifier
+  """
+  issueId: String
+  """
+  The validation error of the parent's identifier
+  """
+  parentId: String
+}

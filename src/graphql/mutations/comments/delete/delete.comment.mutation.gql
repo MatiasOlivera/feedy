@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Delete an existing comment
+  """
+  deleteComment(id: ID!): SimpleCommentPayload
+}

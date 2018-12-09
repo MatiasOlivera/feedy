@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Delete an existing user
+  """
+  deleteUser(id: ID!): SimpleUserPayload
+}

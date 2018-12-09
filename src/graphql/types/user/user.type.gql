@@ -1,0 +1,65 @@
+"""
+An user
+"""
+type User {
+  """
+  The identifier
+  """
+  id: ID!
+  """
+  The first name. Eg. John
+  """
+  firstName: String!
+  """
+  The last name. Eg. Doe
+  """
+  lastName: String!
+  """
+  The full name. Eg. John Doe
+  """
+  fullName: String!
+  """
+  The gender. Eg. Male
+  """
+  gender: String!
+  """
+  The username. Eg. JohnDoe
+  """
+  username: String!
+  """
+  The email adress. Eg. johndoe@email.com
+  """
+  email: String!
+  """
+  The biography or presentation. Eg. I am a developer
+  """
+  bio: String
+  """
+  The date it was created in ISO8601 format
+  """
+  createdAt: Date!
+  """
+  The date it was last updated in ISO8601 format
+  """
+  updatedAt: Date!
+  """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
+  The products or services that belong to the user
+  """
+  products: [Product!]
+  """
+  The organizations to which the user belongs
+  """
+  organizations: [Organization!]
+  """
+  The issues initialized by the user
+  """
+  issues: [Issue!]
+  """
+  The comments written by the user
+  """
+  comments: [Comment!]
+}

@@ -1,0 +1,24 @@
+type Mutation {
+  """
+  Create a new product
+  """
+  createProduct(product: CreateProductInput!): ProductPayload
+}
+
+"""
+The properties needed to create a new product
+"""
+input CreateProductInput {
+  """
+  The name
+  """
+  name: String!
+  """
+  The description
+  """
+  description: String
+  """
+  The owner's identifier
+  """
+  ownerId: ID!
+}
