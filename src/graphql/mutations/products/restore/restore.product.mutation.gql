@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Restore a deleted product
+  """
+  restoreProduct(id: ID!): SimpleProductPayload
+}
