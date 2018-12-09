@@ -67,7 +67,12 @@ type Mutation {
   """
   Delete an existing product
   """
-  deleteProduct(id: ID!): DeleteProductPayload
+  deleteProduct(id: ID!): SimpleProductPayload
+
+  """
+  Restore a deleted product
+  """
+  restoreProduct(id: ID!): SimpleProductPayload
 }
 
 """
@@ -107,15 +112,15 @@ type ProductPayload {
 }
 
 """
-The payload returned when a product is deleted
+The payload returned when a product is deleted or restored
 """
-type DeleteProductPayload {
+type SimpleProductPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted product
+  The product
   """
   product: Product
 }
