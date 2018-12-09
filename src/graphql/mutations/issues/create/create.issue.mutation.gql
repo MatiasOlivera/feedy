@@ -1,0 +1,28 @@
+type Mutation {
+  """
+  Create a new issue
+  """
+  createIssue(issue: CreateIssueInput!): IssuePayload
+}
+
+"""
+The properties needed to create a new issue
+"""
+input CreateIssueInput {
+  """
+  The title
+  """
+  title: String!
+  """
+  The body
+  """
+  body: String!
+  """
+  The user's identifier
+  """
+  userId: String!
+  """
+  The product's identifier
+  """
+  productId: String!
+}

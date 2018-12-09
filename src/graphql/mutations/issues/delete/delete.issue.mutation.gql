@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Delete an existing issue
+  """
+  deleteIssue(id: ID!): SimpleIssuePayload
+}
