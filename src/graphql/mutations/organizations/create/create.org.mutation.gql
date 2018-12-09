@@ -1,0 +1,20 @@
+type Mutation {
+  """
+  Create a new organization
+  """
+  createOrganization(org: CreateOrganizationInput!): OrganizationPayload
+}
+
+"""
+The properties needed to create a new organization
+"""
+input CreateOrganizationInput {
+  """
+  The name
+  """
+  name: String!
+  """
+  The biography
+  """
+  bio: String
+}

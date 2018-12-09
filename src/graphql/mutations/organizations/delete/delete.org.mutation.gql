@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Delete an existing organization
+  """
+  deleteOrganization(id: ID!): SimpleOrganizationPayload
+}

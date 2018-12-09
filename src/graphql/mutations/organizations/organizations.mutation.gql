@@ -1,0 +1,45 @@
+"""
+The payload returned when a new organization is created or updated
+"""
+type OrganizationPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The created or updated organization
+  """
+  organization: Organization
+  """
+  The validation errors
+  """
+  errors: OrganizationValidation
+}
+
+"""
+The possible validation errors returned when creating or updating an organization
+"""
+type OrganizationValidation {
+  """
+  The validation error of the name
+  """
+  name: String
+  """
+  The validation error of the biography
+  """
+  bio: String
+}
+
+"""
+The payload returned when a organization is deleted or restored
+"""
+type SimpleOrganizationPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The organization
+  """
+  organization: Organization
+}

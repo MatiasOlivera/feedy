@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Restore a deleted organization
+  """
+  restoreOrganization(id: ID!): SimpleOrganizationPayload
+}

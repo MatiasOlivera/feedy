@@ -1,0 +1,23 @@
+type Mutation {
+  """
+  Update an existing organization
+  """
+  updateOrganization(
+    id: ID!
+    org: UpdateOrganizationInput!
+  ): OrganizationPayload
+}
+
+"""
+The properties used to update an existing organization
+"""
+input UpdateOrganizationInput {
+  """
+  The name
+  """
+  name: String
+  """
+  The biography
+  """
+  bio: String
+}
