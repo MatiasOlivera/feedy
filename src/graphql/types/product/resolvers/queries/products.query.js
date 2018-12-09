@@ -7,7 +7,7 @@ const {
 
 const productsQuery = async (root, args) => {
   try {
-    const { page, limit, orderBy, direction } = args;
+    const { page, limit, orderBy, direction, deleted } = args;
 
     const { columns } = await Product.fetchTableMetadata();
     const column = getColumn(orderBy);
@@ -15,9 +15,11 @@ const productsQuery = async (root, args) => {
 
     const pageNumber = getPage(page);
 
-    const products = await Product.query()
-      .orderBy(column, direction)
-      .page(pageNumber, limit);
+    let query = Product.query();
+    query = deleted ? query.whereDeleted() : query.whereNotDeleted();
+    query.orderBy(column, direction).page(pageNumber, limit);
+
+    const products = await query;
 
     return products.results;
   } catch (err) {

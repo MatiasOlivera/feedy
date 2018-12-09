@@ -50,6 +50,7 @@ type Query {
     limit: Int = 10
     orderBy: String = "id"
     direction: ORDER = ASC
+    deleted: Boolean = false
   ): [Organization!]
 }
 

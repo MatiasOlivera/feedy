@@ -7,7 +7,7 @@ const {
 
 const commentsQuery = async (root, args) => {
   try {
-    const { page, limit, orderBy, direction } = args;
+    const { page, limit, orderBy, direction, deleted } = args;
 
     const { columns } = await Comment.fetchTableMetadata();
     const column = getColumn(orderBy);
@@ -15,9 +15,11 @@ const commentsQuery = async (root, args) => {
 
     const pageNumber = getPage(page);
 
-    const comments = await Comment.query()
-      .orderBy(column, direction)
-      .page(pageNumber, limit);
+    let query = Comment.query();
+    query = deleted ? query.whereDeleted() : query.whereNotDeleted();
+    query.orderBy(column, direction).page(pageNumber, limit);
+
+    const comments = await query;
 
     return comments.results;
   } catch (err) {
