@@ -95,7 +95,12 @@ type Mutation {
   """
   Delete an existing user
   """
-  deleteUser(id: ID!): DeleteUserPayload
+  deleteUser(id: ID!): SimpleUserPayload
+
+  """
+  Restore a deleted user
+  """
+  restoreUser(id: ID!): SimpleUserPayload
 }
 
 """
@@ -203,15 +208,15 @@ type UpdateUserPayload {
 }
 
 """
-The payload returned when a user is deleted
+The payload returned when a user is deleted or restored
 """
-type DeleteUserPayload {
+type SimpleUserPayload {
   """
   The status of the operation
   """
   operation: Operation!
   """
-  The deleted user
+  The user
   """
   user: User
 }
