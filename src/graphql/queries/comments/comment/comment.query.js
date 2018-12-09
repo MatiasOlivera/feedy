@@ -1,4 +1,4 @@
-const { Comment } = require('../../../../../models');
+const { Comment } = require('../../../../models');
 
 const commentQuery = async (root, args) => {
   try {

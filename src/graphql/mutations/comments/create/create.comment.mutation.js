@@ -1,7 +1,7 @@
 const objection = require('objection');
-const { CreateCommentValidator } = require('../../../../../app/validators');
-const { knex } = require('../../../../../services/db.service');
-const { Comment } = require('../../../../../models');
+const { CreateCommentValidator } = require('../../../../app/validators');
+const { knex } = require('../../../../services/db.service');
+const { Comment } = require('../../../../models');
 
 const createComment = async (root, args) => {
   const { comment } = args;

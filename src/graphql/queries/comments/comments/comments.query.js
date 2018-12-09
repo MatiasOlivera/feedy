@@ -1,9 +1,9 @@
-const { Comment } = require('../../../../../models');
+const { Comment } = require('../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../../../../services/db.service');
+} = require('../../../../services/db.service');
 
 const commentsQuery = async (root, args) => {
   try {

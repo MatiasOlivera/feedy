@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { Comment } = require('../../../../models');
+const { Comment } = require('../../../models');
 
 const author = async function(parent) {
   const comment = await Comment.query()
