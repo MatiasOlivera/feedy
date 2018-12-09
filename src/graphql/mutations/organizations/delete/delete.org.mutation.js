@@ -1,6 +1,6 @@
 const objection = require('objection');
-const { knex } = require('../../../../../services/db.service');
-const { ProductOwner, Organization } = require('../../../../../models');
+const { knex } = require('../../../../services/db.service');
+const { ProductOwner, Organization } = require('../../../../models');
 
 const deleteOrganization = async (root, args) => {
   let org;

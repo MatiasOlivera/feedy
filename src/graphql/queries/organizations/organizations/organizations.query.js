@@ -1,9 +1,9 @@
-const { Organization } = require('../../../../../models');
+const { Organization } = require('../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../../../../services/db.service');
+} = require('../../../../services/db.service');
 
 const organizationsQuery = async (root, args) => {
   try {

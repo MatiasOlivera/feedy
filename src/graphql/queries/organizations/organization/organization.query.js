@@ -1,4 +1,4 @@
-const { Organization } = require('../../../../../models');
+const { Organization } = require('../../../../models');
 
 const organizationQuery = async (root, args) => {
   try {

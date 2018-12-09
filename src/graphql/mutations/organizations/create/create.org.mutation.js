@@ -1,9 +1,7 @@
 const objection = require('objection');
-const {
-  CreateOrganizationValidator
-} = require('../../../../../app/validators');
-const { knex } = require('../../../../../services/db.service');
-const { ProductOwner } = require('../../../../../models');
+const { CreateOrganizationValidator } = require('../../../../app/validators');
+const { knex } = require('../../../../services/db.service');
+const { ProductOwner } = require('../../../../models');
 
 const createOrganization = async (root, args) => {
   const { org } = args;
