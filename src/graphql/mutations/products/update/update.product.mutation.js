@@ -1,5 +1,5 @@
-const { UpdateProductValidator } = require('../../../../../app/validators');
-const { Product } = require('../../../../../models');
+const { UpdateProductValidator } = require('../../../../app/validators');
+const { Product } = require('../../../../models');
 
 const updateProduct = async (root, args) => {
   let product;

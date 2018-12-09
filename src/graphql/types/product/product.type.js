@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 
-const { Product } = require('../../../../models');
+const { Product } = require('../../../models');
 
 const owner = async function(parent) {
   const product = await Product.query()

@@ -1,9 +1,9 @@
-const { Product } = require('../../../../../models');
+const { Product } = require('../../../../models');
 const {
   validatePaginationArgs,
   getPage,
   getColumn
-} = require('../../../../../services/db.service');
+} = require('../../../../services/db.service');
 
 const productsQuery = async (root, args) => {
   try {
