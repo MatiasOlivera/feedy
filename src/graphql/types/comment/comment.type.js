@@ -1,38 +1,28 @@
-/* eslint-disable func-names */
+const { isEmptyReturnNull } = require('../_utils');
+const { User, Issue, Comment } = require('../../../models');
 
-const { Comment } = require('../../../models');
+async function author(_parent) {
+  return User.query().findById(_parent.userId);
+}
 
-const author = async function(parent) {
-  const comment = await Comment.query()
-    .findById(parent.id)
-    .eager('author');
+async function issue(_parent) {
+  return Issue.query()
+    .joinRelation('comments')
+    .where('comment_id', _parent.id)
+    .first();
+}
 
-  return comment.author;
-};
+async function parent(_parent) {
+  return _parent.parentId ? Comment.query().findById(_parent.parentId) : null;
+}
 
-const issue = async function(parent) {
-  const comment = await Comment.query()
-    .findById(parent.id)
-    .eager('issue');
+async function children(_parent) {
+  const rows = Comment.query()
+    .joinRelation('children')
+    .where('children.parent_id', _parent.id);
 
-  return comment.issue;
-};
-
-const parent = async function(_parent) {
-  const comment = await Comment.query()
-    .findById(_parent.id)
-    .eager('parent');
-
-  return comment.parent;
-};
-
-const children = async function(_parent) {
-  const comment = await Comment.query()
-    .findById(_parent.id)
-    .eager('children');
-
-  return comment.children;
-};
+  return isEmptyReturnNull(rows);
+}
 
 module.exports = {
   Comment: {

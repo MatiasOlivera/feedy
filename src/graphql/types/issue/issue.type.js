@@ -1,30 +1,21 @@
-/* eslint-disable func-names */
+const { isEmptyReturnNull } = require('../_utils');
+const { User, Product, Comment } = require('../../../models');
 
-const { Issue } = require('../../../models');
+async function author(parent) {
+  return User.query().findById(parent.userId);
+}
 
-const author = async function(parent) {
-  const product = await Issue.query()
-    .findById(parent.id)
-    .eager('author');
+async function product(parent) {
+  return Product.query().findById(parent.productId);
+}
 
-  return product.author;
-};
+async function comments(parent) {
+  const rows = await Comment.query()
+    .joinRelation('issue')
+    .where('issue_id', parent.id);
 
-const product = async function(parent) {
-  const issue = await Issue.query()
-    .findById(parent.id)
-    .eager('product');
-
-  return issue.product;
-};
-
-const comments = async function(parent) {
-  const issue = await Issue.query()
-    .findById(parent.id)
-    .eager('comments');
-
-  return issue.comments;
-};
+  return isEmptyReturnNull(rows);
+}
 
 module.exports = {
   Issue: {
