@@ -6,8 +6,9 @@
   "scripts": {
     "start": "npm run serve",
     "serve": "node dist/app.js",
-    "ts-build": "tsc",
-    "ts-watch": "tsc -w"
+    "ts-build": "tsc && npm run copy-schemas",
+    "ts-watch": "tsc -w && npm run copy-schemas",
+    "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist"
   },
   "keywords": [
     "feedback",
