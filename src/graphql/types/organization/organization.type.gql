@@ -33,5 +33,5 @@ type Organization {
   """
   Users who are members of the organization
   """
-  members: [User!]!
+  members: [User!]
 }
