@@ -50,3 +50,25 @@ function validatePaginationArgs(page, limit, { column, columns }) {
     throw error;
   }
 }
+
+async function paginate(Model, { page, limit, orderBy, direction, deleted }) {
+  try {
+    const { columns } = await Model.fetchTableMetadata();
+    const column = getColumn(orderBy);
+    validatePaginationArgs(page, limit, { column, columns });
+
+    const pageNumber = getPage(page);
+
+    let query = Model.query();
+    query = deleted ? query.whereDeleted() : query.whereNotDeleted();
+    query.orderBy(column, direction).page(pageNumber, limit);
+
+    const rows = await query;
+
+    return rows.results;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports = paginate;
