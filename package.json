@@ -2,9 +2,12 @@
   "name": "feedy",
   "version": "0.0.1",
   "description": "Collaborative feedback app",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "npm run serve",
+    "serve": "node dist/app.js",
+    "ts-build": "tsc",
+    "ts-watch": "tsc -w"
   },
   "keywords": [
     "feedback",
