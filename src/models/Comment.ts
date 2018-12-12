@@ -1,24 +1,20 @@
-/* eslint-disable global-require */
-const Model = require('./Model');
+import Model from './Model';
 
 class Comment extends Model {
-  static get tableName() {
+  static get tableName(): string {
     return 'comments';
   }
 
   static get relationMappings() {
-    const User = require('./User');
-    const Issue = require('./Issue');
-
     const author = {
       relation: Model.BelongsToOneRelation,
-      modelClass: User,
+      modelClass: 'User',
       join: { from: 'comments.user_id', to: 'users.id' }
     };
 
     const issue = {
       relation: Model.HasOneThroughRelation,
-      modelClass: Issue,
+      modelClass: 'Issue',
       join: {
         from: 'comments.id',
         through: {
@@ -31,13 +27,13 @@ class Comment extends Model {
 
     const parent = {
       relation: Model.BelongsToOneRelation,
-      modelClass: Comment,
+      modelClass: 'Comment',
       join: { from: 'comments.parent_id', to: 'comments.id' }
     };
 
     const children = {
       relation: Model.HasManyRelation,
-      modelClass: Comment,
+      modelClass: 'Comment',
       join: { from: 'comments.id', to: 'comments.parent_id' }
     };
 
@@ -45,4 +41,4 @@ class Comment extends Model {
   }
 }
 
-module.exports = Comment;
+export default Comment;

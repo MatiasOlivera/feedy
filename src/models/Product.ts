@@ -1,24 +1,20 @@
-/* eslint-disable global-require */
-const Model = require('./Model');
+import Model from './Model';
 
 class Product extends Model {
-  static get tableName() {
+  static get tableName(): string {
     return 'products';
   }
 
   static get relationMappings() {
-    const ProductOwner = require('./ProductOwner');
-    const Issue = require('./Issue');
-
     const owner = {
       relation: Model.BelongsToOneRelation,
-      modelClass: ProductOwner,
+      modelClass: 'ProductOwner',
       join: { from: 'products.owner_id', to: 'product_owners.id' }
     };
 
     const issues = {
       relation: Model.HasManyRelation,
-      modelClass: Issue,
+      modelClass: 'Issue',
       join: { from: 'products.id', to: 'issues.product_id' }
     };
 
@@ -26,4 +22,4 @@ class Product extends Model {
   }
 }
 
-module.exports = Product;
+export default Product;

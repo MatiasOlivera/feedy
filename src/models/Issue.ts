@@ -1,31 +1,26 @@
-/* eslint-disable global-require */
-const Model = require('./Model');
+import Model from './Model';
 
 class Issue extends Model {
-  static get tableName() {
+  static get tableName(): string {
     return 'issues';
   }
 
   static get relationMappings() {
-    const User = require('./User');
-    const Product = require('./Product');
-    const Comment = require('./Comment');
-
     const author = {
       relation: Model.BelongsToOneRelation,
-      modelClass: User,
+      modelClass: 'User',
       join: { from: 'issues.user_id', to: 'users.id' }
     };
 
     const product = {
       relation: Model.BelongsToOneRelation,
-      modelClass: Product,
+      modelClass: 'Product',
       join: { from: 'issues.product_id', to: 'products.id' }
     };
 
     const comments = {
       relation: Model.ManyToManyRelation,
-      modelClass: Comment,
+      modelClass: 'Comment',
       join: {
         from: 'issues.id',
         through: {
@@ -40,4 +35,4 @@ class Issue extends Model {
   }
 }
 
-module.exports = Issue;
+export default Issue;
