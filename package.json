@@ -2,9 +2,12 @@
   "name": "feedy",
   "version": "0.0.1",
   "description": "Collaborative feedback app",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node dist/app.js",
+    "build": "tsc && npm run copy-schemas",
+    "tswatch": "tsc -w && npm run copy-schemas",
+    "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist"
   },
   "keywords": [
     "feedback",
@@ -13,14 +16,23 @@
   "author": "Matías Olivera",
   "license": "UNLICENSED",
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
+    "@types/express": "^4.16.0",
+    "@types/express-graphql": "^0.6.2",
+    "@types/graphql": "^14.0.3",
+    "@types/knex": "^0.15.1",
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.12",
+    "@types/validatorjs": "^3.7.1",
+    "copyfiles": "^2.1.0",
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
     "graphql-cli": "^2.17.0",
-    "prettier": "1.14.3"
+    "prettier": "1.14.3",
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
