@@ -17,6 +17,13 @@
   "author": "Matías Olivera",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/express-graphql": "^0.6.2",
+    "@types/graphql": "^14.0.3",
+    "@types/knex": "^0.15.1",
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.12",
+    "@types/validatorjs": "^3.7.1",
     "babel-eslint": "^10.0.1",
     "copyfiles": "^2.1.0",
     "eslint": "^5.8.0",
