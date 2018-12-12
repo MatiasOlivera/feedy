@@ -4,10 +4,9 @@
   "description": "Collaborative feedback app",
   "main": "dist/app.js",
   "scripts": {
-    "start": "npm run serve",
-    "serve": "node dist/app.js",
-    "ts-build": "tsc && npm run copy-schemas",
-    "ts-watch": "tsc -w && npm run copy-schemas",
+    "start": "node dist/app.js",
+    "build": "tsc && npm run copy-schemas",
+    "tswatch": "tsc -w && npm run copy-schemas",
     "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist"
   },
   "keywords": [
