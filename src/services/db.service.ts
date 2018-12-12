@@ -1,7 +1,7 @@
-const Knex = require('knex');
-const { Model } = require('objection');
-const { logger } = require('./log.service');
-const {
+import Knex from 'knex';
+import { Model } from 'objection';
+import { logger } from './log.service';
+import {
   DB_CLIENT,
   DB_HOST,
   DB_PORT,
@@ -9,7 +9,7 @@ const {
   DB_CHARSET,
   DB_USERNAME,
   DB_PASSWORD
-} = require('../config');
+} from '../config';
 
 // Create a new knex instance
 const knex = Knex({
@@ -49,7 +49,4 @@ function testDBService() {
     });
 }
 
-module.exports = {
-  testDBService,
-  knex
-};
+export { testDBService, knex };
