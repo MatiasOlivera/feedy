@@ -1,0 +1,6 @@
+{
+  "delay": "1000",
+  "ext": "js,ts",
+  "ignore": ["dist"],
+  "watch": ["src"]
+}
