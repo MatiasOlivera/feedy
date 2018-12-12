@@ -1,9 +1,9 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const { isDevelopment, SERVER_PORT } = require('./config');
-const { testDBService } = require('./services/db.service');
-const { logger } = require('./services/log.service');
-const createSchema = require('./graphql');
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { isDevelopment, SERVER_PORT } from './config';
+import { testDBService } from './services/db.service';
+import { logger } from './services/log.service';
+import createSchema from './graphql';
 
 async function initServer() {
   let schema;
