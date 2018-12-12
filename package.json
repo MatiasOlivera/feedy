@@ -24,7 +24,6 @@
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.12",
     "@types/validatorjs": "^3.7.1",
-    "babel-eslint": "^10.0.1",
     "copyfiles": "^2.1.0",
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -33,7 +32,8 @@
     "eslint-plugin-prettier": "^3.0.0",
     "graphql-cli": "^2.17.0",
     "prettier": "1.14.3",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
   },
   "dependencies": {
     "dotenv": "^6.1.0",
