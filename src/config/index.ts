@@ -2,20 +2,20 @@ require('dotenv').load();
 
 const {
   NODE_ENV = 'development',
-  SERVER_PORT = 4000,
+  SERVER_PORT = '4000',
   DB_CLIENT = 'mysql',
   DB_HOST = '127.0.0.1',
-  DB_PORT = 3306,
+  DB_PORT = '3306',
   DB_DATABASE = 'feedly',
   DB_CHARSET = 'utf8',
   DB_USERNAME = 'root',
   DB_PASSWORD = ''
 } = process.env;
 
-const isProduction = NODE_ENV === 'production';
-const isDevelopment = NODE_ENV === 'development';
+const isProduction: boolean = NODE_ENV === 'production';
+const isDevelopment: boolean = NODE_ENV === 'development';
 
-module.exports = {
+export {
   NODE_ENV,
   isProduction,
   isDevelopment,
