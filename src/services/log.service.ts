@@ -1,33 +1,40 @@
-const path = require('path');
-const { createLogger, format, transports } = require('winston');
-const { isProduction } = require('../config');
+import path from 'path';
+import {
+  createLogger,
+  format,
+  transports,
+  LogEntry,
+  LoggerOptions,
+  Logger
+} from 'winston';
+import { isProduction } from '../config';
+import { Format } from 'logform';
 
-const dirname = './logs';
+interface CustomLogEntry extends LogEntry {
+  stack: string;
+  timestamp: string;
+  error?: Error;
+}
 
-const commonOptions = {
+const dirname: string = './logs';
+
+const commonOptions: LoggerOptions = {
   level: 'silly',
   exitOnError: false
 };
 
-const errorFormat = format((info) => {
+const errorFormat = format((info: CustomLogEntry) => {
   if (info instanceof Error) {
     return { ...info, message: info.message, stack: info.stack || null };
-  }
-
-  if (info.message instanceof Error) {
-    return {
-      ...info,
-      message: info.message.message,
-      stack: info.message.stack || null
-    };
   }
 
   return info;
 });
 
-const errorMetadataFormat = format((info) => {
+const errorMetadataFormat = format((info: CustomLogEntry) => {
   if (info.error && info.error instanceof Error) {
     return {
+      ...info,
       message: info.message,
       stack: info.error.stack || null
     };
@@ -36,7 +43,7 @@ const errorMetadataFormat = format((info) => {
   return info;
 });
 
-const consoleFormat = (info) => {
+const consoleFormat = (info: CustomLogEntry): string => {
   const { level, message, timestamp, metadata, stack = '' } = info;
 
   const meta = JSON.stringify(metadata);
@@ -46,14 +53,14 @@ const consoleFormat = (info) => {
   return log;
 };
 
-const commonFormats = [
+const commonFormats: Format[] = [
   format.metadata(),
   format.timestamp(),
   errorFormat(),
   errorMetadataFormat()
 ];
 
-const productionOptions = {
+const productionOptions: LoggerOptions = {
   ...commonOptions,
 
   format: format.combine(...commonFormats, format.logstash()),
@@ -76,7 +83,7 @@ const productionOptions = {
   ]
 };
 
-const developmentOptions = {
+const developmentOptions: LoggerOptions = {
   ...commonOptions,
 
   format: format.combine(...commonFormats),
@@ -89,7 +96,9 @@ const developmentOptions = {
   ]
 };
 
-const options = isProduction ? productionOptions : developmentOptions;
-const logger = createLogger(options);
+const options: LoggerOptions = isProduction
+  ? productionOptions
+  : developmentOptions;
+const logger: Logger = createLogger(options);
 
-module.exports = { logger };
+export { logger };
