@@ -1,12 +1,14 @@
-const path = require('path');
-const {
-  fileLoader,
-  mergeTypes,
-  mergeResolvers
-} = require('merge-graphql-schemas');
-const { makeExecutableSchema } = require('graphql-tools');
-const { maskErrors } = require('graphql-errors');
-const { logger } = require('../services/log.service');
+import path from 'path';
+import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
+import {
+  makeExecutableSchema,
+  ITypeDefinitions,
+  IResolvers,
+  ILogger
+} from 'graphql-tools';
+import { maskErrors } from 'graphql-errors';
+import { logger } from '../services/log.service';
+import { GraphQLSchema } from 'graphql';
 
 function mergeTypeDefinitions() {
   const types = fileLoader(path.join(__dirname, '.'), {
@@ -26,20 +28,20 @@ function mergeResolverFunctions() {
   return mergeResolvers(resolvers);
 }
 
-async function createSchema() {
+async function createSchema(): Promise<GraphQLSchema> {
   try {
-    const typeDefs = mergeTypeDefinitions();
+    const typeDefs: ITypeDefinitions = mergeTypeDefinitions();
 
-    const resolvers = mergeResolverFunctions();
+    const resolvers: IResolvers = mergeResolverFunctions();
 
-    const loggerHandler = {
+    const loggerHandler: ILogger = {
       log: (err) =>
         logger.error('[gql service] Error in a resolver function', {
           error: err
         })
     };
 
-    const schema = makeExecutableSchema({
+    const schema: GraphQLSchema = makeExecutableSchema({
       typeDefs,
       resolvers,
       logger: loggerHandler
@@ -58,4 +60,4 @@ async function createSchema() {
   }
 }
 
-module.exports = createSchema;
+export default createSchema;
