@@ -1,9 +1,10 @@
 /* eslint-disable arrow-body-style */
+import Knex from 'knex';
 
-exports.up = (knex) => {
+exports.up = (knex: Knex) => {
   return knex.schema.createTable('issues_comments', (table) => {
-    table.integer('issue_id', 10).unsigned();
-    table.integer('comment_id', 10).unsigned();
+    table.integer('issue_id').unsigned();
+    table.integer('comment_id').unsigned();
 
     table.primary(['issue_id', 'comment_id']);
 
@@ -19,6 +20,6 @@ exports.up = (knex) => {
   });
 };
 
-exports.down = (knex) => {
+exports.down = (knex: Knex) => {
   return knex.schema.dropTable('issues_comments');
 };

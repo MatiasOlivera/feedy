@@ -1,9 +1,11 @@
-exports.up = (knex) =>
+import Knex from 'knex';
+
+exports.up = (knex: Knex) =>
   knex.schema.table('issues_comments', (table) => {
-    table.datetime('deleted_at');
+    table.dateTime('deleted_at');
   });
 
-exports.down = (knex) =>
+exports.down = (knex: Knex) =>
   knex.schema.table('issues_comments', (table) => {
     table.dropColumn('deleted_at');
   });

@@ -1,13 +1,14 @@
 /* eslint-disable arrow-body-style */
+import Knex from 'knex';
 
-exports.up = (knex) => {
+exports.up = (knex: Knex) => {
   return knex.schema.createTable('comments', (table) => {
     table.increments('id').primary();
     table.integer('parent_id').unsigned();
     table.string('body', 255).notNullable();
 
     table
-      .integer('user_id', 10)
+      .integer('user_id')
       .unsigned()
       .notNullable();
 
@@ -25,6 +26,6 @@ exports.up = (knex) => {
   });
 };
 
-exports.down = (knex) => {
+exports.down = (knex: Knex) => {
   return knex.schema.dropTable('comments');
 };

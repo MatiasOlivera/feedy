@@ -1,9 +1,10 @@
 /* eslint-disable arrow-body-style */
+import Knex from 'knex';
 
-exports.up = (knex) => {
+exports.up = (knex: Knex) => {
   return knex.schema.createTable('organizations', (table) => {
     table
-      .integer('id', 10)
+      .integer('id')
       .unsigned()
       .primary();
 
@@ -18,6 +19,6 @@ exports.up = (knex) => {
   });
 };
 
-exports.down = (knex) => {
+exports.down = (knex: Knex) => {
   return knex.schema.dropTable('organizations');
 };

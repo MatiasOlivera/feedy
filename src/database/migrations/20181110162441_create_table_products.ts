@@ -1,13 +1,14 @@
 /* eslint-disable arrow-body-style */
+import Knex from 'knex';
 
-exports.up = (knex) => {
+exports.up = (knex: Knex) => {
   return knex.schema.createTable('products', (table) => {
     table.increments('id').primary();
     table.string('name', 50).notNullable();
     table.string('description', 100);
 
     table
-      .integer('owner_id', 10)
+      .integer('owner_id')
       .unsigned()
       .notNullable();
 
@@ -20,6 +21,6 @@ exports.up = (knex) => {
   });
 };
 
-exports.down = (knex) => {
+exports.down = (knex: Knex) => {
   return knex.schema.dropTable('products');
 };

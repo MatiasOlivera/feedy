@@ -1,18 +1,19 @@
 /* eslint-disable arrow-body-style */
+import Knex from 'knex';
 
-exports.up = (knex) => {
+exports.up = (knex: Knex) => {
   return knex.schema.createTable('issues', (table) => {
     table.increments('id').primary();
     table.string('title', 50).notNullable();
     table.text('body').notNullable();
 
     table
-      .integer('user_id', 10)
+      .integer('user_id')
       .unsigned()
       .notNullable();
 
     table
-      .integer('product_id', 10)
+      .integer('product_id')
       .unsigned()
       .notNullable();
 
@@ -30,6 +31,6 @@ exports.up = (knex) => {
   });
 };
 
-exports.down = (knex) => {
+exports.down = (knex: Knex) => {
   return knex.schema.dropTable('issues');
 };
