@@ -1,7 +1,7 @@
-const { Kind } = require('graphql/language');
-const { UserError } = require('graphql-errors');
+import { Kind } from 'graphql/language';
+import { UserError } from 'graphql-errors';
 
-function validateDate(value) {
+function validateDate(value: string): void {
   const date = Date.parse(value);
   // eslint-disable-next-line no-restricted-globals
   if (isNaN(date)) {
@@ -10,12 +10,12 @@ function validateDate(value) {
 }
 
 const DateScalar = {
-  parseValue(value) {
+  parseValue(value: string) {
     validateDate(value);
     return new Date(value);
   },
 
-  parseLiteral(ast) {
+  parseLiteral(ast: any) {
     if (ast.kind !== Kind.STRING) {
       throw new UserError('Can only parse dates strings');
     }
@@ -24,9 +24,9 @@ const DateScalar = {
     return new Date(ast.value);
   },
 
-  serialize(value) {
+  serialize(value: Date) {
     return value.toJSON();
   }
 };
 
-module.exports = { Date: DateScalar };
+export default { Date: DateScalar };
