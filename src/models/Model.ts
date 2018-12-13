@@ -1,5 +1,5 @@
 import { Model as ObjectionModel, snakeCaseMappers } from 'objection';
-import softDelete from '../services/soft.delete.query.builder';
+import softDelete from '../services/soft.delete';
 
 class Model extends softDelete()(ObjectionModel) {
   $beforeInsert(): void {

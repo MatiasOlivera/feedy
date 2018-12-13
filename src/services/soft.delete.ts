@@ -1,17 +1,15 @@
-'use strict'; // eslint-disable-line
-
-module.exports = (incomingOptions) => {
+export default function(incomingOptions?: any) {
   const options = { ...incomingOptions, columnName: 'deleted_at' };
 
-  return (Model) => {
+  return (Model: any) => {
     class SDQueryBuilder extends Model.QueryBuilder {
       // override the normal delete function with one that patches the row's "deleted_at" column
       delete() {
         this.mergeContext({ softDelete: true });
-        const patch = {
+
+        return this.patch({
           [options.columnName]: new Date()
-        };
-        return this.patch(patch);
+        });
       }
 
       // provide a way to actually delete the row if necessary
@@ -22,10 +20,10 @@ module.exports = (incomingOptions) => {
       // provide a way to undo the delete
       restore() {
         this.mergeContext({ restore: true });
-        const patch = {
+
+        return this.patch({
           [options.columnName]: null
-        };
-        return this.patch(patch);
+        });
       }
 
       // provide a way to filter to ONLY deleted records without having to remember the column name
@@ -54,14 +52,14 @@ module.exports = (incomingOptions) => {
       static get namedFilters() {
         // patch the notDeleted filter into the list of namedFilters
         return Object.assign({}, super.namedFilters, {
-          notDeleted: (b) => {
+          notDeleted: (b: any) => {
             b.whereNotDeleted();
           },
-          deleted: (b) => {
+          deleted: (b: any) => {
             b.whereDeleted();
           }
         });
       }
     };
   };
-};
+}
