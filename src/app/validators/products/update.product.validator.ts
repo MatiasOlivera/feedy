@@ -1,4 +1,4 @@
-const ProductValidator = require('./product.validator');
+import ProductValidator from './product.validator';
 
 class UpdateProductValidator extends ProductValidator {
   rules() {
@@ -6,4 +6,4 @@ class UpdateProductValidator extends ProductValidator {
   }
 }
 
-module.exports = UpdateProductValidator;
+export default UpdateProductValidator;

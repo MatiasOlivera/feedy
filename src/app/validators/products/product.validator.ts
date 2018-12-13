@@ -1,4 +1,4 @@
-const BaseValidator = require('../base.validator');
+import BaseValidator from '../base.validator';
 
 class ProductValidator extends BaseValidator {
   // eslint-disable-next-line class-methods-use-this
@@ -11,4 +11,4 @@ class ProductValidator extends BaseValidator {
   }
 }
 
-module.exports = ProductValidator;
+export default ProductValidator;

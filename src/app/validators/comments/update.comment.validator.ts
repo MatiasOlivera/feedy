@@ -1,4 +1,4 @@
-const CommentValidator = require('./comment.validator');
+import CommentValidator from './comment.validator';
 
 class UpdateCommentValidator extends CommentValidator {
   rules() {
@@ -6,4 +6,4 @@ class UpdateCommentValidator extends CommentValidator {
   }
 }
 
-module.exports = UpdateCommentValidator;
+export default UpdateCommentValidator;

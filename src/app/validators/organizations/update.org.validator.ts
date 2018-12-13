@@ -1,4 +1,4 @@
-const OrganizationValidator = require('./org.validator');
+import OrganizationValidator from './org.validator';
 
 class UpdateOrganizationValidator extends OrganizationValidator {
   rules() {
@@ -6,4 +6,4 @@ class UpdateOrganizationValidator extends OrganizationValidator {
   }
 }
 
-module.exports = UpdateOrganizationValidator;
+export default UpdateOrganizationValidator;

@@ -1,4 +1,4 @@
-const IssueValidator = require('./issue.validator');
+import IssueValidator from './issue.validator';
 
 class UpdateIssueValidator extends IssueValidator {
   rules() {
@@ -6,4 +6,4 @@ class UpdateIssueValidator extends IssueValidator {
   }
 }
 
-module.exports = UpdateIssueValidator;
+export default UpdateIssueValidator;
