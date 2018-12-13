@@ -1,15 +1,15 @@
-const { isEmptyReturnNull } = require('../_utils');
-const { User, Product, Comment } = require('../../../models');
+import { isEmptyReturnNull } from '../_utils';
+import { User, Product, Comment } from '../../../models';
 
-async function author(parent) {
+async function author(parent: any) {
   return User.query().findById(parent.userId);
 }
 
-async function product(parent) {
+async function product(parent: any) {
   return Product.query().findById(parent.productId);
 }
 
-async function comments(parent) {
+async function comments(parent: any) {
   const rows = await Comment.query()
     .joinRelation('issue')
     .where('issue_id', parent.id);
@@ -17,7 +17,7 @@ async function comments(parent) {
   return isEmptyReturnNull(rows);
 }
 
-module.exports = {
+export default {
   Issue: {
     author,
     product,

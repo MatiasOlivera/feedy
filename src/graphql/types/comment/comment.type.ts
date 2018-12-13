@@ -1,22 +1,22 @@
-const { isEmptyReturnNull } = require('../_utils');
-const { User, Issue, Comment } = require('../../../models');
+import { isEmptyReturnNull } from '../_utils';
+import { User, Issue, Comment } from '../../../models';
 
-async function author(_parent) {
+async function author(_parent: any) {
   return User.query().findById(_parent.userId);
 }
 
-async function issue(_parent) {
+async function issue(_parent: any) {
   return Issue.query()
     .joinRelation('comments')
     .where('comment_id', _parent.id)
     .first();
 }
 
-async function parent(_parent) {
+async function parent(_parent: any) {
   return _parent.parentId ? Comment.query().findById(_parent.parentId) : null;
 }
 
-async function children(_parent) {
+async function children(_parent: any) {
   const rows = Comment.query()
     .joinRelation('children')
     .where('children.parent_id', _parent.id);
@@ -24,7 +24,7 @@ async function children(_parent) {
   return isEmptyReturnNull(rows);
 }
 
-module.exports = {
+export default {
   Comment: {
     author,
     issue,

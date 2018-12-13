@@ -1,19 +1,19 @@
-const { isEmptyReturnNull } = require('../_utils');
-const { User, Organization, Issue } = require('../../../models');
+import { isEmptyReturnNull } from '../_utils';
+import { User, Organization, Issue } from '../../../models';
 
-async function owner(parent) {
+async function owner(parent: any) {
   return (
     User.query().findById(parent.ownerId) ||
     Organization.query().findById(parent.ownerId)
   );
 }
 
-async function issues(parent) {
+async function issues(parent: any) {
   const rows = await Issue.query().where('product_id', parent.id);
   return isEmptyReturnNull(rows);
 }
 
-module.exports = {
+export default {
   Product: {
     owner,
     issues
