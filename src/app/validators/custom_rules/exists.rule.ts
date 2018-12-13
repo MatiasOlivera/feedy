@@ -1,13 +1,20 @@
-const { knex } = require('../../../services/db.service');
-const { logger } = require('../../../services/log.service');
+import { knex } from '../../../services/db.service';
+import { logger } from '../../../services/log.service';
 
-const name = 'exists';
+const name: string = 'exists';
+
+const message: string = 'The resource does not exists.';
 
 // eslint-disable-next-line consistent-return
-const callback = async (value, args, attribute, passes) => {
+const callback = async (
+  value: number | string,
+  args: string,
+  attribute: string,
+  passes: Function
+) => {
   const hasMultipleArgs = args.includes(',');
-  let table = null;
-  let column = null;
+  let table: string = null;
+  let column: string = null;
 
   if (hasMultipleArgs) {
     [table, column] = args.split(',');
@@ -25,7 +32,7 @@ const callback = async (value, args, attribute, passes) => {
       .where(column, value);
 
     if (row.length === 0) {
-      return passes(false, 'The resource does not exists.');
+      return passes(false, message);
     }
 
     return passes();
@@ -34,4 +41,4 @@ const callback = async (value, args, attribute, passes) => {
   }
 };
 
-module.exports = { name, callback };
+export default { name, callback, message };

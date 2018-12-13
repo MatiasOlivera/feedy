@@ -1,23 +1,41 @@
-const Validator = require('validatorjs');
-const customRules = require('./custom_rules');
+import Validator, { ValidationErrors } from 'validatorjs';
+import customRules from './custom_rules';
+
+interface RequestBody {
+  [key: string]: any;
+}
+
+interface Rules {
+  [property: string]: string | string[];
+}
 
 class BaseValidator {
-  constructor(data) {
+  private errors: ValidationErrors;
+
+  constructor(protected data: RequestBody) {
     this.data = data;
     this.errors = null;
     this.registerCustomRules();
   }
 
   // eslint-disable-next-line class-methods-use-this
-  registerCustomRules() {
+  registerCustomRules(): void {
     const { uniqueRule, existsRule } = customRules;
 
-    Validator.registerAsync(uniqueRule.name, uniqueRule.callback);
-    Validator.registerAsync(existsRule.name, existsRule.callback);
+    Validator.registerAsync(
+      uniqueRule.name,
+      uniqueRule.callback,
+      uniqueRule.message
+    );
+    Validator.registerAsync(
+      existsRule.name,
+      existsRule.callback,
+      existsRule.message
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
-  rules() {
+  rules(): Rules {
     return {};
   }
 
@@ -45,7 +63,7 @@ class BaseValidator {
     });
   }
 
-  get formattedErrors() {
+  get formattedErrors(): ValidationErrors {
     if (!this.errors) return null;
 
     const keys = Object.keys(this.errors);
@@ -60,4 +78,4 @@ class BaseValidator {
   }
 }
 
-module.exports = BaseValidator;
+export default BaseValidator;
