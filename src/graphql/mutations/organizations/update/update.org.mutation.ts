@@ -1,7 +1,7 @@
-const { UpdateOrganizationValidator } = require('../../../../app/validators');
-const { Organization } = require('../../../../models');
+import { UpdateOrganizationValidator } from '../../../../app/validators';
+import { Organization } from '../../../../models';
 
-const updateOrganization = async (root, args) => {
+const updateOrganization = async (root: any, args: any): Promise<any> => {
   let org;
   try {
     org = await Organization.query().findById(args.id);
@@ -47,4 +47,4 @@ const updateOrganization = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { updateOrganization } };
+export default { Mutation: { updateOrganization } };

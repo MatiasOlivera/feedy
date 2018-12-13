@@ -1,6 +1,6 @@
-const { Comment } = require('../../../../models');
+import { Comment } from '../../../../models';
 
-const deleteComment = async (root, args) => {
+const deleteComment = async (root: any, args: any): Promise<any> => {
   let comment;
 
   try {
@@ -31,4 +31,4 @@ const deleteComment = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteComment } };
+export default { Mutation: { deleteComment } };

@@ -1,8 +1,8 @@
-const objection = require('objection');
-const { knex } = require('../../../../services/db.service');
-const { ProductOwner, User } = require('../../../../models');
+import objection from 'objection';
+import { knex } from '../../../../services/db.service';
+import { ProductOwner, User } from '../../../../models';
 
-const deleteUser = async (root, args) => {
+const deleteUser = async (root: any, args: any): Promise<any> => {
   let user;
 
   try {
@@ -35,4 +35,4 @@ const deleteUser = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteUser } };
+export default { Mutation: { deleteUser } };

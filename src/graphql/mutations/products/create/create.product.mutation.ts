@@ -1,7 +1,7 @@
-const { CreateProductValidator } = require('../../../../app/validators');
-const { Product } = require('../../../../models');
+import { CreateProductValidator } from '../../../../app/validators';
+import { Product } from '../../../../models';
 
-const createProduct = async (root, args) => {
+const createProduct = async (root: any, args: any): Promise<any> => {
   const { product } = args;
 
   try {
@@ -31,4 +31,4 @@ const createProduct = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { createProduct } };
+export default { Mutation: { createProduct } };

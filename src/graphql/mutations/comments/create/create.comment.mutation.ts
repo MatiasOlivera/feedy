@@ -1,9 +1,9 @@
-const objection = require('objection');
-const { CreateCommentValidator } = require('../../../../app/validators');
-const { knex } = require('../../../../services/db.service');
-const { Comment } = require('../../../../models');
+import objection from 'objection';
+import { CreateCommentValidator } from '../../../../app/validators';
+import { knex } from '../../../../services/db.service';
+import { Comment } from '../../../../models';
 
-const createComment = async (root, args) => {
+const createComment = async (root: any, args: any): Promise<any> => {
   const { comment } = args;
 
   try {
@@ -40,4 +40,4 @@ const createComment = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { createComment } };
+export default { Mutation: { createComment } };

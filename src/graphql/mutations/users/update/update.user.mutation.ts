@@ -1,7 +1,7 @@
-const { UpdateUserValidator } = require('../../../../app/validators');
-const { User } = require('../../../../models');
+import { UpdateUserValidator } from '../../../../app/validators';
+import { User } from '../../../../models';
 
-const updateUser = async (root, args) => {
+const updateUser = async (root: any, args: any): Promise<any> => {
   let user;
   try {
     user = await User.query().findById(args.id);
@@ -41,4 +41,4 @@ const updateUser = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { updateUser } };
+export default { Mutation: { updateUser } };

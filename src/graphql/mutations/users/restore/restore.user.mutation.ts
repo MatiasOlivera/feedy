@@ -1,8 +1,8 @@
-const objection = require('objection');
-const { knex } = require('../../../../services/db.service');
-const { ProductOwner, User } = require('../../../../models');
+import objection from 'objection';
+import { knex } from '../../../../services/db.service';
+import { ProductOwner, User } from '../../../../models';
 
-const restoreUser = async (root, args) => {
+const restoreUser = async (root: any, args: any): Promise<any> => {
   try {
     const user = await User.query().findById(args.id);
 
@@ -39,4 +39,4 @@ const restoreUser = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { restoreUser } };
+export default { Mutation: { restoreUser } };

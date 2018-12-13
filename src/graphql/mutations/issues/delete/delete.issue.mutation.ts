@@ -1,6 +1,6 @@
-const { Issue } = require('../../../../models');
+import { Issue } from '../../../../models';
 
-const deleteIssue = async (root, args) => {
+const deleteIssue = async (root: any, args: any): Promise<any> => {
   let issue;
   try {
     issue = await Issue.query().findById(args.id);
@@ -33,4 +33,4 @@ const deleteIssue = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteIssue } };
+export default { Mutation: { deleteIssue } };

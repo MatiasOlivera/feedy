@@ -1,6 +1,6 @@
-const { Issue } = require('../../../../models');
+import { Issue } from '../../../../models';
 
-const restoreIssue = async (root, args) => {
+const restoreIssue = async (root: any, args: any): Promise<any> => {
   try {
     const issue = await Issue.query().findById(args.id);
 
@@ -35,4 +35,4 @@ const restoreIssue = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { restoreIssue } };
+export default { Mutation: { restoreIssue } };

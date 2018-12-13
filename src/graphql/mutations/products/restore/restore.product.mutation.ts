@@ -1,6 +1,6 @@
-const { Product } = require('../../../../models');
+import { Product } from '../../../../models';
 
-const restoreProduct = async (root, args) => {
+const restoreProduct = async (root: any, args: any): Promise<any> => {
   try {
     const product = await Product.query().findById(args.id);
 
@@ -35,4 +35,4 @@ const restoreProduct = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { restoreProduct } };
+export default { Mutation: { restoreProduct } };

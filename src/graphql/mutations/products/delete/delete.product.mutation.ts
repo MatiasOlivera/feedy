@@ -1,6 +1,6 @@
-const { Product } = require('../../../../models');
+import { Product } from '../../../../models';
 
-const deleteProduct = async (root, args) => {
+const deleteProduct = async (root: any, args: any): Promise<any> => {
   let product;
   try {
     product = await Product.query().findById(args.id);
@@ -33,4 +33,4 @@ const deleteProduct = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { deleteProduct } };
+export default { Mutation: { deleteProduct } };

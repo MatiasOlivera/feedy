@@ -1,9 +1,9 @@
-const objection = require('objection');
-const { CreateUserValidator } = require('../../../../app/validators');
-const { knex } = require('../../../../services/db.service');
-const { ProductOwner } = require('../../../../models');
+import objection from 'objection';
+import { CreateUserValidator } from '../../../../app/validators';
+import { knex } from '../../../../services/db.service';
+import { ProductOwner } from '../../../../models';
 
-const createUser = async (root, args) => {
+const createUser = async (root: any, args: any): Promise<any> => {
   const { user } = args;
 
   try {
@@ -41,4 +41,4 @@ const createUser = async (root, args) => {
   }
 };
 
-module.exports = { Mutation: { createUser } };
+export default { Mutation: { createUser } };
