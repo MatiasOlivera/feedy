@@ -1,9 +1,9 @@
 import { Organization } from '../../../../models';
+import { IOrganization } from 'graphql-schema';
 
-const organizationQuery = async (root: any, args: any): Promise<any> => {
+const organizationQuery = async (root: undefined, args: any): Promise<IOrganization> => {
   try {
-    const { id } = args;
-    return await Organization.query().findById(id);
+    return await Organization.query().findById(args.id);
   } catch (err) {
     throw err;
   }
