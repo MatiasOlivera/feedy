@@ -14,3 +14,11 @@ export interface IUser extends ITimestamps {
   email: string;
   bio: string;
 }
+
+export interface IPagination {
+  page: number;
+  limit: number;
+  orderBy: string;
+  direction: 'ASC' | 'DESC';
+  deleted: boolean;
+}

@@ -1,13 +1,6 @@
 import _ from 'lodash';
 import { UserError } from 'graphql-errors';
-
-interface PaginationArgs {
-  page: number;
-  limit: number;
-  orderBy: string;
-  direction: string;
-  deleted: boolean;
-}
+import { IPagination } from 'graphql-schema';
 
 /**
  * Get the page number from index 0
@@ -61,7 +54,7 @@ function validatePaginationArgs(
   }
 }
 
-async function paginate(Model: any, args: PaginationArgs): Promise<any> {
+async function paginate(Model: any, args: IPagination): Promise<any> {
   try {
     const { page, limit, orderBy, direction, deleted } = args;
 
