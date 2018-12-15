@@ -1,9 +1,12 @@
 import { User } from '../../../../models';
+import { IUser } from 'graphql-schema';
 
-const userQuery = async (root: any, args: any): Promise<any> => {
+const userQuery = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IUser> => {
   try {
-    const { id } = args;
-    return await User.query().findById(id);
+    return await User.query().findById(args.id);
   } catch (err) {
     throw err;
   }
