@@ -15,6 +15,11 @@ export interface IUser extends IModel {
   bio: string;
 }
 
+export interface IOrganization extends IModel {
+  name: string;
+  bio: string;
+}
+
 export interface IPagination {
   page: number;
   limit: number;
