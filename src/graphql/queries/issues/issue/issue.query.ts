@@ -1,9 +1,12 @@
 import { Issue } from '../../../../models';
+import { IIssue } from 'graphql-schema';
 
-const issueQuery = async (root: any, args: any): Promise<any> => {
+const issueQuery = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IIssue> => {
   try {
-    const { id } = args;
-    return await Issue.query().findById(id);
+    return await Issue.query().findById(args.id);
   } catch (err) {
     throw err;
   }
