@@ -1,12 +1,20 @@
-import Validator, { ValidationErrors } from 'validatorjs';
+import Validator from 'validatorjs';
 import customRules from './custom_rules';
 
 interface RequestBody {
-  [key: string]: any;
+  [field: string]: string | number | boolean;
 }
 
-interface Rules {
-  [property: string]: string | string[];
+interface ValidationRule {
+  [field: string]: string | string[] | ValidationRule;
+}
+
+interface ValidationErrors {
+  [field: string]: [string];
+}
+
+interface FlatValidationErrors {
+  [field: string]: string;
 }
 
 class BaseValidator {
@@ -35,11 +43,11 @@ class BaseValidator {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  rules(): Rules {
+  rules(): ValidationRule {
     return {};
   }
 
-  validate() {
+  validate(): Promise<void> {
     return new Promise((resolve, reject) => {
       const validator = new Validator(this.data, this.rules());
       const handleFails = () => {
@@ -63,18 +71,16 @@ class BaseValidator {
     });
   }
 
-  get formattedErrors(): ValidationErrors {
+  get formattedErrors(): FlatValidationErrors {
     if (!this.errors) return null;
 
-    const keys = Object.keys(this.errors);
-    const formattedErrors = { ...this.errors };
+    const [flatErrors] = Object.entries(this.errors).map(
+      ([attribute, messages]) => ({
+        [attribute]: messages[0]
+      })
+    );
 
-    keys.forEach((key) => {
-      const [message] = this.errors[key];
-      formattedErrors[key] = message;
-    });
-
-    return formattedErrors;
+    return flatErrors;
   }
 }
 
