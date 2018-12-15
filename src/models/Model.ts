@@ -1,4 +1,10 @@
-import { Model as ObjectionModel, snakeCaseMappers } from 'objection';
+import {
+  Model as ObjectionModel,
+  snakeCaseMappers,
+  ModelOptions,
+  QueryContext,
+  ColumnNameMappers
+} from 'objection';
 import softDelete from '../services/soft.delete';
 
 class Model extends softDelete()(ObjectionModel) {
@@ -19,13 +25,13 @@ class Model extends softDelete()(ObjectionModel) {
     }
   }
 
-  $beforeUpdate(opt: any, queryContext: any): void {
+  $beforeUpdate(opt: ModelOptions, queryContext: QueryContext): void {
     if (!queryContext.restore && this.timestamps) {
       this.updated_at = new Date();
     }
   }
 
-  static get columnNameMappers() {
+  static get columnNameMappers(): ColumnNameMappers {
     return snakeCaseMappers();
   }
 
