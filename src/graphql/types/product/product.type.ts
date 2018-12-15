@@ -1,15 +1,16 @@
 import { isEmptyReturnNull } from '../_utils';
 import { User, Organization, Issue } from '../../../models';
+import { IProduct } from 'graphql-schema';
 
-async function owner(parent: any) {
+async function owner(product: IProduct) {
   return (
-    User.query().findById(parent.ownerId) ||
-    Organization.query().findById(parent.ownerId)
+    User.query().findById(product.ownerId) ||
+    Organization.query().findById(product.ownerId)
   );
 }
 
-async function issues(parent: any) {
-  const rows = await Issue.query().where('product_id', parent.id);
+async function issues(product: IProduct) {
+  const rows = await Issue.query().where('product_id', product.id);
   return isEmptyReturnNull(rows);
 }
 

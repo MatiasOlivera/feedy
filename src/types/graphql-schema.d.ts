@@ -20,6 +20,12 @@ export interface IOrganization extends IModel {
   bio: string;
 }
 
+export interface IProduct extends IModel {
+  name: string;
+  description: string;
+  ownerId: string;
+}
+
 export interface IPagination {
   page: number;
   limit: number;
