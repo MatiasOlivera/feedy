@@ -1,6 +1,10 @@
 import { Product } from '../../../../models';
+import { IProductSimplePayload } from 'graphql-schema';
 
-const deleteProduct = async (root: any, args: any): Promise<any> => {
+const deleteProduct = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IProductSimplePayload> => {
   let product;
   try {
     product = await Product.query().findById(args.id);

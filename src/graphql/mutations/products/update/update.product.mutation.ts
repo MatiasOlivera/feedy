@@ -1,7 +1,11 @@
 import { UpdateProductValidator } from '../../../../app/validators';
 import { Product } from '../../../../models';
+import { IProductPayload } from 'graphql-schema';
 
-const updateProduct = async (root: any, args: any): Promise<any> => {
+const updateProduct = async (
+  root: undefined,
+  args: any
+): Promise<IProductPayload> => {
   let product;
   try {
     product = await Product.query().findById(args.id);

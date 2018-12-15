@@ -26,6 +26,15 @@ export interface IProduct extends IModel {
   ownerId: string;
 }
 
+export interface IProductSimplePayload {
+  operation: IOperation;
+  product: IProduct;
+}
+
+export interface IProductPayload extends IProductSimplePayload {
+  errors: IValidationErrors;
+}
+
 export interface IPagination {
   page: number;
   limit: number;
@@ -37,4 +46,8 @@ export interface IPagination {
 export interface IOperation {
   status: boolean;
   message: string;
+}
+
+export interface IValidationErrors {
+  [attribute: string]: string;
 }

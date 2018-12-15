@@ -1,7 +1,11 @@
 import { CreateProductValidator } from '../../../../app/validators';
 import { Product } from '../../../../models';
+import { IProductPayload } from 'graphql-schema';
 
-const createProduct = async (root: any, args: any): Promise<any> => {
+const createProduct = async (
+  root: undefined,
+  args: any
+): Promise<IProductPayload> => {
   const { product } = args;
 
   try {

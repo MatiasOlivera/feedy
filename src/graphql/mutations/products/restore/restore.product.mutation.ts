@@ -1,6 +1,10 @@
 import { Product } from '../../../../models';
+import { IProductSimplePayload } from 'graphql-schema';
 
-const restoreProduct = async (root: any, args: any): Promise<any> => {
+const restoreProduct = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IProductSimplePayload> => {
   try {
     const product = await Product.query().findById(args.id);
 
