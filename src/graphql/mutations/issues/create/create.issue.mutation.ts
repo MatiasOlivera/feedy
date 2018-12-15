@@ -1,7 +1,11 @@
 import { CreateIssueValidator } from '../../../../app/validators';
 import { Issue } from '../../../../models';
+import { IIssuePayload } from 'graphql-schema';
 
-const createIssue = async (root: any, args: any): Promise<any> => {
+const createIssue = async (
+  root: undefined,
+  args: any
+): Promise<IIssuePayload> => {
   const { issue } = args;
 
   try {

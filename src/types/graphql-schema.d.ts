@@ -42,6 +42,15 @@ export interface IIssue extends IModel {
   productId: string;
 }
 
+export interface IIssueSimplePayload {
+  operation: IOperation;
+  issue: IIssue;
+}
+
+export interface IIssuePayload extends IIssueSimplePayload {
+  errors: IValidationErrors;
+}
+
 export interface IPagination {
   page: number;
   limit: number;

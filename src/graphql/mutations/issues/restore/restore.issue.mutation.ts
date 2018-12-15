@@ -1,6 +1,10 @@
 import { Issue } from '../../../../models';
+import { IIssueSimplePayload } from 'graphql-schema';
 
-const restoreIssue = async (root: any, args: any): Promise<any> => {
+const restoreIssue = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IIssueSimplePayload> => {
   try {
     const issue = await Issue.query().findById(args.id);
 

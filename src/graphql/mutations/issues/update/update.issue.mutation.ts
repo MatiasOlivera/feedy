@@ -1,7 +1,11 @@
 import { UpdateIssueValidator } from '../../../../app/validators';
 import { Issue } from '../../../../models';
+import { IIssuePayload } from 'graphql-schema';
 
-const updateIssue = async (root: any, args: any): Promise<any> => {
+const updateIssue = async (
+  root: undefined,
+  args: any
+): Promise<IIssuePayload> => {
   let issue;
   try {
     issue = await Issue.query().findById(args.id);

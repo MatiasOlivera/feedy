@@ -1,6 +1,10 @@
 import { Issue } from '../../../../models';
+import { IIssueSimplePayload } from 'graphql-schema';
 
-const deleteIssue = async (root: any, args: any): Promise<any> => {
+const deleteIssue = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IIssueSimplePayload> => {
   let issue;
   try {
     issue = await Issue.query().findById(args.id);
