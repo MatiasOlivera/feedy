@@ -15,6 +15,15 @@ export interface IUser extends IModel {
   bio: string;
 }
 
+export interface IUserSimplePayload {
+  operation: IOperation;
+  user: IUser;
+}
+
+export interface IUserPayload extends IUserSimplePayload {
+  errors: IValidationErrors;
+}
+
 export interface IOrganization extends IModel {
   name: string;
   bio: string;

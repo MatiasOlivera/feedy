@@ -2,22 +2,23 @@ import objection from 'objection';
 import { CreateUserValidator } from '../../../../app/validators';
 import { knex } from '../../../../services/db.service';
 import { ProductOwner } from '../../../../models';
-import { IOperation } from 'graphql-schema';
+import { IUserPayload } from 'graphql-schema';
 
-const createUser = async (root: undefined, args: any): Promise<any> => {
+const createUser = async (
+  root: undefined,
+  args: any
+): Promise<IUserPayload> => {
   const { user } = args;
 
   try {
     const validator = new CreateUserValidator(user);
     await validator.validate();
   } catch (err) {
-    const operation: IOperation = {
-      status: false,
-      message: 'There are validation errors'
-    };
-
     return {
-      operation,
+      operation: {
+        status: false,
+        message: 'There are validation errors'
+      },
       user: null,
       errors: err
     };
@@ -36,13 +37,11 @@ const createUser = async (root: undefined, args: any): Promise<any> => {
 
     await tsx.commit();
 
-    const operation: IOperation = {
-      status: true,
-      message: 'The user was created succesfully'
-    };
-
     return {
-      operation,
+      operation: {
+        status: true,
+        message: 'The user was created succesfully'
+      },
       user: newUser,
       errors: null
     };
