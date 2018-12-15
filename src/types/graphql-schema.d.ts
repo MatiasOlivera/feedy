@@ -1,11 +1,11 @@
-interface ITimestamps {
+export interface IModel {
+  id: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
 }
 
-export interface IUser extends ITimestamps {
-  id: string;
+export interface IUser extends IModel {
   firstName: string;
   lastName: string;
   fullName: string;
