@@ -1,6 +1,16 @@
 import Model from './Model';
+import { IIssue } from 'graphql-schema';
 
-class Issue extends Model {
+class Issue extends Model implements IIssue {
+  id: string;
+  title: string;
+  body: string;
+  userId: string;
+  productId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+
   static get tableName(): string {
     return 'issues';
   }

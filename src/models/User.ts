@@ -1,6 +1,18 @@
 import Model from './Model';
+import { IUser } from 'graphql-schema';
 
-class User extends Model {
+class User extends Model implements IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  username: string;
+  email: string;
+  bio: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+
   static get tableName(): string {
     return 'users';
   }

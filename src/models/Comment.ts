@@ -1,6 +1,16 @@
 import Model from './Model';
+import { IComment } from 'graphql-schema';
 
-class Comment extends Model {
+class Comment extends Model implements IComment {
+  id: string;
+  body: string;
+  userId: string;
+  issueId: string;
+  parentId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+
   static get tableName(): string {
     return 'comments';
   }

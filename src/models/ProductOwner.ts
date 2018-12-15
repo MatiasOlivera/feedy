@@ -1,6 +1,8 @@
 import Model from './Model';
 
 class ProductOwner extends Model {
+  id: string;
+
   static get tableName(): string {
     return 'product_owners';
   }

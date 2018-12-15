@@ -1,6 +1,14 @@
 import Model from './Model';
+import { IOrganization } from 'graphql-schema';
 
-class Organization extends Model {
+class Organization extends Model implements IOrganization {
+  id: string;
+  name: string;
+  bio: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+
   static get tableName(): string {
     return 'organizations';
   }

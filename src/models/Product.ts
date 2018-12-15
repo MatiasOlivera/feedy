@@ -1,6 +1,15 @@
 import Model from './Model';
+import { IProduct } from 'graphql-schema';
 
-class Product extends Model {
+class Product extends Model implements IProduct {
+  id: string;
+  name: string;
+  description: string;
+  ownerId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+
   static get tableName(): string {
     return 'products';
   }
