@@ -2,6 +2,15 @@ import { Model as ObjectionModel, snakeCaseMappers } from 'objection';
 import softDelete from '../services/soft.delete';
 
 class Model extends softDelete()(ObjectionModel) {
+  protected timestamps: boolean;
+  private created_at: Date;
+  private updated_at: Date;
+
+  constructor() {
+    super();
+    this.timestamps = true;
+  }
+
   $beforeInsert(): void {
     if (this.timestamps) {
       const timestamp = new Date();
@@ -14,10 +23,6 @@ class Model extends softDelete()(ObjectionModel) {
     if (!queryContext.restore && this.timestamps) {
       this.updated_at = new Date();
     }
-  }
-
-  static get timestamps(): boolean {
-    return true;
   }
 
   static get columnNameMappers() {

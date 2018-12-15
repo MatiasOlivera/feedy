@@ -1,12 +1,13 @@
 import Model from './Model';
 
 class ProductOwner extends Model {
-  static get tableName(): string {
-    return 'product_owners';
+  constructor() {
+    super();
+    this.timestamps = false;
   }
 
-  static get timestamps(): boolean {
-    return false;
+  static get tableName(): string {
+    return 'product_owners';
   }
 
   static get relationMappings() {
