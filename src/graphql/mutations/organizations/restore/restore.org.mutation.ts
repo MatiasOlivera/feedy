@@ -1,19 +1,25 @@
 import objection from 'objection';
 import { knex } from '../../../../services/db.service';
 import { ProductOwner, Organization } from '../../../../models';
+import { IOperation } from 'graphql-schema';
 
-const restoreOrganization = async (root: any, args: any): Promise<any> => {
+const restoreOrganization = async (
+  root: undefined,
+  args: any
+): Promise<any> => {
   try {
     const org = await Organization.query().findById(args.id);
 
-    if (!org)
+    if (!org) {
+      const operation: IOperation = {
+        status: false,
+        message: 'The organization does not exists'
+      };
       return {
-        operation: {
-          status: false,
-          message: 'The organization does not exists'
-        },
+        operation,
         organization: null
       };
+    }
   } catch (err) {
     throw err;
   }
@@ -32,11 +38,13 @@ const restoreOrganization = async (root: any, args: any): Promise<any> => {
 
     const organization = await Organization.query().findById(args.id);
 
+    const operation: IOperation = {
+      status: true,
+      message: 'The organization was restored succesfully'
+    };
+
     return {
-      operation: {
-        status: true,
-        message: 'The organization was restored succesfully'
-      },
+      operation,
       organization
     };
   } catch (err) {
