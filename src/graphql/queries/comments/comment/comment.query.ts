@@ -1,9 +1,12 @@
 import { Comment } from '../../../../models';
+import { IComment } from 'graphql-schema';
 
-const commentQuery = async (root: any, args: any): Promise<any> => {
+const commentQuery = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IComment> => {
   try {
-    const { id } = args;
-    return await Comment.query().findById(id);
+    return await Comment.query().findById(args.id);
   } catch (err) {
     throw err;
   }
