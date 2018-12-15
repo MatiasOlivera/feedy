@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-underscore-dangle
-function __resolveType(parent: any) {
+import { IUser, IOrganization } from 'graphql-schema';
+
+function __resolveType(parent: IUser | IOrganization): 'User' | 'Organization' {
   return parent.hasOwnProperty('username') ? 'User' : 'Organization';
 }
 
