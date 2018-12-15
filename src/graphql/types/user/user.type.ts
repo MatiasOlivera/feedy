@@ -1,6 +1,6 @@
 import { isEmptyReturnNull } from '../_utils';
 import { Product, Organization, Issue, Comment } from '../../../models';
-import { User as IUser } from 'graphql-schema';
+import { IUser } from 'graphql-schema';
 
 async function products(user: IUser) {
   const rows = await Product.query().where('owner_id', user.id);
