@@ -22,3 +22,8 @@ export interface IPagination {
   direction: 'ASC' | 'DESC';
   deleted: boolean;
 }
+
+export interface IOperation {
+  status: boolean;
+  message: string;
+}
