@@ -1,21 +1,22 @@
 import objection from 'objection';
 import { knex } from '../../../../services/db.service';
 import { ProductOwner, Organization } from '../../../../models';
-import { IOperation } from 'graphql-schema';
+import { IOrganizationSimplePayload } from 'graphql-schema';
 
-const deleteOrganization = async (root: undefined, args: any): Promise<any> => {
+const deleteOrganization = async (
+  root: undefined,
+  args: { id: string }
+): Promise<IOrganizationSimplePayload> => {
   let org;
   try {
     org = await Organization.query().findById(args.id);
 
     if (!org) {
-      const operation: IOperation = {
-        status: false,
-        message: 'The organization does not exists'
-      };
-
       return {
-        operation,
+        operation: {
+          status: false,
+          message: 'The organization does not exists'
+        },
         organization: null
       };
     }
@@ -31,13 +32,11 @@ const deleteOrganization = async (root: undefined, args: any): Promise<any> => {
 
     org = await Organization.query().findById(args.id);
 
-    const operation: IOperation = {
-      status: true,
-      message: 'The organization was deleted succesfully'
-    };
-
     return {
-      operation,
+      operation: {
+        status: true,
+        message: 'The organization was deleted succesfully'
+      },
       organization: org
     };
   } catch (err) {

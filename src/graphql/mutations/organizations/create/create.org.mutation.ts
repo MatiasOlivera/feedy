@@ -2,22 +2,23 @@ import objection from 'objection';
 import { CreateOrganizationValidator } from '../../../../app/validators';
 import { knex } from '../../../../services/db.service';
 import { ProductOwner } from '../../../../models';
-import { IOperation } from 'graphql-schema';
+import { IOrganizationPayload } from 'graphql-schema';
 
-const createOrganization = async (root: undefined, args: any): Promise<any> => {
+const createOrganization = async (
+  root: undefined,
+  args: any
+): Promise<IOrganizationPayload> => {
   const { org } = args;
 
   try {
     const validator = new CreateOrganizationValidator(org);
     await validator.validate();
   } catch (err) {
-    const operation: IOperation = {
-      status: false,
-      message: 'There are validation errors'
-    };
-
     return {
-      operation,
+      operation: {
+        status: false,
+        message: 'There are validation errors'
+      },
       organization: null,
       errors: err
     };
@@ -32,13 +33,11 @@ const createOrganization = async (root: undefined, args: any): Promise<any> => {
 
     await tsx.commit();
 
-    const operation: IOperation = {
-      status: true,
-      message: 'The organization was created succesfully'
-    };
-
     return {
-      operation,
+      operation: {
+        status: true,
+        message: 'The organization was created succesfully'
+      },
       organization: newOrg,
       errors: null
     };

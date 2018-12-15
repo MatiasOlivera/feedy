@@ -1,22 +1,21 @@
 import objection from 'objection';
 import { knex } from '../../../../services/db.service';
 import { ProductOwner, Organization } from '../../../../models';
-import { IOperation } from 'graphql-schema';
+import { IOrganizationSimplePayload } from 'graphql-schema';
 
 const restoreOrganization = async (
   root: undefined,
-  args: any
-): Promise<any> => {
+  args: { id: string }
+): Promise<IOrganizationSimplePayload> => {
   try {
     const org = await Organization.query().findById(args.id);
 
     if (!org) {
-      const operation: IOperation = {
-        status: false,
-        message: 'The organization does not exists'
-      };
       return {
-        operation,
+        operation: {
+          status: false,
+          message: 'The organization does not exists'
+        },
         organization: null
       };
     }
@@ -38,13 +37,11 @@ const restoreOrganization = async (
 
     const organization = await Organization.query().findById(args.id);
 
-    const operation: IOperation = {
-      status: true,
-      message: 'The organization was restored succesfully'
-    };
-
     return {
-      operation,
+      operation: {
+        status: true,
+        message: 'The organization was restored succesfully'
+      },
       organization
     };
   } catch (err) {

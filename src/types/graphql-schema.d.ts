@@ -29,6 +29,15 @@ export interface IOrganization extends IModel {
   bio: string;
 }
 
+export interface IOrganizationSimplePayload {
+  operation: IOperation;
+  organization: IOrganization;
+}
+
+export interface IOrganizationPayload extends IOrganizationSimplePayload {
+  errors: IValidationErrors;
+}
+
 export interface IProduct extends IModel {
   name: string;
   description: string;
