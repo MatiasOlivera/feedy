@@ -1,17 +1,24 @@
 import { UpdateUserValidator } from '../../../../app/validators';
 import { User } from '../../../../models';
+import { IOperation } from 'graphql-schema';
 
-const updateUser = async (root: any, args: any): Promise<any> => {
+const updateUser = async (root: undefined, args: any): Promise<any> => {
   let user;
   try {
     user = await User.query().findById(args.id);
 
-    if (!user)
+    if (!user) {
+      const operation: IOperation = {
+        status: false,
+        message: 'The user does not exists'
+      };
+
       return {
-        operation: { status: false, message: 'The user does not exists' },
+        operation,
         user: null,
         errors: null
       };
+    }
   } catch (err) {
     throw err;
   }
@@ -21,8 +28,13 @@ const updateUser = async (root: any, args: any): Promise<any> => {
     const validator = new UpdateUserValidator(inputUser);
     await validator.validate();
   } catch (err) {
+    const operation: IOperation = {
+      status: false,
+      message: 'There are validation errors'
+    };
+
     return {
-      operation: { status: false, message: 'There are validation errors' },
+      operation,
       user: null,
       errors: err
     };
@@ -31,8 +43,13 @@ const updateUser = async (root: any, args: any): Promise<any> => {
   try {
     const updatedUser = await user.$query().patchAndFetch(args.user);
 
+    const operation: IOperation = {
+      status: true,
+      message: 'The user was updated succesfully'
+    };
+
     return {
-      operation: { status: true, message: 'The user was updated succesfully' },
+      operation,
       user: updatedUser,
       errors: null
     };

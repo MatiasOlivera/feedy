@@ -1,16 +1,23 @@
 import objection from 'objection';
 import { knex } from '../../../../services/db.service';
 import { ProductOwner, User } from '../../../../models';
+import { IOperation } from 'graphql-schema';
 
-const restoreUser = async (root: any, args: any): Promise<any> => {
+const restoreUser = async (root: undefined, args: any): Promise<any> => {
   try {
     const user = await User.query().findById(args.id);
 
-    if (!user)
+    if (!user) {
+      const operation: IOperation = {
+        status: false,
+        message: 'The user does not exists'
+      };
+
       return {
-        operation: { status: false, message: 'The user does not exists' },
+        operation,
         user: null
       };
+    }
   } catch (err) {
     throw err;
   }
@@ -29,8 +36,13 @@ const restoreUser = async (root: any, args: any): Promise<any> => {
 
     const user = await User.query().findById(args.id);
 
+    const operation: IOperation = {
+      status: true,
+      message: 'The user was restored succesfully'
+    };
+
     return {
-      operation: { status: true, message: 'The user was restored succesfully' },
+      operation,
       user
     };
   } catch (err) {
