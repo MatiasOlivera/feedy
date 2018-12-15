@@ -1,7 +1,11 @@
 import { UpdateCommentValidator } from '../../../../app/validators';
 import { Comment } from '../../../../models';
+import { ICommentPayload } from 'graphql-schema';
 
-const updateComment = async (root: any, args: any): Promise<any> => {
+const updateComment = async (
+  root: undefined,
+  args: any
+): Promise<ICommentPayload> => {
   let comment;
   try {
     comment = await Comment.query().findById(args.id);

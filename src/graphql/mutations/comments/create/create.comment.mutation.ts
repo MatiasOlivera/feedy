@@ -2,8 +2,12 @@ import objection from 'objection';
 import { CreateCommentValidator } from '../../../../app/validators';
 import { knex } from '../../../../services/db.service';
 import { Comment } from '../../../../models';
+import { ICommentPayload } from 'graphql-schema';
 
-const createComment = async (root: any, args: any): Promise<any> => {
+const createComment = async (
+  root: undefined,
+  args: any
+): Promise<ICommentPayload> => {
   const { comment } = args;
 
   try {

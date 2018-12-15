@@ -58,6 +58,15 @@ export interface IComment extends IModel {
   parentId: string;
 }
 
+export interface ICommentSimplePayload {
+  operation: IOperation;
+  comment: IComment;
+}
+
+export interface ICommentPayload extends ICommentSimplePayload {
+  errors: IValidationErrors;
+}
+
 export interface IPagination {
   page: number;
   limit: number;

@@ -1,6 +1,10 @@
 import { Comment } from '../../../../models';
+import { ICommentSimplePayload } from 'graphql-schema';
 
-const deleteComment = async (root: any, args: any): Promise<any> => {
+const deleteComment = async (
+  root: undefined,
+  args: { id: string }
+): Promise<ICommentSimplePayload> => {
   let comment;
 
   try {

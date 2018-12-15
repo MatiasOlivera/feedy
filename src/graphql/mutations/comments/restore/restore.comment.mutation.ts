@@ -1,6 +1,10 @@
 import { Comment } from '../../../../models';
+import { ICommentSimplePayload } from 'graphql-schema';
 
-const restoreComment = async (root: any, args: any): Promise<any> => {
+const restoreComment = async (
+  root: undefined,
+  args: { id: string }
+): Promise<ICommentSimplePayload> => {
   try {
     const comment = await Comment.query().findById(args.id);
 
