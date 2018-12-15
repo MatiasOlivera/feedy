@@ -51,6 +51,13 @@ export interface IIssuePayload extends IIssueSimplePayload {
   errors: IValidationErrors;
 }
 
+export interface IComment extends IModel {
+  body: string;
+  userId: string;
+  issueId: string;
+  parentId: string;
+}
+
 export interface IPagination {
   page: number;
   limit: number;
