@@ -35,6 +35,13 @@ export interface IProductPayload extends IProductSimplePayload {
   errors: IValidationErrors;
 }
 
+export interface IIssue extends IModel {
+  title: string;
+  body: string;
+  userId: string;
+  productId: string;
+}
+
 export interface IPagination {
   page: number;
   limit: number;

@@ -1,18 +1,19 @@
 import { isEmptyReturnNull } from '../_utils';
 import { User, Product, Comment } from '../../../models';
+import { IIssue } from 'graphql-schema';
 
-async function author(parent: any) {
-  return User.query().findById(parent.userId);
+async function author(issue: IIssue) {
+  return User.query().findById(issue.userId);
 }
 
-async function product(parent: any) {
-  return Product.query().findById(parent.productId);
+async function product(issue: IIssue) {
+  return Product.query().findById(issue.productId);
 }
 
-async function comments(parent: any) {
+async function comments(issue: IIssue) {
   const rows = await Comment.query()
     .joinRelation('issue')
-    .where('issue_id', parent.id);
+    .where('issue_id', issue.id);
 
   return isEmptyReturnNull(rows);
 }
