@@ -5,16 +5,14 @@ import {
   QueryContext,
   ColumnNameMappers
 } from 'objection';
-import softDelete from '../services/soft.delete';
+import { SDQueryBuilder } from '../services/soft.delete';
 
-class Model extends softDelete()(ObjectionModel) {
-  protected timestamps: boolean;
+class Model extends ObjectionModel {
   private created_at: Date;
   private updated_at: Date;
 
-  constructor() {
-    super();
-    this.timestamps = true;
+  get timestamps() {
+    return true;
   }
 
   $beforeInsert(): void {
@@ -37,6 +35,24 @@ class Model extends softDelete()(ObjectionModel) {
 
   static get modelPaths(): string[] {
     return [__dirname];
+  }
+
+  static get QueryBuilder() {
+    return SDQueryBuilder;
+  }
+
+  // add a named filter for use in the .eager() function
+  applyFilter(namedFilters: string[]) {
+    // patch the notDeleted filter into the list of namedFilters
+    return {
+      ...namedFilters,
+      notDeleted: (b: any) => {
+        b.whereNotDeleted();
+      },
+      deleted: (b: any) => {
+        b.whereDeleted();
+      }
+    };
   }
 }
 
