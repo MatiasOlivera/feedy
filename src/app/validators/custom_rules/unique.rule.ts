@@ -11,7 +11,7 @@ const callback = async (
   args: string,
   attribute: string,
   passes: Function
-) => {
+): Promise<any> => {
   const hasMultipleArgs = args.includes(',');
   let table: string = null;
   let column: string = null;
