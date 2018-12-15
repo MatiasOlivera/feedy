@@ -8,8 +8,8 @@ import {
 import { SDQueryBuilder } from '../services/soft.delete';
 
 class Model extends ObjectionModel {
-  private created_at: Date;
-  private updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 
   get timestamps() {
     return true;
@@ -18,14 +18,14 @@ class Model extends ObjectionModel {
   $beforeInsert(): void {
     if (this.timestamps) {
       const timestamp = new Date();
-      this.created_at = timestamp;
-      this.updated_at = timestamp;
+      this.createdAt = timestamp;
+      this.updatedAt = timestamp;
     }
   }
 
   $beforeUpdate(opt: ModelOptions, queryContext: QueryContext): void {
     if (!queryContext.restore && this.timestamps) {
-      this.updated_at = new Date();
+      this.updatedAt = new Date();
     }
   }
 
