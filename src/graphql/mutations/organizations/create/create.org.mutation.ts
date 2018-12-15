@@ -1,7 +1,7 @@
 import objection from 'objection';
 import { CreateOrganizationValidator } from '../../../../app/validators';
 import { knex } from '../../../../services/db.service';
-import { ProductOwner } from '../../../../models';
+import { ProductOwner, Organization } from '../../../../models';
 import { IOrganizationPayload } from 'graphql-schema';
 
 const createOrganization = async (
@@ -27,9 +27,9 @@ const createOrganization = async (
   const tsx = await objection.transaction.start(knex);
   try {
     const newProductOwner = await ProductOwner.query(tsx).insert({});
-    const newOrg = await newProductOwner
+    const newOrg = (await newProductOwner
       .$relatedQuery('organization', tsx)
-      .insertAndFetch(org);
+      .insertAndFetch(org)) as Organization;
 
     await tsx.commit();
 

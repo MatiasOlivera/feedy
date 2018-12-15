@@ -1,7 +1,7 @@
 import objection from 'objection';
 import { CreateUserValidator } from '../../../../app/validators';
 import { knex } from '../../../../services/db.service';
-import { ProductOwner } from '../../../../models';
+import { ProductOwner, User } from '../../../../models';
 import { IUserPayload } from 'graphql-schema';
 
 const createUser = async (
@@ -31,9 +31,9 @@ const createUser = async (
     const { passwordConfirmation, ...dbUser } = user;
 
     const newProductOwner = await ProductOwner.query(tsx).insert({});
-    const newUser = await newProductOwner
+    const newUser = (await newProductOwner
       .$relatedQuery('user', tsx)
-      .insertAndFetch(dbUser);
+      .insertAndFetch(dbUser)) as User;
 
     await tsx.commit();
 
