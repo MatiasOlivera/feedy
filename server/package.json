@@ -1,5 +1,6 @@
 {
-  "name": "feedy",
+  "name": "feedy-server",
+  "private": true,
   "version": "0.0.1",
   "description": "Collaborative feedback app",
   "main": "dist/app.js",
