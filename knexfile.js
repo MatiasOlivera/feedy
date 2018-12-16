@@ -6,7 +6,7 @@ const {
   DB_CHARSET,
   DB_USERNAME,
   DB_PASSWORD
-} = require('./src/config');
+} = require('./dist/config');
 
 const configuration = {
   client: DB_CLIENT,
@@ -19,11 +19,11 @@ const configuration = {
     password: DB_PASSWORD
   },
   migrations: {
-    directory: './src/database/migrations',
+    directory: './dist/database/migrations',
     tableName: 'migrations'
   },
   seeds: {
-    directory: './src/database/seeders'
+    directory: './dist/database/seeders'
   }
 };
 
