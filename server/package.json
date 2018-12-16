@@ -5,6 +5,7 @@
   "description": "Collaborative feedback app",
   "main": "dist/app.js",
   "scripts": {
+    "postinstall": "npm run build && npm run copy-schemas",
     "start": "node dist/app.js",
     "dev": "nodemon dist/app.js",
     "build": "tsc",
