@@ -1,4 +1,5 @@
-require('dotenv').load();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const {
   NODE_ENV = 'development',
