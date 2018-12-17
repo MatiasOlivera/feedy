@@ -11,5 +11,6 @@
     "prettier": "^1.15.3",
     "typescript": "^3.2.2",
     "typescript-eslint-parser": "^21.0.2"
-  }
+  },
+  "license": "MIT"
 }
