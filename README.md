@@ -14,7 +14,12 @@ A collaborative feedback platform for share ideas and discuss a product or servi
 [![Dependency Status](https://david-dm.org/MatiasOlivera/feedy/status.svg?path=server)](https://david-dm.org/MatiasOlivera/feedy?path=server)
 [![devDependency Status](https://david-dm.org/MatiasOlivera/feedy/dev-status.svg?path=server)](https://david-dm.org/MatiasOlivera/feedy?path=server&type=dev)
 
-## Getting started
+## Installation
+
+### Requirements
+
+- Node.js >= 8
+- MySQL 5
 
 ```js
 // Install root dependencies
