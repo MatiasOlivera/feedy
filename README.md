@@ -25,26 +25,29 @@ A collaborative feedback platform for share ideas and discuss a product or servi
 
 ## Development
 
-```js
-// Create and configure a .env file (environment variables)
-cp .env.example .env
+Create and configure a .env file (environment variables)
 
-// Install root dependencies
-npm install
+    $ cp .env.example .env
 
-// Install remaining package dependencies and link local packages
-lerna bootstrap --hoist
+Install root dependencies
 
-// Change the current directory to server
-cd server
+    $ npm install
 
-// Run API server in watch mode
-npm run dev
+Install remaining package dependencies and link local packages
 
-// Open a new terminal
-// Run the Typescript compiler in watch mode
-npm run watch
-```
+    $ lerna bootstrap --hoist
+
+Change the current directory to server
+
+    $ cd server
+
+Run API server in watch mode
+
+    $ npm run dev
+
+Open a new terminal and run the Typescript compiler in watch mode
+
+    $ npm run watch
 
 ## License
 
