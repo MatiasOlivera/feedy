@@ -1,55 +1,15 @@
 {
-  "name": "feedy",
-  "version": "0.0.1",
-  "description": "Collaborative feedback app",
-  "main": "dist/app.js",
-  "scripts": {
-    "start": "node dist/app.js",
-    "dev": "nodemon dist/app.js",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist"
-  },
-  "keywords": [
-    "feedback",
-    "opinions"
-  ],
-  "author": "Matías Olivera",
-  "license": "UNLICENSED",
+  "name": "root",
+  "private": true,
   "devDependencies": {
-    "@types/dotenv": "^6.1.0",
-    "@types/express": "^4.16.0",
-    "@types/express-graphql": "^0.6.2",
-    "@types/graphql": "^14.0.3",
-    "@types/knex": "^0.15.1",
-    "@types/lodash": "^4.14.119",
-    "@types/node": "^10.12.12",
-    "@types/validatorjs": "^3.7.1",
-    "copyfiles": "^2.1.0",
-    "eslint": "^5.8.0",
+    "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.1.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "graphql-cli": "^2.17.0",
-    "nodemon": "^1.18.8",
-    "prettier": "1.14.3",
+    "lerna": "^3.6.0",
+    "prettier": "^1.15.3",
     "typescript": "^3.2.2",
     "typescript-eslint-parser": "^21.0.2"
-  },
-  "dependencies": {
-    "dotenv": "^6.1.0",
-    "express": "^4.16.4",
-    "express-graphql": "^0.7.1",
-    "graphql": "^14.0.2",
-    "graphql-errors": "^2.1.0",
-    "graphql-tools": "^4.0.3",
-    "knex": "^0.13.0",
-    "lodash": "^4.17.11",
-    "merge-graphql-schemas": "^1.5.8",
-    "mysql": "^2.16.0",
-    "objection": "^1.4.0",
-    "validatorjs": "^3.15.1",
-    "winston": "^3.1.0"
   }
 }
