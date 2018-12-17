@@ -49,6 +49,12 @@ Open a new terminal and run the Typescript compiler in watch mode
 
     $ npm run watch
 
+## Author
+
+**Feedly** © 2018+, Matías Olivera &nbsp;&middot;&nbsp;
+[GitHub](https://github.com/MatiasOlivera) &nbsp;&middot;&nbsp;
+[Twitter](https://twitter.com/_matiasolivera)
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
