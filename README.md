@@ -16,14 +16,14 @@ A collaborative feedback platform for share ideas and discuss a product or servi
 [![Dependency Status](https://david-dm.org/MatiasOlivera/feedy/status.svg?path=server)](https://david-dm.org/MatiasOlivera/feedy?path=server)
 [![devDependency Status](https://david-dm.org/MatiasOlivera/feedy/dev-status.svg?path=server)](https://david-dm.org/MatiasOlivera/feedy?path=server&type=dev)
 
-## Installation
+## Getting started
 
-### Requirements
+### Prerequisites
 
 - Node.js >= 8
 - MySQL 5
 
-## Development
+### Installation
 
 Create and configure a .env file (environment variables)
 
