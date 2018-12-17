@@ -5,6 +5,8 @@ A collaborative feedback platform for share ideas and discuss a product or servi
 [![Dependency Status](https://david-dm.org/MatiasOlivera/feedy/status.svg)](https://david-dm.org/MatiasOlivera/feedy)
 [![devDependency Status](https://david-dm.org/MatiasOlivera/feedy/dev-status.svg)](https://david-dm.org/MatiasOlivera/feedy#info=devDependencies)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+[![Code style](https://badgen.net/badge/code%20style/airbnb/ff5a5f)](https://github.com/airbnb/javascript)
+[![Code formatter](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Dependency status
