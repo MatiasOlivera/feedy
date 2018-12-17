@@ -16,6 +16,14 @@ A collaborative feedback platform for share ideas and discuss a product or servi
 [![Dependency Status](https://david-dm.org/MatiasOlivera/feedy/status.svg?path=server)](https://david-dm.org/MatiasOlivera/feedy?path=server)
 [![devDependency Status](https://david-dm.org/MatiasOlivera/feedy/dev-status.svg?path=server)](https://david-dm.org/MatiasOlivera/feedy?path=server&type=dev)
 
+## Build with
+
+### Server
+
+- `Node.js` - Runtime environment for Javascript
+- `Express` - Web framework
+- `GraphQL-JS` - GraphQL server
+
 ## Getting started
 
 ### Prerequisites
