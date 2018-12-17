@@ -1,6 +1,6 @@
 # Feedly
 
-A collaborative feedback application.
+A collaborative feedback platform for share ideas and discuss a product or service.
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
