@@ -28,3 +28,6 @@ typings/
 
 # Lerna
 lerna-debug.log
+
+# VS Code
+.vscode/
