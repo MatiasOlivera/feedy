@@ -17,7 +17,6 @@
     "opinions"
   ],
   "author": "Matías Olivera",
-  "license": "UNLICENSED",
   "devDependencies": {
     "@types/dotenv": "^6.1.0",
     "@types/express": "^4.16.0",
