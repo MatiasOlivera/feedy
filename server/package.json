@@ -5,12 +5,13 @@
   "description": "Collaborative feedback app",
   "main": "dist/app.js",
   "scripts": {
-    "postinstall": "npm run build && npm run copy-schemas",
+    "postinstall": "npm run build && npm run schema:merge",
     "start": "node dist/app.js",
     "dev": "nodemon dist/app.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist"
+    "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist",
+    "schema:merge": "node scripts/merge.schema.js"
   },
   "keywords": [
     "feedback",
