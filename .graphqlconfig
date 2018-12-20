@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "Feedly": {
+      "schemaPath": "server/dist/graphql/schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "dev": "http://localhost:4000/graphql"
+        }
+      }
+    }
+  }
+}
