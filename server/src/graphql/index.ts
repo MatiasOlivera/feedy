@@ -22,7 +22,7 @@ function mergeResolverFunctions(path: string) {
 
 async function createSchema(): Promise<GraphQLSchema> {
   try {
-    const schemaFilename = 'schema.gql';
+    const schemaFilename = 'schema.graphql';
     const schemaPath = join(__dirname, schemaFilename);
 
     if (!existsSync(schemaPath)) {

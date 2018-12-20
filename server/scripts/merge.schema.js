@@ -29,4 +29,4 @@ function mergeSchemaAndWriteToFile(typeDefsPath, schemaPath) {
   }
 }
 
-mergeSchemaAndWriteToFile('../src/graphql', '../dist/graphql/schema.gql');
+mergeSchemaAndWriteToFile('../src/graphql', '../dist/graphql/schema.graphql');
