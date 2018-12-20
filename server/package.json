@@ -1,16 +1,16 @@
 {
-  "name": "feedy-server",
+  "name": "@feedy/server",
   "private": true,
   "version": "0.0.1",
   "description": "Collaborative feedback app",
   "main": "dist/app.js",
   "scripts": {
-    "postinstall": "npm run build && npm run copy-schemas",
+    "postinstall": "npm run build && npm run schema:merge",
     "start": "node dist/app.js",
     "dev": "nodemon dist/app.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "copy-schemas": "copyfiles -u 1 src/graphql/**/*.gql dist"
+    "schema:merge": "node scripts/merge.schema.js"
   },
   "keywords": [
     "feedback",
@@ -26,7 +26,6 @@
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.12",
     "@types/validatorjs": "^3.7.1",
-    "copyfiles": "^2.1.0",
     "graphql-cli": "^2.17.0",
     "nodemon": "^1.18.8"
   },

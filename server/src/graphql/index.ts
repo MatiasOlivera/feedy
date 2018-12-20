@@ -1,5 +1,6 @@
-import path from 'path';
-import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
+import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
 import {
   makeExecutableSchema,
   ITypeDefinitions,
@@ -10,17 +11,8 @@ import { maskErrors } from 'graphql-errors';
 import { logger } from '../services/log.service';
 import { GraphQLSchema } from 'graphql';
 
-function mergeTypeDefinitions() {
-  const types = fileLoader(path.join(__dirname, '.'), {
-    extensions: ['.gql'],
-    recursive: true
-  });
-
-  return mergeTypes(types, { all: true });
-}
-
-function mergeResolverFunctions() {
-  const resolvers = fileLoader(path.join(__dirname, '.'), {
+function mergeResolverFunctions(path: string) {
+  const resolvers = fileLoader(join(__dirname, path), {
     extensions: ['.js'],
     recursive: true
   });
@@ -30,9 +22,20 @@ function mergeResolverFunctions() {
 
 async function createSchema(): Promise<GraphQLSchema> {
   try {
-    const typeDefs: ITypeDefinitions = mergeTypeDefinitions();
+    const schemaFilename = 'schema.gql';
+    const schemaPath = join(__dirname, schemaFilename);
 
-    const resolvers: IResolvers = mergeResolverFunctions();
+    if (!existsSync(schemaPath)) {
+      logger.error(
+        `[gql service] The file ${schemaFilename} doesn't exists. You must generate the schema first.`,
+        null,
+        () => process.exit()
+      );
+    }
+
+    const typeDefs: ITypeDefinitions = readFileSync(schemaPath, 'utf8');
+
+    const resolvers: IResolvers = mergeResolverFunctions('.');
 
     const loggerHandler: ILogger = {
       log: (err) =>
