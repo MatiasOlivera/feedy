@@ -1,6 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "description": "Collaborative feedback platform",
+  "author": "Matías Olivera",
+  "keywords": [
+    "feedback",
+    "opinions"
+  ],
   "devDependencies": {
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
