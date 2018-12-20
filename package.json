@@ -7,6 +7,10 @@
     "feedback",
     "opinions"
   ],
+  "scripts": {
+    "gql:ping": "graphql ping -p Feedly --dotenv server/.env",
+    "gql:lint": "graphql lint -p Feedly"
+  },
   "devDependencies": {
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
