@@ -1,8 +1,15 @@
 import gql from 'gql-tag';
-import { request, ResponsePayload } from './request';
+import { request } from './request';
 import { Product } from '../../types/products.types';
 
-export async function getProducts(): Promise<ResponsePayload<Product[]>> {
+interface GetProductsResponse {
+  status: boolean;
+  data: {
+    products: Product[];
+  };
+}
+
+export async function getProducts(): Promise<GetProductsResponse> {
   const query = gql`
     query {
       products {
@@ -14,7 +21,7 @@ export async function getProducts(): Promise<ResponsePayload<Product[]>> {
   `;
 
   try {
-    return await request<Product[]>(query);
+    return await request<{ products: Product[] }>(query);
   } catch (err) {
     throw err;
   }

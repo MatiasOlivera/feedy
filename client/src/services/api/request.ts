@@ -1,11 +1,21 @@
-import { request as GraphQLRequest } from 'graphql-request';
-import { Variables, GraphQLResponse } from 'graphql-request/dist/src/types';
+import { rawRequest } from 'graphql-request';
+import { Variables, GraphQLError } from 'graphql-request/dist/src/types';
 
 const endpoint: string = process.env.VUE_APP_API_ENDPOINT;
 
-export declare interface ResponsePayload<T> {
+interface RawRequestPayload<T> {
+  status: number;
+  data?: T;
+  errors?: GraphQLError[];
+}
+
+interface ResponsePayload<T> {
   status: boolean;
   data: T;
+}
+
+function getStatus(status: number): boolean {
+  return status >= 200 && status <= 208;
 }
 
 /**
@@ -22,29 +32,23 @@ export async function request<T>(
   variables?: Variables,
   url: string = endpoint
 ): Promise<ResponsePayload<T>> {
-  let response: GraphQLResponse;
+  const {
+    data,
+    status: statusCode,
+    errors
+  }: RawRequestPayload<T> = await rawRequest(url, query, variables);
 
-  try {
-    response = await GraphQLRequest(url, query, variables);
-  } catch (err) {
-    throw new Error('Request error');
-  }
-
-  const status: boolean = getStatus(response.status);
+  const status: boolean = getStatus(statusCode);
 
   return new Promise((resolve, reject) => {
-    if (response.data) {
-      resolve({ status, data: response.data });
+    if (data) {
+      resolve({ status, data });
     }
 
-    if (response.errors) {
-      reject({ status, errors: response.errors });
+    if (errors) {
+      reject({ status, errors });
     }
   });
-}
-
-function getStatus(status: number): boolean {
-  return status >= 200 && status <= 208;
 }
 
 export default { request };

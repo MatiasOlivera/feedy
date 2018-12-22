@@ -38,9 +38,11 @@ const module: Module<ProductsState, RootState> = {
       try {
         commit(SET_PRODUCTS_LOADING, true);
 
-        const { data } = await api.getProducts();
+        const {
+          data: { products }
+        } = await api.getProducts();
 
-        commit(SET_PRODUCTS, data);
+        commit(SET_PRODUCTS, products);
         commit(SET_PRODUCTS_ERROR, null);
       } catch (err) {
         commit(SET_PRODUCTS, null);
