@@ -1,3 +1,4 @@
+import './plugins/vue-class-component/register.hooks';
 import Vue from 'vue';
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
