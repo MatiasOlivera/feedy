@@ -14,7 +14,7 @@ import {
 // Api
 import api from '@/services/api/products.api';
 
-interface ProductsState {
+interface ProductsModuleState {
   products: {
     loading: boolean;
     data: Product[] | null;
@@ -22,7 +22,7 @@ interface ProductsState {
   };
 }
 
-const module: Module<ProductsState, RootState> = {
+const ProductsModule: Module<ProductsModuleState, RootState> = {
   namespaced: true,
 
   state: {
@@ -68,4 +68,4 @@ const module: Module<ProductsState, RootState> = {
   }
 };
 
-export default module;
+export default ProductsModule;
