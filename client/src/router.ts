@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // Views
-import ViewHome from './views/ViewHome.vue';
+import HomeView from './views/HomeView.vue';
 
 // Routes
 export const ROUTE_HOME = 'home';
@@ -16,7 +16,7 @@ export default new Router({
     {
       name: ROUTE_HOME,
       path: '/',
-      component: ViewHome
+      component: HomeView
     }
   ]
 });
