@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="has-background-white-bis">
     <the-header />
 
     <div class="section">

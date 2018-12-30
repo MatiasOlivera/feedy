@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "buefy": "^0.7.1",
+    "gql-tag": "^1.0.1",
     "graphql-request": "^1.8.2",
+    "lodash": "^4.17.11",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-class": "^0.3.1"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
@@ -32,7 +35,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
-    "graphql-tag": "^2.10.0",
     "ts-jest": "^23.0.0",
     "typescript": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
