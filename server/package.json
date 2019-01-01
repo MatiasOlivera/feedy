@@ -38,6 +38,7 @@
     "merge-graphql-schemas": "^1.5.8",
     "mysql": "^2.16.0",
     "objection": "^1.4.0",
+    "prisma-client-lib": "^1.23.2",
     "validatorjs": "^3.15.1",
     "winston": "^3.1.0"
   }
