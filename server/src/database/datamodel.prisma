@@ -1,0 +1,17 @@
+"""
+An user
+"""
+type User {
+  """
+  The identifier
+  """
+  id: ID! @unique
+  """
+  The first name. Eg. John
+  """
+  firstName: String!
+  """
+  The last name. Eg. Doe
+  """
+  lastName: String!
+}
