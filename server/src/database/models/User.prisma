@@ -1,0 +1,21 @@
+type User {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  gender: String!
+  username: String! @unique
+  password: String!
+  email: String! @unique
+  bio: String
+
+  # Timestamps
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+
+  # Relations
+  products: [Product!]!
+  organizations: [Organization!]!
+  issues: [Issue!]!
+  comments: [Comment!]!
+}

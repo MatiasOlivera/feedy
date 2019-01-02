@@ -2,7 +2,12 @@
 endpoint: http://localhost:4466
 
 # Defines your models, each model is mapped to the database as a table.
-datamodel: datamodel.prisma
+datamodel:
+  - models/User.prisma
+  - models/Organization.prisma
+  - models/Product.prisma
+  - models/Issue.prisma
+  - models/Comment.prisma
 
 # Specifies the language and directory for the generated Prisma client.
 generate:
