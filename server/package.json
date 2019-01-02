@@ -10,7 +10,7 @@
     "ts:build": "tsc",
     "ts:watch": "tsc -w",
     "schema:merge": "node scripts/merge.schema.js",
-    "prisma:deploy": "cd src/database && prisma deploy"
+    "prisma:deploy": "prisma deploy"
   },
   "devDependencies": {
     "@types/cors": "^2.8.4",

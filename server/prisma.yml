@@ -3,16 +3,16 @@ endpoint: http://localhost:4466
 
 # Defines your models, each model is mapped to the database as a table.
 datamodel:
-  - models/User.prisma
-  - models/Organization.prisma
-  - models/Product.prisma
-  - models/Issue.prisma
-  - models/Comment.prisma
+  - src/models/User.prisma
+  - src/models/Organization.prisma
+  - src/models/Product.prisma
+  - src/models/Issue.prisma
+  - src/models/Comment.prisma
 
 # Specifies the language and directory for the generated Prisma client.
 generate:
   - generator: typescript-client
-    output: ./prisma-client/
+    output: src/database/prisma-client/
 
 # Ensures Prisma client is re-generated after a datamodel change.
 hooks:
