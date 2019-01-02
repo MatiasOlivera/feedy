@@ -1,15 +1,16 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
+
 import { isDevelopment, SERVER_PORT } from './config';
-import { corsMiddleware } from './middlewares';
-import { testDBService } from './services/db.service';
-import { logger } from './services/log.service';
+import { prisma as db } from './database/prisma-client';
 import createSchema from './graphql';
+import { corsMiddleware } from './middlewares';
+import { logger } from './services/log.service';
 
 async function initServer() {
   let schema;
   try {
-    [schema] = await Promise.all([createSchema(), testDBService()]);
+    schema = await createSchema();
   } catch (err) {
     process.exit(1);
   }
@@ -19,7 +20,8 @@ async function initServer() {
 
     const graphqlServer = graphqlHTTP({
       schema,
-      graphiql: isDevelopment
+      graphiql: isDevelopment,
+      context: { db }
     });
 
     app.use('/graphql', corsMiddleware, graphqlServer);
