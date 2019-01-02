@@ -104,18 +104,3 @@ declare module 'graphql-schema' {
     [attribute: string]: string;
   }
 }
-
-// Type definitions for graphql-errors
-declare module 'graphql-errors' {
-  import { GraphQLSchema } from 'graphql';
-
-  type handlerFunction = (err: Error) => Error;
-
-  export function setDefaultHandler(fn: handlerFunction): void;
-
-  export function maskErrors(schema: GraphQLSchema, fn?: handlerFunction): void;
-
-  export class UserError extends Error {
-    constructor(message: string);
-  }
-}
