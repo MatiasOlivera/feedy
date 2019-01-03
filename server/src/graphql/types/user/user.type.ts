@@ -1,35 +1,27 @@
-import { isEmptyReturnNull } from '../_utils';
-import { Product, Organization, Issue, Comment } from '../../../models';
-import { IUser } from 'graphql-schema';
+import { UserResolvers } from '../../resolvers.types';
 
-async function products(user: IUser) {
-  const rows = await Product.query().where('owner_id', user.id);
-  return isEmptyReturnNull(rows);
-}
+const User: UserResolvers.Type = {
+  ...UserResolvers.defaultResolvers,
 
-async function organizations(user: IUser) {
-  const rows = await Organization.query()
-    .joinRelation('members')
-    .where('user_id', user.id);
+  fullName: (parent, args, ctx) => {
+    return `${parent.firstName} ${parent.lastName}`;
+  },
 
-  return isEmptyReturnNull(rows);
-}
+  products: (parent, args, ctx) => {
+    return ctx.db.user({ id: parent.id }).products();
+  },
 
-async function issues(user: IUser) {
-  const rows = await Issue.query().where('user_id', user.id);
-  return isEmptyReturnNull(rows);
-}
+  organizations: (parent, args, ctx) => {
+    return ctx.db.user({ id: parent.id }).organizations();
+  },
 
-async function comments(user: IUser) {
-  const rows = await Comment.query().where('user_id', user.id);
-  return isEmptyReturnNull(rows);
-}
+  issues: (parent, args, ctx) => {
+    return ctx.db.user({ id: parent.id }).issues();
+  },
 
-export default {
-  User: {
-    products,
-    organizations,
-    issues,
-    comments
+  comments: (parent, args, ctx) => {
+    return ctx.db.user({ id: parent.id }).comments();
   }
 };
+
+export default { User };

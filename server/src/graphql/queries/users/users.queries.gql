@@ -1,5 +1,10 @@
 type Query {
   """
+  Fetch a user by his id
+  """
+  user(id: ID!): User
+
+  """
   Fetch a list of users
   """
   users(
