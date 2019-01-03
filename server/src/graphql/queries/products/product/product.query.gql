@@ -1,6 +1,0 @@
-type Query {
-  """
-  Fetch a product by its id
-  """
-  product(id: ID!): Product
-}

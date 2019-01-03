@@ -1,5 +1,10 @@
 type Query {
   """
+  Fetch a product by its id
+  """
+  product(id: ID!): Product
+
+  """
   Fetch a list of products
   """
   products(

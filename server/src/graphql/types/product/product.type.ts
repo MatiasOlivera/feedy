@@ -1,22 +1,18 @@
-import { isEmptyReturnNull } from '../_utils';
-import { User, Organization, Issue } from '../../../models';
-import { IProduct } from 'graphql-schema';
+import { ProductResolvers } from '../../resolvers.types';
 
-async function owner(product: IProduct) {
-  return (
-    User.query().findById(product.ownerId) ||
-    Organization.query().findById(product.ownerId)
-  );
-}
+export const Product: ProductResolvers.Type = {
+  ...ProductResolvers.defaultResolvers,
 
-async function issues(product: IProduct) {
-  const rows = await Issue.query().where('product_id', product.id);
-  return isEmptyReturnNull(rows);
-}
+  owner: async (parent, args, ctx) => {
+    return (
+      (await ctx.db.product({ id: parent.id }).organization()) ||
+      (await ctx.db.product({ id: parent.id }).user())
+    );
+  },
 
-export default {
-  Product: {
-    owner,
-    issues
+  issues: (parent, args, ctx) => {
+    return ctx.db.product({ id: parent.id }).issues();
   }
 };
+
+export default { Product };
