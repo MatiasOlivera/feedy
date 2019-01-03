@@ -1,13 +1,11 @@
 import { QueryResolvers } from '../../resolvers.types';
 
-const Query: QueryResolvers.Type = {
-  comment: (parent, args, ctx) => {
-    return ctx.db.comment({ id: args.id });
-  },
-
-  comments: (parent, args, ctx) => {
-    return ctx.db.comments();
-  }
+const comment: QueryResolvers.CommentResolver = (parent, args, ctx) => {
+  return ctx.db.comment({ id: args.id });
 };
 
-export default { Query };
+const comments: QueryResolvers.CommentsResolver = (parent, args, ctx) => {
+  return ctx.db.comments();
+};
+
+export default { Query: { comment, comments } };
