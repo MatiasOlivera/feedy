@@ -1,5 +1,10 @@
 type Query {
   """
+  Fetch an organization by its id
+  """
+  organization(id: ID!): Organization
+
+  """
   Fetch a list of organizations
   """
   organizations(
