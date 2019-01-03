@@ -1,5 +1,10 @@
 type Query {
   """
+  Fetch a comment by its id
+  """
+  comment(id: ID!): Comment
+
+  """
   Fetch a list of comments
   """
   comments(

@@ -1,35 +1,23 @@
-import { isEmptyReturnNull } from '../_utils';
-import { User, Issue, Comment } from '../../../models';
-import { IComment } from 'graphql-schema';
+import { CommentResolvers } from '../../resolvers.types';
 
-async function author(comment: IComment) {
-  return User.query().findById(comment.userId);
-}
+const Comment: CommentResolvers.Type = {
+  ...CommentResolvers.defaultResolvers,
 
-async function issue(comment: IComment) {
-  return Issue.query()
-    .joinRelation('comments')
-    .where('comment_id', comment.id)
-    .first();
-}
+  author: (parent, args, ctx) => {
+    return ctx.db.comment({ id: parent.id }).author();
+  },
 
-async function parent(comment: IComment) {
-  return comment.parentId ? Comment.query().findById(comment.parentId) : null;
-}
+  issue: (parent, args, ctx) => {
+    return ctx.db.comment({ id: parent.id }).issue();
+  },
 
-async function children(comment: IComment) {
-  const rows = Comment.query()
-    .joinRelation('children')
-    .where('children.parent_id', comment.id);
+  parent: (parent, args, ctx) => {
+    return ctx.db.comment({ id: parent.id }).parent();
+  },
 
-  return isEmptyReturnNull(rows);
-}
-
-export default {
-  Comment: {
-    author,
-    issue,
-    parent,
-    children
+  children: (parent, args, ctx) => {
+    return ctx.db.comment({ id: parent.id }).children();
   }
 };
+
+export default { Comment };
