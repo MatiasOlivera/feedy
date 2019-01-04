@@ -47,7 +47,7 @@ const callback = async (
     const data = await prisma.$graphql(query);
 
     if (data && data[model] && !isEmpty(data[model])) {
-      return passes(false, message);
+      return passes(false, `The ${field} has already been taken.`);
     }
 
     return passes();
