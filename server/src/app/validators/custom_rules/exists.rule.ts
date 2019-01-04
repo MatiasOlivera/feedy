@@ -1,4 +1,4 @@
-import { knex } from '../../../services/db.service';
+import { prisma } from '../../../database/prisma-client';
 import { logger } from '../../../services/log.service';
 
 const name: string = 'exists';
@@ -11,31 +11,35 @@ const callback = async (
   args: string,
   attribute: string,
   passes: Function
-): Promise<any> => {
+): Promise<Function> => {
   const hasMultipleArgs = args.includes(',');
-  let table: string = null;
-  let column: string = null;
+  let model: string = null;
+  let field: string = null;
 
   if (hasMultipleArgs) {
-    [table, column] = args.split(',');
+    [model, field] = args.split(',');
   } else {
-    table = args;
+    model = args;
   }
 
-  if (!table) throw new Error('The table name must be specified.');
-  if (!column) throw new Error('The column name must be specified.');
+  if (!model) throw new Error('The model name must be specified.');
+  if (!field) throw new Error('The field name must be specified.');
 
   try {
-    const row = await knex
-      .select(column)
-      .from(table)
-      .where(column, value);
+    const query = `
+      query {
+        ${model}( where: { ${field}: "${value}" }) {
+          id
+        }
+      }
+    `;
+    const data = await prisma.$graphql(query);
 
-    if (row.length === 0) {
-      return passes(false, message);
+    if (data && data[model]) {
+      return passes();
     }
 
-    return passes();
+    return passes(false, message);
   } catch (error) {
     logger.error('[exists rule] An error ocurred.', { error });
   }
