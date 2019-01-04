@@ -122,9 +122,6 @@ export interface ProductValidation {
 
 /**
  * Issue
- *
- * @export
- * @interface Issue
  */
 
 export interface SimpleIssuePayload {
@@ -145,9 +142,6 @@ export interface IssueValidation {
 
 /**
  * Comment
- *
- * @export
- * @interface Comment
  */
 
 export interface SimpleCommentPayload {
