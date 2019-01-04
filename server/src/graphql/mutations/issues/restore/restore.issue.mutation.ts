@@ -1,19 +1,16 @@
-import { Issue } from '../../../../models';
-import { IIssueSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const restoreIssue = async (
-  root: undefined,
-  args: { id: string }
-): Promise<IIssueSimplePayload> => {
+const restoreIssue: MutationResolvers.RestoreIssueResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    const issue = await Issue.query().findById(args.id);
+    const issueExists = await ctx.db.$exists.issue({ id: args.id });
 
-    if (!issue)
+    if (!issueExists)
       return {
-        operation: {
-          status: false,
-          message: 'The issue does not exists'
-        },
+        operation: { status: false, message: 'The issue does not exists' },
         issue: null
       };
   } catch (err) {
@@ -21,11 +18,10 @@ const restoreIssue = async (
   }
 
   try {
-    await Issue.query()
-      .where('id', args.id)
-      .restore();
-
-    const issue = await Issue.query().findById(args.id);
+    const issue = await ctx.db.updateIssue({
+      data: { deletedAt: null },
+      where: { id: args.id }
+    });
 
     return {
       operation: {

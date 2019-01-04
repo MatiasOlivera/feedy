@@ -1,21 +1,17 @@
 import { UpdateIssueValidator } from '../../../../app/validators';
-import { Issue } from '../../../../models';
-import { IIssuePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const updateIssue = async (
-  root: undefined,
-  args: any
-): Promise<IIssuePayload> => {
-  let issue;
+const updateIssue: MutationResolvers.UpdateIssueResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    issue = await Issue.query().findById(args.id);
+    const issueExists = await ctx.db.$exists.issue({ id: args.id });
 
-    if (!issue)
+    if (!issueExists)
       return {
-        operation: {
-          status: false,
-          message: 'The issue does not exists'
-        },
+        operation: { status: false, message: 'The issue does not exists' },
         issue: null,
         errors: null
       };
@@ -36,7 +32,10 @@ const updateIssue = async (
   }
 
   try {
-    const updatedIssue = await issue.$query().patchAndFetch(args.issue);
+    const updatedIssue = await ctx.db.updateIssue({
+      data: { title: args.issue.title, body: args.issue.body },
+      where: { id: args.id }
+    });
 
     return {
       operation: {
