@@ -1,9 +1,6 @@
 import Validator from 'validatorjs';
-import customRules from './custom_rules';
 
-interface RequestBody {
-  [field: string]: string | number | boolean;
-}
+import customRules from './custom_rules';
 
 interface ValidationRule {
   [field: string]: string | string[] | ValidationRule;
@@ -17,10 +14,10 @@ interface FlatValidationErrors {
   [field: string]: string;
 }
 
-class BaseValidator {
+class BaseValidator<T> {
   private errors: ValidationErrors;
 
-  constructor(protected data: RequestBody) {
+  constructor(protected data: T) {
     this.data = data;
     this.errors = null;
     this.registerCustomRules();
