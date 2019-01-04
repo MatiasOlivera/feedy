@@ -1,4 +1,4 @@
-import { Comment } from '../database/prisma-client';
+import { Comment, Issue } from '../database/prisma-client';
 
 export interface Model {
   id: string;
@@ -133,14 +133,7 @@ export interface ProductValidation {
  *
  * @export
  * @interface Issue
- * @extends {Model}
  */
-export interface Issue extends Model {
-  title: string;
-  body: string;
-  userId: string;
-  productId: string;
-}
 
 export interface SimpleIssuePayload {
   operation: Operation;
