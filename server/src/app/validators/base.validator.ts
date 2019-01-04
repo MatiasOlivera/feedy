@@ -1,3 +1,4 @@
+import { Dictionary } from 'lodash';
 import Validator from 'validatorjs';
 
 import customRules from './custom_rules';
@@ -8,10 +9,6 @@ interface ValidationRule {
 
 interface ValidationErrors {
   [field: string]: [string];
-}
-
-interface FlatValidationErrors {
-  [field: string]: string;
 }
 
 class BaseValidator<T> {
@@ -68,16 +65,15 @@ class BaseValidator<T> {
     });
   }
 
-  get formattedErrors(): FlatValidationErrors {
+  get formattedErrors(): Dictionary<string> {
     if (!this.errors) return null;
 
-    const [flatErrors] = Object.entries(this.errors).map(
-      ([attribute, messages]) => ({
-        [attribute]: messages[0]
-      })
-    );
+    let errorsDict: Dictionary<string> = {};
 
-    return flatErrors;
+    const errors = Object.entries(this.errors);
+    errors.forEach(([attr, msg]) => (errorsDict[attr] = msg[0]));
+
+    return errorsDict;
   }
 }
 
