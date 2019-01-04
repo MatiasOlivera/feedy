@@ -1,16 +1,15 @@
 import { UpdateOrganizationValidator } from '../../../../app/validators';
-import { Organization } from '../../../../models';
-import { IOrganizationPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const updateOrganization = async (
-  root: undefined,
-  args: any
-): Promise<IOrganizationPayload> => {
-  let org;
+const updateOrganization: MutationResolvers.UpdateOrganizationResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    org = await Organization.query().findById(args.id);
+    const orgExists = await ctx.db.$exists.organization({ id: args.id });
 
-    if (!org) {
+    if (!orgExists) {
       return {
         operation: {
           status: false,
@@ -40,7 +39,10 @@ const updateOrganization = async (
   }
 
   try {
-    const updatedOrg = await org.$query().patchAndFetch(args.org);
+    const updatedOrg = await ctx.db.updateOrganization({
+      data: { name: args.org.name, bio: args.org.bio },
+      where: { id: args.id }
+    });
 
     return {
       operation: {
