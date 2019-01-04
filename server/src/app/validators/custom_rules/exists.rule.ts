@@ -1,3 +1,5 @@
+import { startCase } from 'lodash';
+
 import { prisma } from '../../../database/prisma-client';
 import { logger } from '../../../services/log.service';
 
@@ -39,7 +41,7 @@ const callback = async (
       return passes();
     }
 
-    return passes(false, message);
+    return passes(false, `${startCase(model)} does not exists.`);
   } catch (error) {
     logger.error('[exists rule] An error ocurred.', { error });
   }
