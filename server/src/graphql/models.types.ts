@@ -1,3 +1,5 @@
+import { Comment } from '../database/prisma-client';
+
 export interface Model {
   id: string;
   createdAt: Date;
@@ -161,14 +163,7 @@ export interface IssueValidation {
  *
  * @export
  * @interface Comment
- * @extends {Model}
  */
-export interface Comment extends Model {
-  body: string;
-  userId: string;
-  issueId: string;
-  parentId: string;
-}
 
 export interface SimpleCommentPayload {
   operation: Operation;
