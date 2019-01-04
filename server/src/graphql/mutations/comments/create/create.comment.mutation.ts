@@ -1,13 +1,11 @@
-import objection from 'objection';
 import { CreateCommentValidator } from '../../../../app/validators';
-import { knex } from '../../../../services/db.service';
-import { Comment } from '../../../../models';
-import { ICommentPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const createComment = async (
-  root: undefined,
-  args: any
-): Promise<ICommentPayload> => {
+const createComment: MutationResolvers.CreateCommentResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   const { comment } = args;
 
   try {
@@ -21,14 +19,13 @@ const createComment = async (
     };
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    const { issueId, ...inputComment } = comment;
-
-    const newComment = await Comment.query().insertAndFetch(inputComment);
-    await newComment.$relatedQuery('issue', tsx).relate(issueId);
-
-    await tsx.commit();
+    const newComment = await ctx.db.createComment({
+      body: comment.body,
+      author: { connect: { id: comment.userId } },
+      parent: { connect: { id: comment.parentId } },
+      issue: { connect: { id: comment.issueId } }
+    });
 
     return {
       operation: {
@@ -39,7 +36,6 @@ const createComment = async (
       errors: null
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };
