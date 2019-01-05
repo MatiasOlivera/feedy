@@ -1,11 +1,11 @@
 import { CreateProductValidator } from '../../../../app/validators';
-import { Product } from '../../../../models';
-import { IProductPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const createProduct = async (
-  root: undefined,
-  args: any
-): Promise<IProductPayload> => {
+const createProduct: MutationResolvers.CreateProductResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   const { product } = args;
 
   try {
@@ -20,7 +20,7 @@ const createProduct = async (
   }
 
   try {
-    const newProduct = await Product.query().insertAndFetch(product);
+    const newProduct = await ctx.db.createProduct(product);
 
     return {
       operation: {

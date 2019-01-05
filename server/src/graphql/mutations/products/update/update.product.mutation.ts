@@ -1,16 +1,15 @@
 import { UpdateProductValidator } from '../../../../app/validators';
-import { Product } from '../../../../models';
-import { IProductPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const updateProduct = async (
-  root: undefined,
-  args: any
-): Promise<IProductPayload> => {
-  let product;
+const updateProduct: MutationResolvers.UpdateProductResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    product = await Product.query().findById(args.id);
+    const productExists = await ctx.db.$exists.product({ id: args.id });
 
-    if (!product)
+    if (!productExists)
       return {
         operation: {
           status: false,
@@ -36,7 +35,10 @@ const updateProduct = async (
   }
 
   try {
-    const updatedProduct = await product.$query().patchAndFetch(args.product);
+    const updatedProduct = await ctx.db.updateProduct({
+      data: args.product,
+      where: { id: args.id }
+    });
 
     return {
       operation: {

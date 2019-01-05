@@ -1,14 +1,14 @@
-import { Product } from '../../../../models';
-import { IProductSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const restoreProduct = async (
-  root: undefined,
-  args: { id: string }
-): Promise<IProductSimplePayload> => {
+const restoreProduct: MutationResolvers.RestoreProductResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    const product = await Product.query().findById(args.id);
+    const productExists = await ctx.db.$exists.product({ id: args.id });
 
-    if (!product)
+    if (!productExists)
       return {
         operation: {
           status: false,
@@ -21,11 +21,10 @@ const restoreProduct = async (
   }
 
   try {
-    await Product.query()
-      .where('id', args.id)
-      .restore();
-
-    const product = await Product.query().findById(args.id);
+    const product = await ctx.db.updateProduct({
+      data: { deletedAt: null },
+      where: { id: args.id }
+    });
 
     return {
       operation: {
