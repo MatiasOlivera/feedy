@@ -1,4 +1,4 @@
-import { Comment, Issue, Organization } from '../database/prisma-client';
+import { Comment, Issue, Organization, Product } from '../database/prisma-client';
 
 export interface Model {
   id: string;
@@ -94,16 +94,7 @@ export interface OrganizationValidation {
 
 /**
  * Product
- *
- * @export
- * @interface Product
- * @extends {Model}
  */
-export interface Product extends Model {
-  name: string;
-  description: string;
-  ownerId: string;
-}
 
 export interface SimpleProductPayload {
   operation: Operation;
