@@ -1,16 +1,15 @@
 import { UpdateUserValidator } from '../../../../app/validators';
-import { User } from '../../../../models';
-import { IUserPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const updateUser = async (
-  root: undefined,
-  args: any
-): Promise<IUserPayload> => {
-  let user;
+const updateUser: MutationResolvers.UpdateUserResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    user = await User.query().findById(args.id);
+    const userExists = await ctx.db.$exists.user({ id: args.id });
 
-    if (!user) {
+    if (!userExists) {
       return {
         operation: {
           status: false,
@@ -40,7 +39,10 @@ const updateUser = async (
   }
 
   try {
-    const updatedUser = await user.$query().patchAndFetch(args.user);
+    const updatedUser = await ctx.db.updateUser({
+      data: args.user,
+      where: { id: args.id }
+    });
 
     return {
       operation: {
