@@ -1,12 +1,5 @@
 import { Comment, Issue, Organization, Product, User } from '../database/prisma-client';
 
-export interface Model {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date;
-}
-
 export interface Operation {
   status: boolean;
   message: string;
