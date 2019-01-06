@@ -1,6 +1,6 @@
 import BaseValidator from '../base.validator';
 
-class UserValidator extends BaseValidator {
+class UserValidator<T> extends BaseValidator<T> {
   // eslint-disable-next-line class-methods-use-this
   rules() {
     return {
