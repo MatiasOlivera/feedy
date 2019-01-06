@@ -1,4 +1,4 @@
-import { Comment, Issue, Organization, Product } from '../database/prisma-client';
+import { Comment, Issue, Organization, Product, User } from '../database/prisma-client';
 
 export interface Model {
   id: string;
@@ -26,20 +26,7 @@ export interface ValidationErrors {
 
 /**
  * User
- *
- * @export
- * @interface User
- * @extends {Model}
  */
-export interface User extends Model {
-  firstName: string;
-  lastName: string;
-  fullName: string;
-  gender: string;
-  username: string;
-  email: string;
-  bio: string;
-}
 
 export interface SimpleUserPayload {
   operation: Operation;
