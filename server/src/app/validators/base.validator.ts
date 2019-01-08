@@ -44,7 +44,7 @@ class BaseValidator<T, U = any> {
     return new Promise((resolve, reject) => {
       const validator = new Validator(this.data, this.rules());
       const handleFails = () => {
-        this.errors = validator.errors.all();
+        this.errors = validator.errors.all() as any;
         reject(this.formattedErrors);
       };
 
