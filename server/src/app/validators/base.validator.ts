@@ -11,11 +11,10 @@ interface ValidationErrors {
   [field: string]: [string];
 }
 
-class BaseValidator<T> {
+class BaseValidator<T, U = any> {
   private errors: ValidationErrors;
 
-  constructor(protected data: T) {
-    this.data = data;
+  constructor(protected data: T, protected args?: U) {
     this.errors = null;
     this.registerCustomRules();
   }

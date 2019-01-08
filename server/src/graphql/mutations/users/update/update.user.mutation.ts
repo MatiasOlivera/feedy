@@ -24,8 +24,7 @@ const updateUser: MutationResolvers.UpdateUserResolver = async (
   }
 
   try {
-    const inputUser = { id: args.id, ...args.user };
-    const validator = new UpdateUserValidator(inputUser);
+    const validator = new UpdateUserValidator(args.user, { id: args.id });
     await validator.validate();
   } catch (err) {
     return {

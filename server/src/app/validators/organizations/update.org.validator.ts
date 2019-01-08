@@ -1,12 +1,17 @@
 import { MutationResolvers } from '../../../graphql/resolvers.types';
 import OrganizationValidator from './org.validator';
 
+interface UpdateOrganizationArgs {
+  id: string;
+}
+
 class UpdateOrganizationValidator extends OrganizationValidator<
-  MutationResolvers.UpdateOrganizationInput
+  MutationResolvers.UpdateOrganizationInput,
+  UpdateOrganizationArgs
 > {
   rules() {
     const rules = super.rules();
-    const { id } = this.data;
+    const { id } = this.args;
 
     return {
       ...rules,
