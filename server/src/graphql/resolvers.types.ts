@@ -54,6 +54,7 @@ export namespace QueryResolvers {
   }
 
   export interface ArgsIssues {
+    search: string | null;
     page: number | null;
     limit: number | null;
     orderBy: string | null;

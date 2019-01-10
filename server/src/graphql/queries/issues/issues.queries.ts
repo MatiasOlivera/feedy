@@ -1,3 +1,4 @@
+import { IssueWhereInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
 
 const issue: QueryResolvers.IssueResolver = (parent, args, ctx) => {
@@ -5,7 +6,15 @@ const issue: QueryResolvers.IssueResolver = (parent, args, ctx) => {
 };
 
 const issues: QueryResolvers.IssuesResolver = (parent, args, ctx) => {
-  return ctx.db.issues();
+  const { search } = args;
+
+  const where: IssueWhereInput = search
+    ? { OR: [{ title_contains: search }, { body_contains: search }] }
+    : {};
+
+  return ctx.db.issues({
+    where
+  });
 };
 
 export default { Query: { issue, issues } };
