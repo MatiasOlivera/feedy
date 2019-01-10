@@ -1,3 +1,4 @@
+import { OrganizationWhereInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
 
 const organization: QueryResolvers.OrganizationResolver = (
@@ -13,7 +14,11 @@ const organizations: QueryResolvers.OrganizationsResolver = (
   args,
   ctx
 ) => {
-  return ctx.db.organizations();
+  const { search } = args;
+
+  const where: OrganizationWhereInput = search ? { name_contains: search } : {};
+
+  return ctx.db.organizations({ where });
 };
 
 export default { Query: { organization, organizations } };

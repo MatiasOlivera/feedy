@@ -67,6 +67,7 @@ export namespace QueryResolvers {
   }
 
   export interface ArgsOrganizations {
+    search: string | null;
     page: number | null;
     limit: number | null;
     orderBy: string | null;

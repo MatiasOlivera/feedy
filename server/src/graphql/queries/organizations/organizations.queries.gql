@@ -8,6 +8,7 @@ type Query {
   Fetch a list of organizations
   """
   organizations(
+    search: String
     page: Int = 1
     limit: Int = 10
     orderBy: String = "id"
