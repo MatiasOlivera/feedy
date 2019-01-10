@@ -93,6 +93,7 @@ export namespace QueryResolvers {
   }
 
   export interface ArgsUsers {
+    search: string | null;
     page: number | null;
     limit: number | null;
     orderBy: string | null;
