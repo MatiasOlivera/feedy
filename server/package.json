@@ -10,6 +10,7 @@
     "ts:build": "tsc",
     "ts:watch": "tsc -w",
     "schema:merge": "node scripts/merge.schema.js",
+    "schema:generate": "npm run schema:merge && graphqlgen",
     "prisma:deploy": "prisma deploy",
     "prisma:generate": "prisma generate"
   },
