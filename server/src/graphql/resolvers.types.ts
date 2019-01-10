@@ -80,6 +80,7 @@ export namespace QueryResolvers {
   }
 
   export interface ArgsProducts {
+    search: string | null;
     page: number | null;
     limit: number | null;
     orderBy: string | null;
