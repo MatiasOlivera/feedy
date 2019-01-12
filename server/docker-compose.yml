@@ -7,6 +7,7 @@ services:
       - '4466:4466'
     environment:
       PRISMA_CONFIG: |
+        managementApiSecret: ${DB_SECRET}
         port: 4466
         databases:
           default:
@@ -16,6 +17,8 @@ services:
             user: root
             password: root
             migrations: true
+    env_file:
+      - .env
   mysql:
     image: mysql:5.7
     restart: always
