@@ -32,3 +32,12 @@ export {
   DB_ENDPOINT,
   DB_SECRET
 };
+
+export default {
+  NODE_ENV,
+  isProduction,
+  isDevelopment,
+  SERVER_PORT,
+  DB_ENDPOINT,
+  DB_SECRET
+};

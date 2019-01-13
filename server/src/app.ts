@@ -1,7 +1,7 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 
-import { isDevelopment, SERVER_PORT } from './config';
+import env from './config';
 import { prisma as db } from './database/prisma-client';
 import createSchema from './graphql';
 import { corsMiddleware } from './middlewares';
@@ -20,16 +20,16 @@ async function initServer() {
 
     const graphqlServer = graphqlHTTP({
       schema,
-      graphiql: isDevelopment,
+      graphiql: env.isDevelopment,
       context: { db }
     });
 
     app.use('/graphql', corsMiddleware, graphqlServer);
 
-    app.listen(SERVER_PORT);
+    app.listen(env.SERVER_PORT);
 
     logger.info(
-      `[App] Server running on http://localhost:${SERVER_PORT}/graphql 🔥`
+      `[App] Server running on http://localhost:${env.SERVER_PORT}/graphql 🔥`
     );
   } catch (err) {
     throw err;
