@@ -1,6 +1,12 @@
 import dotenv from 'dotenv';
 
-dotenv.config({ path: './server/.env' });
+try {
+  dotenv.config({ path: '.env' });
+} catch (err) {
+  if (err === 'ENOENT') {
+    throw new Error('You must need to create the .env file');
+  }
+}
 
 const {
   NODE_ENV = 'development',
