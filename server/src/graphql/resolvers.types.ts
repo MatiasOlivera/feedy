@@ -6,7 +6,10 @@ import {
   User,
   Product,
   Organization,
-  Issue
+  Issue,
+  CommentConnection,
+  PageInfo,
+  CommentEdge
 } from '../database/prisma-client/index';
 import {
   CreateCommentPayload,
@@ -42,8 +45,10 @@ export namespace QueryResolvers {
   }
 
   export interface ArgsComments {
-    page: number | null;
-    limit: number | null;
+    first: number | null;
+    after: string | null;
+    last: number | null;
+    before: string | null;
     orderBy: string | null;
     direction: ORDER | null;
     deleted: boolean | null;
@@ -113,7 +118,7 @@ export namespace QueryResolvers {
     args: ArgsComments,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Comment[] | Promise<Comment[]>;
+  ) => CommentConnection | null | Promise<CommentConnection | null>;
 
   export type IssueResolver = (
     parent: undefined,
@@ -184,7 +189,7 @@ export namespace QueryResolvers {
       args: ArgsComments,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Comment[] | Promise<Comment[]>;
+    ) => CommentConnection | null | Promise<CommentConnection | null>;
 
     issue: (
       parent: undefined,
@@ -1002,6 +1007,163 @@ export namespace IssueResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => Comment[] | Promise<Comment[]>;
+  }
+}
+
+export namespace CommentConnectionResolvers {
+  export const defaultResolvers = {
+    pageInfo: (parent: CommentConnection) => parent.pageInfo,
+    edges: (parent: CommentConnection) => parent.edges
+  };
+
+  export type PageInfoResolver = (
+    parent: CommentConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => PageInfo | Promise<PageInfo>;
+
+  export type EdgesResolver = (
+    parent: CommentConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => CommentEdge[] | Promise<CommentEdge[]>;
+
+  export type TotalResolver = (
+    parent: CommentConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export interface Type {
+    pageInfo: (
+      parent: CommentConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => PageInfo | Promise<PageInfo>;
+
+    edges: (
+      parent: CommentConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => CommentEdge[] | Promise<CommentEdge[]>;
+
+    total: (
+      parent: CommentConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+  }
+}
+
+export namespace PageInfoResolvers {
+  export const defaultResolvers = {
+    hasNextPage: (parent: PageInfo) => parent.hasNextPage,
+    hasPreviousPage: (parent: PageInfo) => parent.hasPreviousPage,
+    startCursor: (parent: PageInfo) =>
+      parent.startCursor === undefined ? null : parent.startCursor,
+    endCursor: (parent: PageInfo) =>
+      parent.endCursor === undefined ? null : parent.endCursor
+  };
+
+  export type HasNextPageResolver = (
+    parent: PageInfo,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean | Promise<boolean>;
+
+  export type HasPreviousPageResolver = (
+    parent: PageInfo,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => boolean | Promise<boolean>;
+
+  export type StartCursorResolver = (
+    parent: PageInfo,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export type EndCursorResolver = (
+    parent: PageInfo,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export interface Type {
+    hasNextPage: (
+      parent: PageInfo,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean | Promise<boolean>;
+
+    hasPreviousPage: (
+      parent: PageInfo,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => boolean | Promise<boolean>;
+
+    startCursor: (
+      parent: PageInfo,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+
+    endCursor: (
+      parent: PageInfo,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+  }
+}
+
+export namespace CommentEdgeResolvers {
+  export const defaultResolvers = {
+    node: (parent: CommentEdge) => parent.node,
+    cursor: (parent: CommentEdge) => parent.cursor
+  };
+
+  export type NodeResolver = (
+    parent: CommentEdge,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Comment | Promise<Comment>;
+
+  export type CursorResolver = (
+    parent: CommentEdge,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    node: (
+      parent: CommentEdge,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Comment | Promise<Comment>;
+
+    cursor: (
+      parent: CommentEdge,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
   }
 }
 
@@ -2530,6 +2692,9 @@ export interface Resolvers {
   Product: ProductResolvers.Type;
   Organization: OrganizationResolvers.Type;
   Issue: IssueResolvers.Type;
+  CommentConnection: CommentConnectionResolvers.Type;
+  PageInfo: PageInfoResolvers.Type;
+  CommentEdge: CommentEdgeResolvers.Type;
   Mutation: MutationResolvers.Type;
   CreateCommentPayload: CreateCommentPayloadResolvers.Type;
   Operation: OperationResolvers.Type;

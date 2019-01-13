@@ -8,10 +8,23 @@ type Query {
   Fetch a list of comments
   """
   comments(
-    page: Int = 1
-    limit: Int = 10
+    first: Int
+    after: ID
+    last: Int
+    before: ID
     orderBy: String = "id"
     direction: ORDER = ASC
     deleted: Boolean = false
-  ): [Comment!]
+  ): CommentConnection
+}
+
+type CommentConnection {
+  pageInfo: PageInfo!
+  edges: [CommentEdge]!
+  total: Int
+}
+
+type CommentEdge {
+  node: Comment!
+  cursor: String!
 }
