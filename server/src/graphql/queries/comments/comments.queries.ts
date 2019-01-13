@@ -1,8 +1,10 @@
 import gql from 'gql-tag';
 
+import { CommentOrderByInput } from '../../../database/prisma-client';
 import { Connection } from '../../models.types';
 import { QueryResolvers } from '../../resolvers.types';
 import { getPaginationArguments } from '../../utils/pagination';
+import { getSortingArguments } from '../../utils/sorting';
 
 const comment: QueryResolvers.CommentResolver = (parent, args, ctx) => {
   return ctx.db.comment({ id: args.id });
@@ -15,18 +17,26 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
     throw err;
   }
 
+  const defaultOrder: QueryResolvers.OrderBy = {
+    field: 'createdAt',
+    direction: 'DESC'
+  };
+  const orderBy: CommentOrderByInput = getSortingArguments(args, defaultOrder);
+
   const query = gql`
     query getComments(
       $first: Int
       $after: String
       $last: Int
       $before: String
+      $orderBy: CommentOrderByInput
     ) {
       commentsConnection(
         first: $first
         after: $after
         last: $last
         before: $before
+        orderBy: $orderBy
       ) {
         edges {
           cursor
@@ -50,7 +60,7 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
       }
     }
   `;
-  const variables = { ...pagination };
+  const variables = { ...pagination, orderBy };
 
   const response = await ctx.client.request<QueryResponse>(query, variables);
 

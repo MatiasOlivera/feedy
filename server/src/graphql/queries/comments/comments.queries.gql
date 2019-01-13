@@ -12,8 +12,7 @@ type Query {
     after: ID
     last: Int
     before: ID
-    orderBy: String = "id"
-    direction: ORDER = ASC
+    orderBy: OrderBy
     deleted: Boolean = false
   ): CommentConnection
 }
@@ -27,4 +26,17 @@ type CommentConnection {
 type CommentEdge {
   node: Comment!
   cursor: String!
+}
+
+input OrderBy {
+  field: COMMENT_FIELD
+  direction: ORDER
+}
+
+enum COMMENT_FIELD {
+  id
+  body
+  createdAt
+  updatedAt
+  deletedAt
 }

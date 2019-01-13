@@ -35,10 +35,16 @@ import {
 } from './models.types';
 import { Context } from './graphql.types';
 
+type COMMENT_FIELD = 'id' | 'body' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type ORDER = 'ASC' | 'DESC';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
+
+  export interface OrderBy {
+    field: COMMENT_FIELD | null;
+    direction: ORDER | null;
+  }
 
   export interface ArgsComment {
     id: string;
@@ -49,8 +55,7 @@ export namespace QueryResolvers {
     after: string | null;
     last: number | null;
     before: string | null;
-    orderBy: string | null;
-    direction: ORDER | null;
+    orderBy: OrderBy | null;
     deleted: boolean | null;
   }
 
