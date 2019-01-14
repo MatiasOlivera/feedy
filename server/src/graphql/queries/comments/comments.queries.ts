@@ -17,11 +17,7 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
     throw err;
   }
 
-  const defaultOrder: QueryResolvers.OrderBy = {
-    field: 'createdAt',
-    direction: 'DESC'
-  };
-  const orderBy: CommentOrderByInput = getSortingArguments(args, defaultOrder);
+  const orderBy: CommentOrderByInput = getSortingArguments(args.orderBy);
 
   const deleted = args.where.deleted ? 'deletedAt_not' : 'deletedAt';
 
