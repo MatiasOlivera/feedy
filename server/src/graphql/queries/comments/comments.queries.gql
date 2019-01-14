@@ -13,7 +13,7 @@ type Query {
     last: Int
     before: ID
     orderBy: OrderBy
-    deleted: Boolean = false
+    where: CommentWhere = { deleted: false }
   ): CommentConnection
 }
 
@@ -39,4 +39,8 @@ enum COMMENT_FIELD {
   createdAt
   updatedAt
   deletedAt
+}
+
+input CommentWhere {
+  deleted: Boolean
 }

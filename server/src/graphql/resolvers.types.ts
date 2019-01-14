@@ -45,6 +45,9 @@ export namespace QueryResolvers {
     field: COMMENT_FIELD | null;
     direction: ORDER | null;
   }
+  export interface CommentWhere {
+    deleted: boolean | null;
+  }
 
   export interface ArgsComment {
     id: string;
@@ -56,7 +59,7 @@ export namespace QueryResolvers {
     last: number | null;
     before: string | null;
     orderBy: OrderBy | null;
-    deleted: boolean | null;
+    where: CommentWhere | null;
   }
 
   export interface ArgsIssue {

@@ -23,6 +23,8 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
   };
   const orderBy: CommentOrderByInput = getSortingArguments(args, defaultOrder);
 
+  const deleted = args.where.deleted ? 'deletedAt_not' : 'deletedAt';
+
   const query = gql`
     query getComments(
       $first: Int
@@ -30,6 +32,7 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
       $last: Int
       $before: String
       $orderBy: CommentOrderByInput
+      $deletedAt: DateTime
     ) {
       commentsConnection(
         first: $first
@@ -37,6 +40,7 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
         last: $last
         before: $before
         orderBy: $orderBy
+        where: { ${deleted}: $deletedAt }
       ) {
         edges {
           cursor
@@ -60,7 +64,7 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
       }
     }
   `;
-  const variables = { ...pagination, orderBy };
+  const variables = { ...pagination, orderBy, deletedAt: null as null };
 
   const response = await ctx.client.request<QueryResponse>(query, variables);
 
