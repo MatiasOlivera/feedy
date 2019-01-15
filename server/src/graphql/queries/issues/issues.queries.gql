@@ -14,7 +14,7 @@ type Query {
     last: Int
     before: ID
     orderBy: IssueOrderBy = { field: createdAt, direction: DESC }
-    deleted: Boolean = false
+    where: IssueWhere = { deleted: false }
   ): IssueConnection
 }
 
@@ -40,4 +40,8 @@ enum ISSUE_FIELD {
   createdAt
   updatedAt
   deletedAt
+}
+
+input IssueWhere {
+  deleted: Boolean
 }

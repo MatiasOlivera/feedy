@@ -18,6 +18,7 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
   }
 
   const orderBy: IssueOrderByInput = getSortingArguments(args.orderBy);
+  const deleted = args.where.deleted ? 'deletedAt_not' : 'deletedAt';
 
   const query = gql`
     query getIssues(
@@ -27,13 +28,17 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
       $last: Int
       $before: String
       $orderBy: IssueOrderByInput
+      $deletedAt: DateTime
     ) {
       issuesConnection(
         first: $first
         after: $after
         last: $last
         before: $before
-        where: { OR: [{ title_contains: $search }, { body_contains: $search }] }
+        where: {
+          OR: [{ title_contains: $search }, { body_contains: $search }]
+          ${deleted}: $deletedAt
+        }
         orderBy: $orderBy
       ) {
         edges {
@@ -59,7 +64,12 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
       }
     }
   `;
-  const variables = { ...pagination, orderBy, search: args.search };
+  const variables = {
+    ...pagination,
+    orderBy,
+    search: args.search,
+    deletedAt: null as null
+  };
 
   const response = await ctx.client.request<QueryResponse>(query, variables);
 

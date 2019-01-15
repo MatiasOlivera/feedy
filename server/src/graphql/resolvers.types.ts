@@ -55,6 +55,9 @@ export namespace QueryResolvers {
     field: ISSUE_FIELD | null;
     direction: ORDER | null;
   }
+  export interface IssueWhere {
+    deleted: boolean | null;
+  }
 
   export interface ArgsComment {
     id: string;
@@ -80,7 +83,7 @@ export namespace QueryResolvers {
     last: number | null;
     before: string | null;
     orderBy: IssueOrderBy | null;
-    deleted: boolean | null;
+    where: IssueWhere | null;
   }
 
   export interface ArgsOrganization {
