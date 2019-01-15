@@ -1,8 +1,10 @@
 import gql from 'gql-tag';
 
+import { IssueOrderByInput } from '../../../database/prisma-client';
 import { Connection } from '../../models.types';
 import { QueryResolvers } from '../../resolvers.types';
 import { getPaginationArguments } from '../../utils/pagination';
+import { getSortingArguments } from '../../utils/sorting';
 
 const issue: QueryResolvers.IssueResolver = (parent, args, ctx) => {
   return ctx.db.issue({ id: args.id });
@@ -15,6 +17,8 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
     throw err;
   }
 
+  const orderBy: IssueOrderByInput = getSortingArguments(args.orderBy);
+
   const query = gql`
     query getIssues(
       $search: String
@@ -22,6 +26,7 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
       $after: String
       $last: Int
       $before: String
+      $orderBy: IssueOrderByInput
     ) {
       issuesConnection(
         first: $first
@@ -29,6 +34,7 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
         last: $last
         before: $before
         where: { OR: [{ title_contains: $search }, { body_contains: $search }] }
+        orderBy: $orderBy
       ) {
         edges {
           cursor
@@ -53,7 +59,7 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
       }
     }
   `;
-  const variables = { ...pagination, search: args.search };
+  const variables = { ...pagination, orderBy, search: args.search };
 
   const response = await ctx.client.request<QueryResponse>(query, variables);
 

@@ -13,8 +13,7 @@ type Query {
     after: ID
     last: Int
     before: ID
-    orderBy: String = "id"
-    direction: ORDER = ASC
+    orderBy: IssueOrderBy = { field: createdAt, direction: DESC }
     deleted: Boolean = false
   ): IssueConnection
 }
@@ -28,4 +27,17 @@ type IssueConnection {
 type IssueEdge {
   node: Issue!
   cursor: String!
+}
+
+input IssueOrderBy {
+  field: ISSUE_FIELD
+  direction: ORDER
+}
+
+enum ISSUE_FIELD {
+  id
+  title
+  createdAt
+  updatedAt
+  deletedAt
 }
