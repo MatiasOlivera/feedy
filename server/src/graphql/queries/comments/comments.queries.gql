@@ -12,7 +12,7 @@ type Query {
     after: ID
     last: Int
     before: ID
-    orderBy: OrderBy = { field: createdAt, direction: DESC }
+    orderBy: CommentOrderBy = { field: createdAt, direction: DESC }
     where: CommentWhere = { deleted: false }
   ): CommentConnection
 }
@@ -28,7 +28,7 @@ type CommentEdge {
   cursor: String!
 }
 
-input OrderBy {
+input CommentOrderBy {
   field: COMMENT_FIELD
   direction: ORDER
 }

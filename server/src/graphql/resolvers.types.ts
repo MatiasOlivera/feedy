@@ -43,7 +43,7 @@ type ORDER = 'ASC' | 'DESC';
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
-  export interface OrderBy {
+  export interface CommentOrderBy {
     field: COMMENT_FIELD | null;
     direction: ORDER | null;
   }
@@ -60,7 +60,7 @@ export namespace QueryResolvers {
     after: string | null;
     last: number | null;
     before: string | null;
-    orderBy: OrderBy | null;
+    orderBy: CommentOrderBy | null;
     where: CommentWhere | null;
   }
 
