@@ -6,26 +6,32 @@ export function getPaginationArguments(
   pagination: QueryResolvers.Pagination
 ): PaginationType {
   const { first, after, last, before } = pagination;
+  const minLimit = 0;
+  const maxLimit = 20;
 
-  if (first || first === 0) {
-    if (first <= 0) {
-      throw new UserError('First must be a number greater than 0');
+  if (first || first === minLimit) {
+    if (first <= minLimit) {
+      throw new UserError(`First must be a number greater than ${minLimit}`);
     }
 
-    if (first > 20) {
-      throw new UserError('First must be a number smaller or equal to 20');
+    if (first > maxLimit) {
+      throw new UserError(
+        `First must be a number smaller or equal to ${maxLimit}`
+      );
     }
 
     return { first, after };
   }
 
-  if (last || last === 0) {
-    if (last <= 0) {
-      throw new UserError('Last must be a number greater than 0');
+  if (last || last === minLimit) {
+    if (last <= minLimit) {
+      throw new UserError(`Last must be a number greater than ${minLimit}`);
     }
 
-    if (last > 20) {
-      throw new UserError('Last must be a number smaller or equal to 20');
+    if (last > maxLimit) {
+      throw new UserError(
+        `Last must be a number smaller or equal to ${maxLimit}`
+      );
     }
 
     return { last, before };
