@@ -44,6 +44,12 @@ type ISSUE_FIELD = 'id' | 'title' | 'createdAt' | 'updatedAt' | 'deletedAt';
 export namespace QueryResolvers {
   export const defaultResolvers = {};
 
+  export interface Pagination {
+    first: number | null;
+    after: string | null;
+    last: number | null;
+    before: string | null;
+  }
   export interface CommentOrderBy {
     field: COMMENT_FIELD | null;
     direction: ORDER | null;
@@ -64,10 +70,7 @@ export namespace QueryResolvers {
   }
 
   export interface ArgsComments {
-    first: number | null;
-    after: string | null;
-    last: number | null;
-    before: string | null;
+    pagination: Pagination | null;
     orderBy: CommentOrderBy | null;
     where: CommentWhere | null;
   }
@@ -78,10 +81,7 @@ export namespace QueryResolvers {
 
   export interface ArgsIssues {
     search: string | null;
-    first: number | null;
-    after: string | null;
-    last: number | null;
-    before: string | null;
+    pagination: Pagination | null;
     orderBy: IssueOrderBy | null;
     where: IssueWhere | null;
   }

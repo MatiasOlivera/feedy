@@ -9,10 +9,7 @@ type Query {
   """
   issues(
     search: String
-    first: Int
-    after: ID
-    last: Int
-    before: ID
+    pagination: Pagination
     orderBy: IssueOrderBy = { field: createdAt, direction: DESC }
     where: IssueWhere = { deleted: false }
   ): IssueConnection

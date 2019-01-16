@@ -30,6 +30,15 @@ enum ORDER {
   DESC
 }
 
+# Pagination
+
+input Pagination {
+  first: Int
+  after: ID
+  last: Int
+  before: ID
+}
+
 # Relay cursor connections
 
 type PageInfo {

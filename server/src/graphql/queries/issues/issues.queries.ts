@@ -12,7 +12,7 @@ const issue: QueryResolvers.IssueResolver = (parent, args, ctx) => {
 
 const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
   try {
-    var pagination = getPaginationArguments(args);
+    var pagination = getPaginationArguments(args.pagination);
   } catch (err) {
     throw err;
   }

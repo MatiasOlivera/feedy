@@ -1,7 +1,11 @@
 import { UserError } from 'graphql-errors';
 
-export function getPaginationArguments(args: Args): Pagination {
-  const { first, after, last, before } = args;
+import { QueryResolvers } from '../resolvers.types';
+
+export function getPaginationArguments(
+  pagination: QueryResolvers.Pagination
+): PaginationType {
+  const { first, after, last, before } = pagination;
 
   if (first || first === 0) {
     if (first <= 0) {
@@ -30,13 +34,6 @@ export function getPaginationArguments(args: Args): Pagination {
   return { first: 10 };
 }
 
-interface Args {
-  first?: number;
-  after?: string;
-  last?: number;
-  before?: string;
-}
-
 type Forward = {
   first: number;
   after?: string;
@@ -47,4 +44,4 @@ type Backward = {
   before?: string;
 };
 
-type Pagination = Forward | Backward;
+type PaginationType = Forward | Backward;

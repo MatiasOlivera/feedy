@@ -12,7 +12,7 @@ const comment: QueryResolvers.CommentResolver = (parent, args, ctx) => {
 
 const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
   try {
-    var pagination = getPaginationArguments(args);
+    var pagination = getPaginationArguments(args.pagination);
   } catch (err) {
     throw err;
   }
