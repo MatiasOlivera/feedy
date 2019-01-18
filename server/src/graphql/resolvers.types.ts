@@ -11,7 +11,9 @@ import {
   PageInfo,
   CommentEdge,
   IssueConnection,
-  IssueEdge
+  IssueEdge,
+  OrganizationConnection,
+  OrganizationEdge
 } from '../database/prisma-client/index';
 import {
   CreateCommentPayload,
@@ -92,8 +94,7 @@ export namespace QueryResolvers {
 
   export interface ArgsOrganizations {
     search: string | null;
-    page: number | null;
-    limit: number | null;
+    pagination: Pagination | null;
     orderBy: string | null;
     direction: ORDER | null;
     deleted: boolean | null;
@@ -165,7 +166,7 @@ export namespace QueryResolvers {
     args: ArgsOrganizations,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Organization[] | Promise<Organization[]>;
+  ) => OrganizationConnection | null | Promise<OrganizationConnection | null>;
 
   export type ProductResolver = (
     parent: undefined,
@@ -236,7 +237,7 @@ export namespace QueryResolvers {
       args: ArgsOrganizations,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Organization[] | Promise<Organization[]>;
+    ) => OrganizationConnection | null | Promise<OrganizationConnection | null>;
 
     product: (
       parent: undefined,
@@ -1267,6 +1268,108 @@ export namespace IssueEdgeResolvers {
 
     cursor: (
       parent: IssueEdge,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+  }
+}
+
+export namespace OrganizationConnectionResolvers {
+  export const defaultResolvers = {
+    pageInfo: (parent: OrganizationConnection) => parent.pageInfo,
+    edges: (parent: OrganizationConnection) => parent.edges
+  };
+
+  export type PageInfoResolver = (
+    parent: OrganizationConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => PageInfo | Promise<PageInfo>;
+
+  export type EdgesResolver = (
+    parent: OrganizationConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => OrganizationEdge[] | Promise<OrganizationEdge[]>;
+
+  export type CountResolver = (
+    parent: OrganizationConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export type TotalResolver = (
+    parent: OrganizationConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export interface Type {
+    pageInfo: (
+      parent: OrganizationConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => PageInfo | Promise<PageInfo>;
+
+    edges: (
+      parent: OrganizationConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => OrganizationEdge[] | Promise<OrganizationEdge[]>;
+
+    count: (
+      parent: OrganizationConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+
+    total: (
+      parent: OrganizationConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+  }
+}
+
+export namespace OrganizationEdgeResolvers {
+  export const defaultResolvers = {
+    node: (parent: OrganizationEdge) => parent.node,
+    cursor: (parent: OrganizationEdge) => parent.cursor
+  };
+
+  export type NodeResolver = (
+    parent: OrganizationEdge,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Organization | Promise<Organization>;
+
+  export type CursorResolver = (
+    parent: OrganizationEdge,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    node: (
+      parent: OrganizationEdge,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Organization | Promise<Organization>;
+
+    cursor: (
+      parent: OrganizationEdge,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
@@ -2804,6 +2907,8 @@ export interface Resolvers {
   CommentEdge: CommentEdgeResolvers.Type;
   IssueConnection: IssueConnectionResolvers.Type;
   IssueEdge: IssueEdgeResolvers.Type;
+  OrganizationConnection: OrganizationConnectionResolvers.Type;
+  OrganizationEdge: OrganizationEdgeResolvers.Type;
   Mutation: MutationResolvers.Type;
   CreateCommentPayload: CreateCommentPayloadResolvers.Type;
   Operation: OperationResolvers.Type;
