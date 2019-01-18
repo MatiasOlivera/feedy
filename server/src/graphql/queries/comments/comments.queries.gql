@@ -8,7 +8,7 @@ type Query {
   Fetch a list of comments
   """
   comments(
-    pagination: Pagination
+    pagination: Pagination = { first: 10 }
     orderBy: CommentOrderBy = { field: createdAt, direction: DESC }
     where: CommentWhere = { deleted: false }
   ): CommentConnection
