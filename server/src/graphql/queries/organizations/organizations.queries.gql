@@ -11,7 +11,7 @@ type Query {
     search: String
     pagination: Pagination = { first: 10 }
     orderBy: OrganizationOrderBy = { field: name, direction: ASC }
-    deleted: Boolean = false
+    where: OrganizationWhere = { deleted: false }
   ): OrganizationConnection
 }
 
@@ -37,4 +37,8 @@ enum ORGANIZATION_FIELD {
   createdAt
   updatedAt
   deletedAt
+}
+
+input OrganizationWhere {
+  deleted: Boolean
 }

@@ -71,6 +71,9 @@ export namespace QueryResolvers {
     field: ORGANIZATION_FIELD | null;
     direction: ORDER | null;
   }
+  export interface OrganizationWhere {
+    deleted: boolean | null;
+  }
 
   export interface ArgsComment {
     id: string;
@@ -101,7 +104,7 @@ export namespace QueryResolvers {
     search: string | null;
     pagination: Pagination | null;
     orderBy: OrganizationOrderBy | null;
-    deleted: boolean | null;
+    where: OrganizationWhere | null;
   }
 
   export interface ArgsProduct {

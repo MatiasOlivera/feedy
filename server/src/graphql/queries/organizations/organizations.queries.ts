@@ -1,6 +1,7 @@
 import { OrganizationWhereInput } from '../../../database/prisma-client';
 import { OrganizationOrderByInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
+import { getDeletedArgument } from '../../utils/filterDeleted';
 import { getPaginationArguments } from '../../utils/pagination';
 import { getSortingArguments } from '../../utils/sorting';
 
@@ -23,10 +24,9 @@ const organizations: QueryResolvers.OrganizationsResolver = async (
     throw err;
   }
 
-  const where: OrganizationWhereInput = args.search
-    ? { OR: [{ name_contains: args.search }] }
-    : null;
-
+  const search = args.search ? { OR: [{ name_contains: args.search }] } : null;
+  const deleted = getDeletedArgument(args.where.deleted);
+  const where: OrganizationWhereInput = { ...search, ...deleted };
   const orderBy: OrganizationOrderByInput = getSortingArguments(args.orderBy);
 
   const result = await ctx.db.organizationsConnection({
@@ -36,16 +36,14 @@ const organizations: QueryResolvers.OrganizationsResolver = async (
   });
 
   const total: number = await ctx.db
-    .organizationsConnection()
+    .organizationsConnection({ where: { ...deleted } })
     .aggregate()
     .count();
 
-  const count: number = where
-    ? await ctx.db
-        .organizationsConnection({ where })
-        .aggregate()
-        .count()
-    : total;
+  const count: number = await ctx.db
+    .organizationsConnection({ where })
+    .aggregate()
+    .count();
 
   return { ...result, count, total };
 };
