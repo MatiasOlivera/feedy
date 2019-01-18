@@ -28,11 +28,11 @@ type OrganizationEdge {
 }
 
 input OrganizationOrderBy {
-  field: ORGANIZATION_FIELD
+  field: OrganizationField
   direction: ORDER
 }
 
-enum ORGANIZATION_FIELD {
+enum OrganizationField {
   name
   createdAt
   updatedAt

@@ -27,12 +27,11 @@ type IssueEdge {
 }
 
 input IssueOrderBy {
-  field: ISSUE_FIELD
+  field: IssueField
   direction: ORDER
 }
 
-enum ISSUE_FIELD {
-  id
+enum IssueField {
   title
   createdAt
   updatedAt

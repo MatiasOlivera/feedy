@@ -39,10 +39,10 @@ import {
 } from './models.types';
 import { Context } from './graphql.types';
 
-type COMMENT_FIELD = 'id' | 'body' | 'createdAt' | 'updatedAt' | 'deletedAt';
+type CommentField = 'body' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type ORDER = 'ASC' | 'DESC';
-type ISSUE_FIELD = 'id' | 'title' | 'createdAt' | 'updatedAt' | 'deletedAt';
-type ORGANIZATION_FIELD = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
+type IssueField = 'title' | 'createdAt' | 'updatedAt' | 'deletedAt';
+type OrganizationField = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -54,21 +54,21 @@ export namespace QueryResolvers {
     before: string | null;
   }
   export interface CommentOrderBy {
-    field: COMMENT_FIELD | null;
+    field: CommentField | null;
     direction: ORDER | null;
   }
   export interface CommentWhere {
     deleted: boolean | null;
   }
   export interface IssueOrderBy {
-    field: ISSUE_FIELD | null;
+    field: IssueField | null;
     direction: ORDER | null;
   }
   export interface IssueWhere {
     deleted: boolean | null;
   }
   export interface OrganizationOrderBy {
-    field: ORGANIZATION_FIELD | null;
+    field: OrganizationField | null;
     direction: ORDER | null;
   }
   export interface OrganizationWhere {

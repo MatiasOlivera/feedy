@@ -26,12 +26,11 @@ type CommentEdge {
 }
 
 input CommentOrderBy {
-  field: COMMENT_FIELD
+  field: CommentField
   direction: ORDER
 }
 
-enum COMMENT_FIELD {
-  id
+enum CommentField {
   body
   createdAt
   updatedAt
