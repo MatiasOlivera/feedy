@@ -1,6 +1,8 @@
 import { OrganizationWhereInput } from '../../../database/prisma-client';
+import { OrganizationOrderByInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
 import { getPaginationArguments } from '../../utils/pagination';
+import { getSortingArguments } from '../../utils/sorting';
 
 const organization: QueryResolvers.OrganizationResolver = (
   parent,
@@ -25,9 +27,12 @@ const organizations: QueryResolvers.OrganizationsResolver = async (
     ? { OR: [{ name_contains: args.search }] }
     : null;
 
+  const orderBy: OrganizationOrderByInput = getSortingArguments(args.orderBy);
+
   const result = await ctx.db.organizationsConnection({
     ...pagination,
-    where
+    where,
+    orderBy
   });
 
   const total: number = await ctx.db

@@ -42,6 +42,7 @@ import { Context } from './graphql.types';
 type COMMENT_FIELD = 'id' | 'body' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type ORDER = 'ASC' | 'DESC';
 type ISSUE_FIELD = 'id' | 'title' | 'createdAt' | 'updatedAt' | 'deletedAt';
+type ORGANIZATION_FIELD = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -65,6 +66,10 @@ export namespace QueryResolvers {
   }
   export interface IssueWhere {
     deleted: boolean | null;
+  }
+  export interface OrganizationOrderBy {
+    field: ORGANIZATION_FIELD | null;
+    direction: ORDER | null;
   }
 
   export interface ArgsComment {
@@ -95,8 +100,7 @@ export namespace QueryResolvers {
   export interface ArgsOrganizations {
     search: string | null;
     pagination: Pagination | null;
-    orderBy: string | null;
-    direction: ORDER | null;
+    orderBy: OrganizationOrderBy | null;
     deleted: boolean | null;
   }
 

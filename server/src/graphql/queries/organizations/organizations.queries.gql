@@ -10,8 +10,7 @@ type Query {
   organizations(
     search: String
     pagination: Pagination = { first: 10 }
-    orderBy: String = "id"
-    direction: ORDER = ASC
+    orderBy: OrganizationOrderBy = { field: name, direction: ASC }
     deleted: Boolean = false
   ): OrganizationConnection
 }
@@ -26,4 +25,16 @@ type OrganizationConnection {
 type OrganizationEdge {
   node: Organization!
   cursor: String!
+}
+
+input OrganizationOrderBy {
+  field: ORGANIZATION_FIELD
+  direction: ORDER
+}
+
+enum ORGANIZATION_FIELD {
+  name
+  createdAt
+  updatedAt
+  deletedAt
 }
