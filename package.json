@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "description": "Collaborative feedback platform",
+  "version": "1.0.0",
   "author": "Matías Olivera",
   "keywords": [
     "feedback",
