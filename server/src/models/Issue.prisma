@@ -1,0 +1,15 @@
+type Issue {
+  id: ID! @unique
+  title: String!
+  body: String!
+
+  # Timestamps
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+
+  # Relations
+  author: User!
+  product: Product!
+  comments: [Comment!]!
+}

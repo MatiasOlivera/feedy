@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Restore a deleted issue
+  """
+  restoreIssue(id: ID!): SimpleIssuePayload
+}

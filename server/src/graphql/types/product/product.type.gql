@@ -1,0 +1,37 @@
+"""
+A product or a service
+"""
+type Product {
+  """
+  The identifier
+  """
+  id: ID!
+  """
+  The name. Eg. Model S
+  """
+  name: String!
+  """
+  The description. Eg. High-end electric liftback
+  """
+  description: String
+  """
+  The date it was created in ISO8601 format
+  """
+  createdAt: Date!
+  """
+  The date it was last updated in ISO8601 format
+  """
+  updatedAt: Date!
+  """
+  The date it was soft deleted in ISO8601 format
+  """
+  deletedAt: Date
+  """
+  The user or organization that owns the product
+  """
+  owner: ProductOwner!
+  """
+  The issues of the product
+  """
+  issues: [Issue!]
+}

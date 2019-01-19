@@ -1,0 +1,4 @@
+"""
+The owner of a product
+"""
+union ProductOwner = User | Organization

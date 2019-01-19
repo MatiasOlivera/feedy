@@ -1,0 +1,44 @@
+type Query {
+  """
+  Fetch an organization by its id
+  """
+  organization(id: ID!): Organization
+
+  """
+  Fetch a list of organizations
+  """
+  organizations(
+    search: String
+    pagination: Pagination = { first: 10 }
+    orderBy: OrganizationOrderBy = { field: name, direction: ASC }
+    where: OrganizationWhere = { deleted: false }
+  ): OrganizationConnection
+}
+
+type OrganizationConnection {
+  pageInfo: PageInfo!
+  edges: [OrganizationEdge!]!
+  count: Int
+  total: Int
+}
+
+type OrganizationEdge {
+  node: Organization!
+  cursor: String!
+}
+
+input OrganizationOrderBy {
+  field: OrganizationField
+  direction: ORDER
+}
+
+enum OrganizationField {
+  name
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input OrganizationWhere {
+  deleted: Boolean
+}

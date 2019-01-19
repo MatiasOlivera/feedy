@@ -1,0 +1,84 @@
+type Mutation {
+  """
+  Update an existing user
+  """
+  updateUser(id: ID!, user: UpdateUserInput!): UpdateUserPayload
+}
+
+"""
+The properties used to update an existing user
+"""
+input UpdateUserInput {
+  """
+  The first name
+  """
+  firstName: String
+  """
+  The last name
+  """
+  lastName: String
+  """
+  The gender
+  """
+  gender: String
+  """
+  The username
+  """
+  username: String
+  """
+  The email address
+  """
+  email: String
+  """
+  The biography
+  """
+  bio: String
+}
+
+"""
+The payload returned when a user is updated
+"""
+type UpdateUserPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The updated user
+  """
+  user: User
+  """
+  The validation errors
+  """
+  errors: UpdateUserValidation
+}
+
+"""
+The possible validation errors returned when updating a user
+"""
+type UpdateUserValidation {
+  """
+  The validation error of the first name
+  """
+  firstName: String
+  """
+  The validation error of the last name
+  """
+  lastName: String
+  """
+  The validation error of the gender
+  """
+  gender: String
+  """
+  The validation error of the username
+  """
+  username: String
+  """
+  The validation error of the email
+  """
+  email: String
+  """
+  The validation error of the biography
+  """
+  bio: String
+}

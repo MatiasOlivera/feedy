@@ -1,0 +1,49 @@
+# Objects
+
+"""
+The result of a mutation or query
+"""
+type Operation {
+  """
+  The operation was completed or not
+  """
+  status: Boolean!
+  """
+  A message describing the operation result
+  """
+  message: String!
+}
+
+# Enums
+
+"""
+The sort direction
+"""
+enum ORDER {
+  """
+  Ascending
+  """
+  ASC
+  """
+  Descending
+  """
+  DESC
+}
+
+# Pagination
+
+input Pagination {
+  first: Int
+  after: ID
+  last: Int
+  before: ID
+}
+
+# Relay cursor connections
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}

@@ -1,15 +1,28 @@
 {
-  "name": "feedy",
-  "version": "0.0.1",
-  "description": "Collaborative feedback app",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "root",
+  "private": true,
+  "description": "Collaborative feedback platform",
+  "version": "1.0.0",
+  "author": "Matías Olivera",
   "keywords": [
     "feedback",
     "opinions"
   ],
-  "author": "Matías Olivera",
-  "license": "UNLICENSED"
+  "scripts": {
+    "gql:ping": "graphql ping -p Feedly --dotenv server/.env",
+    "gql:lint": "graphql lint -p Feedly"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "graphql-cli": "^3.0.3",
+    "lerna": "^3.6.0",
+    "prettier": "^1.15.3",
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
+  },
+  "license": "MIT"
 }

@@ -1,0 +1,44 @@
+type Query {
+  """
+  Fetch an issue by its id
+  """
+  issue(id: ID!): Issue
+
+  """
+  Fetch a list of issues
+  """
+  issues(
+    search: String
+    pagination: Pagination = { first: 10 }
+    orderBy: IssueOrderBy = { field: createdAt, direction: DESC }
+    where: IssueWhere = { deleted: false }
+  ): IssueConnection
+}
+
+type IssueConnection {
+  pageInfo: PageInfo!
+  edges: [IssueEdge!]!
+  count: Int
+  total: Int
+}
+
+type IssueEdge {
+  node: Issue!
+  cursor: String!
+}
+
+input IssueOrderBy {
+  field: IssueField
+  direction: ORDER
+}
+
+enum IssueField {
+  title
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input IssueWhere {
+  deleted: Boolean
+}

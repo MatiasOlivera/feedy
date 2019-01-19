@@ -1,0 +1,13 @@
+"""
+The payload returned when a comment is deleted or restored
+"""
+type SimpleCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The comment
+  """
+  comment: Comment
+}

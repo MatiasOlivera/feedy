@@ -1,0 +1,44 @@
+type Mutation {
+  """
+  Update an existing comment
+  """
+  updateComment(id: ID!, comment: UpdateCommentInput!): UpdateCommentPayload
+}
+
+"""
+The properties used to update an existing comment
+"""
+input UpdateCommentInput {
+  """
+  The body
+  """
+  body: String!
+}
+
+"""
+The payload returned when a comment is updated
+"""
+type UpdateCommentPayload {
+  """
+  The status of the operation
+  """
+  operation: Operation!
+  """
+  The updated comment
+  """
+  comment: Comment
+  """
+  The validation errors
+  """
+  errors: UpdateCommentValidation
+}
+
+"""
+The possible validation errors returned when updating a comment
+"""
+type UpdateCommentValidation {
+  """
+  The validation error of the body
+  """
+  body: String
+}

@@ -1,0 +1,6 @@
+type Mutation {
+  """
+  Delete an existing product
+  """
+  deleteProduct(id: ID!): SimpleProductPayload
+}
