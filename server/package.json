@@ -1,7 +1,7 @@
 {
   "name": "@feedy/server",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "dist/app.js",
   "scripts": {
     "postinstall": "npm run ts:build && npm run schema:merge",
