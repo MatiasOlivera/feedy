@@ -9,10 +9,21 @@ type Query {
   """
   users(
     search: String
-    page: Int = 1
-    limit: Int = 10
+    pagination: Pagination = { first: 10 }
     orderBy: String = "id"
     direction: ORDER = ASC
     deleted: Boolean = false
-  ): [User!]
+  ): UserConnection
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+  count: Int
+  total: Int
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
 }
