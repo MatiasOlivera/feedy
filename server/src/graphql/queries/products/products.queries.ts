@@ -1,5 +1,6 @@
 import { ProductOrderByInput, ProductWhereInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
+import { getDeletedArgument } from '../../utils/filterDeleted';
 import { getPaginationArguments } from '../../utils/pagination';
 import { getSortingArguments } from '../../utils/sorting';
 
@@ -15,7 +16,8 @@ const products: QueryResolvers.ProductsResolver = async (parent, args, ctx) => {
   }
 
   const search = args.search ? { name_contains: args.search } : null;
-  const where: ProductWhereInput = { ...search };
+  const deleted = getDeletedArgument(args.where.deleted);
+  const where: ProductWhereInput = { ...search, ...deleted };
   const orderBy: ProductOrderByInput = getSortingArguments(args.orderBy);
 
   const result = await ctx.db.productsConnection({
@@ -25,7 +27,7 @@ const products: QueryResolvers.ProductsResolver = async (parent, args, ctx) => {
   });
 
   const total: number = await ctx.db
-    .productsConnection()
+    .productsConnection({ where: { ...deleted } })
     .aggregate()
     .count();
 

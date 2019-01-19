@@ -81,6 +81,9 @@ export namespace QueryResolvers {
     field: ProductField | null;
     direction: ORDER | null;
   }
+  export interface ProductWhere {
+    deleted: boolean | null;
+  }
 
   export interface ArgsComment {
     id: string;
@@ -122,7 +125,7 @@ export namespace QueryResolvers {
     search: string | null;
     pagination: Pagination | null;
     orderBy: ProductOrderBy | null;
-    deleted: boolean | null;
+    where: ProductWhere | null;
   }
 
   export interface ArgsUser {

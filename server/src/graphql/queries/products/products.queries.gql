@@ -11,7 +11,7 @@ type Query {
     search: String
     pagination: Pagination = { first: 10 }
     orderBy: ProductOrderBy = { field: name, direction: ASC }
-    deleted: Boolean = false
+    where: ProductWhere = { deleted: false }
   ): ProductConnection
 }
 
@@ -37,4 +37,8 @@ enum ProductField {
   createdAt
   updatedAt
   deletedAt
+}
+
+input ProductWhere {
+  deleted: Boolean
 }
