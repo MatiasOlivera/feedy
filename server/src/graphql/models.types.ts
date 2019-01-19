@@ -4,9 +4,6 @@ export interface Operation {
   status: boolean;
   message: string;
 }
-export interface ValidationErrors {
-  [attribute: string]: string;
-}
 
 /**
  * User
