@@ -24,7 +24,7 @@ const organizations: QueryResolvers.OrganizationsResolver = async (
     throw err;
   }
 
-  const search = args.search ? { OR: [{ name_contains: args.search }] } : null;
+  const search = args.search ? { name_contains: args.search } : null;
   const deleted = getDeletedArgument(args.where.deleted);
   const where: OrganizationWhereInput = { ...search, ...deleted };
   const orderBy: OrganizationOrderByInput = getSortingArguments(args.orderBy);
