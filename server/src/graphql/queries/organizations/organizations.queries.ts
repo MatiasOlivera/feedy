@@ -1,7 +1,7 @@
 import { OrganizationWhereInput } from '../../../database/prisma-client';
 import { OrganizationOrderByInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
-import { getDeletedArgument } from '../../utils/filterDeleted';
+import { getDeletedArgument } from '../../utils/filter.deleted';
 import { getPaginationArguments } from '../../utils/pagination';
 import { getSortingArguments } from '../../utils/sorting';
 
