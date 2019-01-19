@@ -1,6 +1,9 @@
+import { MutationResolvers } from '../../../graphql/resolvers.types';
 import ProductValidator from './product.validator';
 
-class CreateProductValidator extends ProductValidator {
+class CreateProductValidator extends ProductValidator<
+  MutationResolvers.CreateProductInput
+> {
   rules() {
     const rules = super.rules();
 

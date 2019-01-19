@@ -1,5 +1,7 @@
-const { knex } = require('../../../services/db.service');
-const { logger } = require('../../../services/log.service');
+import { isEmpty } from 'lodash';
+
+import { prisma } from '../../../database/prisma-client';
+import { logger } from '../../../services/log.service';
 
 const name: string = 'unique';
 
@@ -11,37 +13,44 @@ const callback = async (
   args: string,
   attribute: string,
   passes: Function
-): Promise<any> => {
+): Promise<Function> => {
   const hasMultipleArgs = args.includes(',');
-  let table: string = null;
-  let column: string = null;
+  let model: string = null;
+  let field: string = null;
   let except: string = null;
-  let idColumn: string = null;
+  let idField: string = null;
 
   if (hasMultipleArgs) {
-    [table, column, except, idColumn = 'id'] = args.split(',');
+    [model, field, except, idField = 'id'] = args.split(',');
   } else {
-    table = args;
-    column = attribute;
+    model = args;
+    field = attribute;
   }
 
-  if (!table) throw new Error('The table name must be specified.');
+  if (!model) throw new Error('The model name must be specified.');
 
   try {
-    const query = knex
-      .select(column)
-      .from(table)
-      .where(column, value);
+    const exception = idField && except ? `${idField}_not: "${except}"` : '';
 
-    if (except) {
-      query.whereNot(idColumn, except);
+    const query = `
+      query {
+        ${model}(where: {
+          AND: {
+            ${field}: "${value}"
+            ${exception}
+          }
+        }) {
+          id
+        }
+      }
+    `;
+    const data = await prisma.$graphql(query);
+
+    if (data && data[model] && !isEmpty(data[model])) {
+      return passes(false, `The ${field} has already been taken.`);
     }
 
-    const row = await query;
-
-    if (row.length === 0) return passes();
-
-    return passes(false, message);
+    return passes();
   } catch (error) {
     logger.error('[unique rule] An error ocurred.', { error });
   }

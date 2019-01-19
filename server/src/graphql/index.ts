@@ -1,20 +1,21 @@
-import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
 import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
-import {
-  makeExecutableSchema,
-  ITypeDefinitions,
-  IResolvers,
-  ILogger
-} from 'graphql-tools';
-import { maskErrors } from 'graphql-errors';
-import { logger } from '../services/log.service';
 import { GraphQLSchema } from 'graphql';
+import { maskErrors } from 'graphql-errors';
+import { ILogger, IResolvers, ITypeDefinitions, makeExecutableSchema } from 'graphql-tools';
+import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+import { join } from 'path';
 
-function mergeResolverFunctions(path: string) {
-  const resolvers = fileLoader(join(__dirname, path), {
-    extensions: ['.js'],
-    recursive: true
+import { logger } from '../services/log.service';
+
+function mergeResolverFunctions(
+  path: string,
+  directories: string[]
+): IResolvers[] {
+  const resolvers = directories.map((directory) => {
+    return fileLoader(join(__dirname, path, directory), {
+      extensions: ['.js'],
+      recursive: true
+    });
   });
 
   return mergeResolvers(resolvers);
@@ -35,7 +36,13 @@ async function createSchema(): Promise<GraphQLSchema> {
 
     const typeDefs: ITypeDefinitions = readFileSync(schemaPath, 'utf8');
 
-    const resolvers: IResolvers = mergeResolverFunctions('.');
+    const resolvers: IResolvers[] = mergeResolverFunctions('.', [
+      'queries',
+      'mutations',
+      'types',
+      'scalars',
+      'unions'
+    ]);
 
     const loggerHandler: ILogger = {
       log: (err) =>

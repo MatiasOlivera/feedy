@@ -1,12 +1,15 @@
+import { MutationResolvers } from '../../../graphql/resolvers.types';
 import CommentValidator from './comment.validator';
 
-class CreateCommentValidator extends CommentValidator {
+class CreateCommentValidator extends CommentValidator<
+  MutationResolvers.CreateCommentInput
+> {
   rules() {
     return {
       ...super.rules(),
-      parentId: ['integer', 'exists:comments,id'],
-      userId: ['required', 'integer', 'exists:users,id'],
-      issueId: ['required', 'integer', 'exists:issues,id']
+      parentId: ['alpha_num', 'exists:comment,id'],
+      userId: ['required', 'alpha_num', 'exists:user,id'],
+      issueId: ['required', 'alpha_num', 'exists:issue,id']
     };
   }
 }

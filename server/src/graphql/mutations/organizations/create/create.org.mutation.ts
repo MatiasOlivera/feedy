@@ -1,13 +1,11 @@
-import objection from 'objection';
 import { CreateOrganizationValidator } from '../../../../app/validators';
-import { knex } from '../../../../services/db.service';
-import { ProductOwner, Organization } from '../../../../models';
-import { IOrganizationPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const createOrganization = async (
-  root: undefined,
-  args: any
-): Promise<IOrganizationPayload> => {
+const createOrganization: MutationResolvers.CreateOrganizationResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   const { org } = args;
 
   try {
@@ -24,14 +22,11 @@ const createOrganization = async (
     };
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    const newProductOwner = await ProductOwner.query(tsx).insert({});
-    const newOrg = (await newProductOwner
-      .$relatedQuery('organization', tsx)
-      .insertAndFetch(org)) as Organization;
-
-    await tsx.commit();
+    const newOrg = await ctx.db.createOrganization({
+      name: org.name,
+      bio: org.bio
+    });
 
     return {
       operation: {
@@ -42,7 +37,6 @@ const createOrganization = async (
       errors: null
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };

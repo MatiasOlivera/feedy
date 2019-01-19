@@ -1,14 +1,14 @@
-import { Comment } from '../../../../models';
-import { ICommentSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const restoreComment = async (
-  root: undefined,
-  args: { id: string }
-): Promise<ICommentSimplePayload> => {
+const restoreComment: MutationResolvers.RestoreCommentResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    const comment = await Comment.query().findById(args.id);
+    const commentExists = await ctx.db.$exists.comment({ id: args.id });
 
-    if (!comment)
+    if (!commentExists)
       return {
         operation: { status: false, message: 'The comment does not exists' },
         comment: null
@@ -18,11 +18,10 @@ const restoreComment = async (
   }
 
   try {
-    await Comment.query()
-      .where('id', args.id)
-      .restore();
-
-    const comment = await Comment.query().findById(args.id);
+    const comment = await ctx.db.updateComment({
+      data: { deletedAt: null },
+      where: { id: args.id }
+    });
 
     return {
       operation: {

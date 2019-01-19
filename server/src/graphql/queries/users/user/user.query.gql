@@ -1,6 +1,0 @@
-type Query {
-  """
-  Fetch a user by his id
-  """
-  user(id: ID!): User
-}

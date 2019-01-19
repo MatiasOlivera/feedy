@@ -1,6 +1,9 @@
+import { MutationResolvers } from '../../../graphql/resolvers.types';
 import IssueValidator from './issue.validator';
 
-class CreateIssueValidator extends IssueValidator {
+class CreateIssueValidator extends IssueValidator<
+  MutationResolvers.CreateIssueInput
+> {
   rules() {
     const rules = super.rules();
 

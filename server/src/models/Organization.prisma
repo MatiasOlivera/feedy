@@ -1,0 +1,14 @@
+type Organization {
+  id: ID! @unique
+  name: String! @unique
+  bio: String
+
+  # Timestamps
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+
+  # Relations
+  products: [Product!]!
+  members: [User!]!
+}

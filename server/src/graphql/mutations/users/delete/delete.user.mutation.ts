@@ -1,18 +1,14 @@
-import objection from 'objection';
-import { knex } from '../../../../services/db.service';
-import { ProductOwner, User } from '../../../../models';
-import { IUserSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const deleteUser = async (
-  root: undefined,
-  args: { id: string }
-): Promise<IUserSimplePayload> => {
-  let user;
-
+const deleteUser: MutationResolvers.DeleteUserResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    user = await User.query().findById(args.id);
+    const userExists = await ctx.db.$exists.user({ id: args.id });
 
-    if (!user) {
+    if (!userExists) {
       return {
         operation: {
           status: false,
@@ -25,13 +21,11 @@ const deleteUser = async (
     throw err;
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    await ProductOwner.query(tsx).deleteById(args.id);
-    await User.query(tsx).deleteById(args.id);
-    await tsx.commit();
-
-    user = await User.query().findById(args.id);
+    const user = await ctx.db.updateUser({
+      data: { deletedAt: new Date() },
+      where: { id: args.id }
+    });
 
     return {
       operation: {
@@ -41,7 +35,6 @@ const deleteUser = async (
       user
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };

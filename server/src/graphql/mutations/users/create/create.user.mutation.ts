@@ -1,13 +1,11 @@
-import objection from 'objection';
 import { CreateUserValidator } from '../../../../app/validators';
-import { knex } from '../../../../services/db.service';
-import { ProductOwner, User } from '../../../../models';
-import { IUserPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const createUser = async (
-  root: undefined,
-  args: any
-): Promise<IUserPayload> => {
+const createUser: MutationResolvers.CreateUserResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   const { user } = args;
 
   try {
@@ -24,29 +22,17 @@ const createUser = async (
     };
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    // ER_BAD_FIELD_ERROR:
-    // Unknown column 'password_confirmation' in 'field list'
+    // The password confirmation field will not be saved in the database
     const { passwordConfirmation, ...dbUser } = user;
-
-    const newProductOwner = await ProductOwner.query(tsx).insert({});
-    const newUser = (await newProductOwner
-      .$relatedQuery('user', tsx)
-      .insertAndFetch(dbUser)) as User;
-
-    await tsx.commit();
+    const newUser = await ctx.db.createUser(dbUser);
 
     return {
-      operation: {
-        status: true,
-        message: 'The user was created succesfully'
-      },
+      operation: { status: true, message: 'The user was created succesfully' },
       user: newUser,
       errors: null
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };

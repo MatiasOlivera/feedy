@@ -1,20 +1,16 @@
-import { Product } from '../../../../models';
-import { IProductSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const deleteProduct = async (
-  root: undefined,
-  args: { id: string }
-): Promise<IProductSimplePayload> => {
-  let product;
+const deleteProduct: MutationResolvers.DeleteProductResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    product = await Product.query().findById(args.id);
+    const productExists = await ctx.db.$exists.product({ id: args.id });
 
-    if (!product)
+    if (!productExists)
       return {
-        operation: {
-          status: false,
-          message: 'The product does not exists'
-        },
+        operation: { status: false, message: 'The product does not exists' },
         product: null
       };
   } catch (err) {
@@ -22,8 +18,10 @@ const deleteProduct = async (
   }
 
   try {
-    await Product.query().deleteById(args.id);
-    product = await Product.query().findById(args.id);
+    const product = await ctx.db.updateProduct({
+      data: { deletedAt: new Date() },
+      where: { id: args.id }
+    });
 
     return {
       operation: {

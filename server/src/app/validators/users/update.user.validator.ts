@@ -1,10 +1,18 @@
+import { MutationResolvers } from '../../../graphql/resolvers.types';
 import UserValidator from './user.validator';
 
-class UpdateUserValidator extends UserValidator {
+interface UpdateUserArgs {
+  id: string;
+}
+
+class UpdateUserValidator extends UserValidator<
+  MutationResolvers.UpdateUserInput,
+  UpdateUserArgs
+> {
   // eslint-disable-next-line class-methods-use-this
   rules() {
     const rules = super.rules();
-    const { id } = this.data;
+    const { id } = this.args;
 
     return {
       ...rules,

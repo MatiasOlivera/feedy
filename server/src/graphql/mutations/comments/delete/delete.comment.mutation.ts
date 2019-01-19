@@ -1,16 +1,14 @@
-import { Comment } from '../../../../models';
-import { ICommentSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const deleteComment = async (
-  root: undefined,
-  args: { id: string }
-): Promise<ICommentSimplePayload> => {
-  let comment;
-
+const deleteComment: MutationResolvers.DeleteCommentResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    comment = await Comment.query().findById(args.id);
+    const commentExists = await ctx.db.$exists.comment({ id: args.id });
 
-    if (!comment)
+    if (!commentExists)
       return {
         operation: { status: false, message: 'The comment does not exists' },
         comment: null
@@ -20,8 +18,10 @@ const deleteComment = async (
   }
 
   try {
-    await Comment.query().deleteById(args.id);
-    comment = await Comment.query().findById(args.id);
+    const comment = await ctx.db.updateComment({
+      data: { deletedAt: new Date() },
+      where: { id: args.id }
+    });
 
     return {
       operation: {

@@ -1,0 +1,23 @@
+# Specifies the HTTP endpoint of your Prisma API.
+endpoint: ${env:DB_ENDPOINT}
+
+# Service secret for securing the API endpoint.
+secret: ${env:DB_SECRET}
+
+# Defines your models, each model is mapped to the database as a table.
+datamodel:
+  - src/models/User.prisma
+  - src/models/Organization.prisma
+  - src/models/Product.prisma
+  - src/models/Issue.prisma
+  - src/models/Comment.prisma
+
+# Specifies the language and directory for the generated Prisma client.
+generate:
+  - generator: typescript-client
+    output: src/database/prisma-client/
+
+# Ensures Prisma client is re-generated after a datamodel change.
+hooks:
+  post-deploy:
+    - prisma generate

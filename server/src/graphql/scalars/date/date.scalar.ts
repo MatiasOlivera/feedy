@@ -1,5 +1,5 @@
-import { Kind } from 'graphql/language';
 import { UserError } from 'graphql-errors';
+import { Kind } from 'graphql/language';
 
 function validateDate(value: string): void {
   const date = Date.parse(value);
@@ -22,10 +22,6 @@ const DateScalar = {
 
     validateDate(ast.value);
     return new Date(ast.value);
-  },
-
-  serialize(value: Date) {
-    return value.toJSON();
   }
 };
 

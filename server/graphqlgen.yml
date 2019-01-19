@@ -1,0 +1,22 @@
+# The target programming language for the generated code.
+language: typescript
+
+# The file path pointing to your GraphQL schema.
+schema: ./dist/graphql/schema.graphql
+
+# Type definition for the resolver context object.
+context: ./src/graphql/graphql.types.ts:Context
+
+# Map SDL types from the GraphQL schema to TS models.
+models:
+  files:
+    - ./src/database/prisma-client
+    - ./src/graphql/models.types.ts
+
+# Generated typings for resolvers and default resolver implementations.
+output: ./src/graphql/resolvers.types.ts
+
+# Temporary scaffolded resolvers to copy and paste into your own source files.
+resolver-scaffolding:
+  output: ./src/graphql/tmp-resolvers/
+  layout: file-per-type

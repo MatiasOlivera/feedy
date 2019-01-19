@@ -1,0 +1,44 @@
+type Query {
+  """
+  Fetch a product by its id
+  """
+  product(id: ID!): Product
+
+  """
+  Fetch a list of products
+  """
+  products(
+    search: String
+    pagination: Pagination = { first: 10 }
+    orderBy: ProductOrderBy = { field: name, direction: ASC }
+    where: ProductWhere = { deleted: false }
+  ): ProductConnection
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge!]!
+  count: Int
+  total: Int
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+input ProductOrderBy {
+  field: ProductField
+  direction: ORDER
+}
+
+enum ProductField {
+  name
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input ProductWhere {
+  deleted: Boolean
+}

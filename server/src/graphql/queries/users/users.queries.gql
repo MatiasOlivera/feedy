@@ -1,0 +1,47 @@
+type Query {
+  """
+  Fetch a user by his id
+  """
+  user(id: ID!): User
+
+  """
+  Fetch a list of users
+  """
+  users(
+    search: String
+    pagination: Pagination = { first: 10 }
+    orderBy: UserOrderBy = { field: username, direction: ASC }
+    where: UserWhere = { deleted: false }
+  ): UserConnection
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+  count: Int
+  total: Int
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+input UserOrderBy {
+  field: UserField
+  direction: ORDER
+}
+
+enum UserField {
+  firstName
+  lastName
+  username
+  email
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input UserWhere {
+  deleted: Boolean
+}

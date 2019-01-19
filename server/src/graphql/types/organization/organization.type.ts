@@ -1,23 +1,15 @@
-import { isEmptyReturnNull } from '../_utils';
-import { Product, User } from '../../../models';
-import { IOrganization } from 'graphql-schema';
+import { OrganizationResolvers } from '../../resolvers.types';
 
-async function products(org: IOrganization) {
-  const rows = await Product.query().where('owner_id', org.id);
-  return isEmptyReturnNull(rows);
-}
+export const Organization: OrganizationResolvers.Type = {
+  ...OrganizationResolvers.defaultResolvers,
 
-async function members(org: IOrganization) {
-  const rows = await User.query()
-    .joinRelation('organizations')
-    .where('organization_id', org.id);
+  products: (parent, args, ctx) => {
+    return ctx.db.organization({ id: parent.id }).products();
+  },
 
-  return isEmptyReturnNull(rows);
-}
-
-export default {
-  Organization: {
-    products,
-    members
+  members: (parent, args, ctx) => {
+    return ctx.db.organization({ id: parent.id }).members();
   }
 };
+
+export default { Organization };

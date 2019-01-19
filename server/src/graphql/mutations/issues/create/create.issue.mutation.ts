@@ -1,11 +1,11 @@
 import { CreateIssueValidator } from '../../../../app/validators';
-import { Issue } from '../../../../models';
-import { IIssuePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const createIssue = async (
-  root: undefined,
-  args: any
-): Promise<IIssuePayload> => {
+const createIssue: MutationResolvers.CreateIssueResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   const { issue } = args;
 
   try {
@@ -20,7 +20,12 @@ const createIssue = async (
   }
 
   try {
-    const newIssue = await Issue.query().insertAndFetch(issue);
+    const newIssue = await ctx.db.createIssue({
+      title: issue.title,
+      body: issue.body,
+      author: { connect: { id: issue.userId } },
+      product: { connect: { id: issue.productId } }
+    });
 
     return {
       operation: {

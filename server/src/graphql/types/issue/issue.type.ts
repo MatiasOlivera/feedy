@@ -1,27 +1,19 @@
-import { isEmptyReturnNull } from '../_utils';
-import { User, Product, Comment } from '../../../models';
-import { IIssue } from 'graphql-schema';
+import { IssueResolvers } from '../../resolvers.types';
 
-async function author(issue: IIssue) {
-  return User.query().findById(issue.userId);
-}
+const Issue: IssueResolvers.Type = {
+  ...IssueResolvers.defaultResolvers,
 
-async function product(issue: IIssue) {
-  return Product.query().findById(issue.productId);
-}
+  author: (parent, args, ctx) => {
+    return ctx.db.issue({ id: parent.id }).author();
+  },
 
-async function comments(issue: IIssue) {
-  const rows = await Comment.query()
-    .joinRelation('issue')
-    .where('issue_id', issue.id);
+  product: (parent, args, ctx) => {
+    return ctx.db.issue({ id: parent.id }).product();
+  },
 
-  return isEmptyReturnNull(rows);
-}
-
-export default {
-  Issue: {
-    author,
-    product,
-    comments
+  comments: (parent, args, ctx) => {
+    return ctx.db.issue({ id: parent.id }).comments();
   }
 };
+
+export default { Issue };

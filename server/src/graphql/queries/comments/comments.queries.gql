@@ -1,0 +1,43 @@
+type Query {
+  """
+  Fetch a comment by its id
+  """
+  comment(id: ID!): Comment
+
+  """
+  Fetch a list of comments
+  """
+  comments(
+    pagination: Pagination = { first: 10 }
+    orderBy: CommentOrderBy = { field: createdAt, direction: DESC }
+    where: CommentWhere = { deleted: false }
+  ): CommentConnection
+}
+
+type CommentConnection {
+  pageInfo: PageInfo!
+  edges: [CommentEdge]!
+  count: Int
+  total: Int
+}
+
+type CommentEdge {
+  node: Comment!
+  cursor: String!
+}
+
+input CommentOrderBy {
+  field: CommentField
+  direction: ORDER
+}
+
+enum CommentField {
+  body
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input CommentWhere {
+  deleted: Boolean
+}

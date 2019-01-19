@@ -1,16 +1,15 @@
 import { UpdateCommentValidator } from '../../../../app/validators';
-import { Comment } from '../../../../models';
-import { ICommentPayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const updateComment = async (
-  root: undefined,
-  args: any
-): Promise<ICommentPayload> => {
-  let comment;
+const updateComment: MutationResolvers.UpdateCommentResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    comment = await Comment.query().findById(args.id);
+    const commentExists = await ctx.db.$exists.comment({ id: args.id });
 
-    if (!comment)
+    if (!commentExists)
       return {
         operation: { status: false, message: 'The comment does not exists' },
         comment: null,
@@ -33,7 +32,10 @@ const updateComment = async (
   }
 
   try {
-    const updatedComment = await comment.$query().patchAndFetch(args.comment);
+    const updatedComment = await ctx.db.updateComment({
+      data: { body: args.comment.body },
+      where: { id: args.id }
+    });
 
     return {
       operation: {

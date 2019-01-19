@@ -1,16 +1,14 @@
-import objection from 'objection';
-import { knex } from '../../../../services/db.service';
-import { ProductOwner, User } from '../../../../models';
-import { IUserSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const restoreUser = async (
-  root: undefined,
-  args: { id: string }
-): Promise<IUserSimplePayload> => {
+const restoreUser: MutationResolvers.RestoreUserResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    const user = await User.query().findById(args.id);
+    const userExists = await ctx.db.$exists.user({ id: args.id });
 
-    if (!user) {
+    if (!userExists) {
       return {
         operation: {
           status: false,
@@ -23,19 +21,11 @@ const restoreUser = async (
     throw err;
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    await ProductOwner.query(tsx)
-      .where('id', args.id)
-      .restore();
-
-    await User.query(tsx)
-      .where('id', args.id)
-      .restore();
-
-    await tsx.commit();
-
-    const user = await User.query().findById(args.id);
+    const user = await ctx.db.updateUser({
+      data: { deletedAt: null },
+      where: { id: args.id }
+    });
 
     return {
       operation: {
@@ -45,7 +35,6 @@ const restoreUser = async (
       user
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };

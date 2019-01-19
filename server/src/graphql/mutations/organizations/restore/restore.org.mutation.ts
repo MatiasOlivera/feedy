@@ -1,16 +1,14 @@
-import objection from 'objection';
-import { knex } from '../../../../services/db.service';
-import { ProductOwner, Organization } from '../../../../models';
-import { IOrganizationSimplePayload } from 'graphql-schema';
+import { MutationResolvers } from '../../../resolvers.types';
 
-const restoreOrganization = async (
-  root: undefined,
-  args: { id: string }
-): Promise<IOrganizationSimplePayload> => {
+const restoreOrganization: MutationResolvers.RestoreOrganizationResolver = async (
+  parent,
+  args,
+  ctx
+) => {
   try {
-    const org = await Organization.query().findById(args.id);
+    const orgExists = await ctx.db.$exists.organization({ id: args.id });
 
-    if (!org) {
+    if (!orgExists) {
       return {
         operation: {
           status: false,
@@ -23,19 +21,11 @@ const restoreOrganization = async (
     throw err;
   }
 
-  const tsx = await objection.transaction.start(knex);
   try {
-    await ProductOwner.query(tsx)
-      .where('id', args.id)
-      .restore();
-
-    await Organization.query(tsx)
-      .where('id', args.id)
-      .restore();
-
-    await tsx.commit();
-
-    const organization = await Organization.query().findById(args.id);
+    const organization = await ctx.db.updateOrganization({
+      data: { deletedAt: null },
+      where: { id: args.id }
+    });
 
     return {
       operation: {
@@ -45,7 +35,6 @@ const restoreOrganization = async (
       organization
     };
   } catch (err) {
-    await tsx.rollback();
     throw err;
   }
 };

@@ -1,9 +1,7 @@
+import { Dictionary } from 'lodash';
 import Validator from 'validatorjs';
-import customRules from './custom_rules';
 
-interface RequestBody {
-  [field: string]: string | number | boolean;
-}
+import customRules from './custom_rules';
 
 interface ValidationRule {
   [field: string]: string | string[] | ValidationRule;
@@ -13,15 +11,10 @@ interface ValidationErrors {
   [field: string]: [string];
 }
 
-interface FlatValidationErrors {
-  [field: string]: string;
-}
-
-class BaseValidator {
+class BaseValidator<T, U = any> {
   private errors: ValidationErrors;
 
-  constructor(protected data: RequestBody) {
-    this.data = data;
+  constructor(protected data: T, protected args?: U) {
     this.errors = null;
     this.registerCustomRules();
   }
@@ -51,7 +44,7 @@ class BaseValidator {
     return new Promise((resolve, reject) => {
       const validator = new Validator(this.data, this.rules());
       const handleFails = () => {
-        this.errors = validator.errors.all();
+        this.errors = validator.errors.all() as any;
         reject(this.formattedErrors);
       };
 
@@ -71,16 +64,15 @@ class BaseValidator {
     });
   }
 
-  get formattedErrors(): FlatValidationErrors {
+  get formattedErrors(): Dictionary<string> {
     if (!this.errors) return null;
 
-    const [flatErrors] = Object.entries(this.errors).map(
-      ([attribute, messages]) => ({
-        [attribute]: messages[0]
-      })
-    );
+    let errorsDict: Dictionary<string> = {};
 
-    return flatErrors;
+    const errors = Object.entries(this.errors);
+    errors.forEach(([attr, msg]) => (errorsDict[attr] = msg[0]));
+
+    return errorsDict;
   }
 }
 

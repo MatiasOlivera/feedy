@@ -1,6 +1,0 @@
-type Query {
-  """
-  Fetch an issue by its id
-  """
-  issue(id: ID!): Issue
-}

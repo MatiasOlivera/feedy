@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-underscore-dangle
-import { IUser, IOrganization } from 'graphql-schema';
+import { Organization, User } from '../../../database/prisma-client';
 
-function __resolveType(parent: IUser | IOrganization): 'User' | 'Organization' {
+function __resolveType(parent: User | Organization): 'User' | 'Organization' {
   return parent.hasOwnProperty('username') ? 'User' : 'Organization';
 }
 

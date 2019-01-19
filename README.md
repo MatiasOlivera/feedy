@@ -28,6 +28,7 @@ A collaborative feedback platform for share ideas and discuss a product or servi
 
 ### Prerequisites
 
+- Docker
 - Node.js >= 8
 - MySQL 5
 
@@ -48,6 +49,14 @@ Install remaining package dependencies and link local packages
 Change the current directory to server
 
     $ cd server
+
+Run Prisma and database services within a Docker container
+
+    $ docker-compose up -d
+
+Deploy the Prisma API
+
+    $ npm run prisma:deploy
 
 Run API server in watch mode
 
