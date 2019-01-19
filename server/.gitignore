@@ -46,6 +46,9 @@ dist/
 # TypeScript v1 declaration files
 typings/
 
+# Graphqlgen output
+src/graphql/tmp-resolvers
+
 # Optional npm cache directory
 .npm
 
