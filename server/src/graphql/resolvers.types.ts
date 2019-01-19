@@ -45,6 +45,7 @@ type CommentField = 'body' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type ORDER = 'ASC' | 'DESC';
 type IssueField = 'title' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type OrganizationField = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
+type ProductField = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -75,6 +76,10 @@ export namespace QueryResolvers {
   }
   export interface OrganizationWhere {
     deleted: boolean | null;
+  }
+  export interface ProductOrderBy {
+    field: ProductField | null;
+    direction: ORDER | null;
   }
 
   export interface ArgsComment {
@@ -116,8 +121,7 @@ export namespace QueryResolvers {
   export interface ArgsProducts {
     search: string | null;
     pagination: Pagination | null;
-    orderBy: string | null;
-    direction: ORDER | null;
+    orderBy: ProductOrderBy | null;
     deleted: boolean | null;
   }
 

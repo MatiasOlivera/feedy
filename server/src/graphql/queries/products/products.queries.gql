@@ -10,8 +10,7 @@ type Query {
   products(
     search: String
     pagination: Pagination = { first: 10 }
-    orderBy: String = "id"
-    direction: ORDER = ASC
+    orderBy: ProductOrderBy = { field: name, direction: ASC }
     deleted: Boolean = false
   ): ProductConnection
 }
@@ -26,4 +25,16 @@ type ProductConnection {
 type ProductEdge {
   node: Product!
   cursor: String!
+}
+
+input ProductOrderBy {
+  field: ProductField
+  direction: ORDER
+}
+
+enum ProductField {
+  name
+  createdAt
+  updatedAt
+  deletedAt
 }

@@ -1,6 +1,7 @@
-import { ProductWhereInput } from '../../../database/prisma-client';
+import { ProductOrderByInput, ProductWhereInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
 import { getPaginationArguments } from '../../utils/pagination';
+import { getSortingArguments } from '../../utils/sorting';
 
 const product: QueryResolvers.ProductResolver = (parent, args, ctx) => {
   return ctx.db.product({ id: args.id });
@@ -15,10 +16,12 @@ const products: QueryResolvers.ProductsResolver = async (parent, args, ctx) => {
 
   const search = args.search ? { name_contains: args.search } : null;
   const where: ProductWhereInput = { ...search };
+  const orderBy: ProductOrderByInput = getSortingArguments(args.orderBy);
 
   const result = await ctx.db.productsConnection({
     ...pagination,
-    where
+    where,
+    orderBy
   });
 
   const total: number = await ctx.db
