@@ -4,33 +4,6 @@ export interface Operation {
   status: boolean;
   message: string;
 }
-
-/**
- * Pagination
- */
-
-export interface Connection<Type> {
-  edges: Edge<Type>[];
-  pageInfo: PageInfo;
-  aggregate: Aggregate;
-}
-
-export interface Aggregate {
-  count: number;
-}
-
-export interface Edge<Type> {
-  cursor: string;
-  node: Type;
-}
-
-export interface PageInfo {
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  startCursor: string;
-  endCursor: string;
-}
-
 export interface ValidationErrors {
   [attribute: string]: string;
 }
