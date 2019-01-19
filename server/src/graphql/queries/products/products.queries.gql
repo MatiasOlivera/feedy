@@ -9,10 +9,21 @@ type Query {
   """
   products(
     search: String
-    page: Int = 1
-    limit: Int = 10
+    pagination: Pagination = { first: 10 }
     orderBy: String = "id"
     direction: ORDER = ASC
     deleted: Boolean = false
-  ): [Product!]
+  ): ProductConnection
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge!]!
+  count: Int
+  total: Int
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
 }

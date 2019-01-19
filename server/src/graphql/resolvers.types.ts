@@ -13,7 +13,9 @@ import {
   IssueConnection,
   IssueEdge,
   OrganizationConnection,
-  OrganizationEdge
+  OrganizationEdge,
+  ProductConnection,
+  ProductEdge
 } from '../database/prisma-client/index';
 import {
   CreateCommentPayload,
@@ -113,8 +115,7 @@ export namespace QueryResolvers {
 
   export interface ArgsProducts {
     search: string | null;
-    page: number | null;
-    limit: number | null;
+    pagination: Pagination | null;
     orderBy: string | null;
     direction: ORDER | null;
     deleted: boolean | null;
@@ -187,7 +188,7 @@ export namespace QueryResolvers {
     args: ArgsProducts,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Product[] | Promise<Product[]>;
+  ) => ProductConnection | null | Promise<ProductConnection | null>;
 
   export type UserResolver = (
     parent: undefined,
@@ -258,7 +259,7 @@ export namespace QueryResolvers {
       args: ArgsProducts,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Product[] | Promise<Product[]>;
+    ) => ProductConnection | null | Promise<ProductConnection | null>;
 
     user: (
       parent: undefined,
@@ -1377,6 +1378,108 @@ export namespace OrganizationEdgeResolvers {
 
     cursor: (
       parent: OrganizationEdge,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+  }
+}
+
+export namespace ProductConnectionResolvers {
+  export const defaultResolvers = {
+    pageInfo: (parent: ProductConnection) => parent.pageInfo,
+    edges: (parent: ProductConnection) => parent.edges
+  };
+
+  export type PageInfoResolver = (
+    parent: ProductConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => PageInfo | Promise<PageInfo>;
+
+  export type EdgesResolver = (
+    parent: ProductConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => ProductEdge[] | Promise<ProductEdge[]>;
+
+  export type CountResolver = (
+    parent: ProductConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export type TotalResolver = (
+    parent: ProductConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
+  export interface Type {
+    pageInfo: (
+      parent: ProductConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => PageInfo | Promise<PageInfo>;
+
+    edges: (
+      parent: ProductConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => ProductEdge[] | Promise<ProductEdge[]>;
+
+    count: (
+      parent: ProductConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+
+    total: (
+      parent: ProductConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
+  }
+}
+
+export namespace ProductEdgeResolvers {
+  export const defaultResolvers = {
+    node: (parent: ProductEdge) => parent.node,
+    cursor: (parent: ProductEdge) => parent.cursor
+  };
+
+  export type NodeResolver = (
+    parent: ProductEdge,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Product | Promise<Product>;
+
+  export type CursorResolver = (
+    parent: ProductEdge,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    node: (
+      parent: ProductEdge,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Product | Promise<Product>;
+
+    cursor: (
+      parent: ProductEdge,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
@@ -2916,6 +3019,8 @@ export interface Resolvers {
   IssueEdge: IssueEdgeResolvers.Type;
   OrganizationConnection: OrganizationConnectionResolvers.Type;
   OrganizationEdge: OrganizationEdgeResolvers.Type;
+  ProductConnection: ProductConnectionResolvers.Type;
+  ProductEdge: ProductEdgeResolvers.Type;
   Mutation: MutationResolvers.Type;
   CreateCommentPayload: CreateCommentPayloadResolvers.Type;
   Operation: OperationResolvers.Type;
