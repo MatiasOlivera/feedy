@@ -1251,6 +1251,13 @@ export namespace IssueConnectionResolvers {
     info: GraphQLResolveInfo
   ) => IssueEdge[] | Promise<IssueEdge[]>;
 
+  export type CountResolver = (
+    parent: IssueConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
   export type TotalResolver = (
     parent: IssueConnection,
     args: {},
@@ -1272,6 +1279,13 @@ export namespace IssueConnectionResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => IssueEdge[] | Promise<IssueEdge[]>;
+
+    count: (
+      parent: IssueConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
 
     total: (
       parent: IssueConnection,

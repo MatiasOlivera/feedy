@@ -18,6 +18,7 @@ type Query {
 type IssueConnection {
   pageInfo: PageInfo!
   edges: [IssueEdge!]!
+  count: Int
   total: Int
 }
 
