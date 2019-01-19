@@ -1,6 +1,5 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-import { GraphQLClient } from 'graphql-request';
 
 import env from './config';
 import { prisma as db } from './database/prisma-client';
@@ -19,16 +18,10 @@ async function initServer() {
   try {
     const app = express();
 
-    const client = new GraphQLClient(env.DB_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${env.DB_SECRET}`
-      }
-    });
-
     const graphqlServer = graphqlHTTP({
       schema,
       graphiql: env.isDevelopment,
-      context: { db, client }
+      context: { db }
     });
 
     app.use('/graphql', corsMiddleware, graphqlServer);
