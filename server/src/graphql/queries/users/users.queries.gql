@@ -11,7 +11,7 @@ type Query {
     search: String
     pagination: Pagination = { first: 10 }
     orderBy: UserOrderBy = { field: username, direction: ASC }
-    deleted: Boolean = false
+    where: UserWhere = { deleted: false }
   ): UserConnection
 }
 
@@ -40,4 +40,8 @@ enum UserField {
   createdAt
   updatedAt
   deletedAt
+}
+
+input UserWhere {
+  deleted: Boolean
 }

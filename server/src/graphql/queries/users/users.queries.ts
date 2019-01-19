@@ -1,5 +1,6 @@
 import { UserOrderByInput, UserWhereInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
+import { getDeletedArgument } from '../../utils/filterDeleted';
 import { getPaginationArguments } from '../../utils/pagination';
 import { getSortingArguments } from '../../utils/sorting';
 
@@ -15,7 +16,8 @@ const users: QueryResolvers.UsersResolver = async (parent, args, ctx) => {
   }
 
   const search = args.search ? { username_contains: args.search } : null;
-  const where: UserWhereInput = { ...search };
+  const deleted = getDeletedArgument(args.where.deleted);
+  const where: UserWhereInput = { ...search, ...deleted };
   const orderBy: UserOrderByInput = getSortingArguments(args.orderBy);
 
   const result = await ctx.db.usersConnection({
@@ -25,7 +27,7 @@ const users: QueryResolvers.UsersResolver = async (parent, args, ctx) => {
   });
 
   const total: number = await ctx.db
-    .usersConnection()
+    .usersConnection({ where: { ...deleted } })
     .aggregate()
     .count();
 

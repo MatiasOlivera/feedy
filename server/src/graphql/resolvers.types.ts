@@ -98,6 +98,9 @@ export namespace QueryResolvers {
     field: UserField | null;
     direction: ORDER | null;
   }
+  export interface UserWhere {
+    deleted: boolean | null;
+  }
 
   export interface ArgsComment {
     id: string;
@@ -150,7 +153,7 @@ export namespace QueryResolvers {
     search: string | null;
     pagination: Pagination | null;
     orderBy: UserOrderBy | null;
-    deleted: boolean | null;
+    where: UserWhere | null;
   }
 
   export type CommentResolver = (
