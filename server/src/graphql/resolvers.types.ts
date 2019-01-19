@@ -48,6 +48,14 @@ type ORDER = 'ASC' | 'DESC';
 type IssueField = 'title' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type OrganizationField = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
 type ProductField = 'name' | 'createdAt' | 'updatedAt' | 'deletedAt';
+type UserField =
+  | 'firstName'
+  | 'lastName'
+  | 'username'
+  | 'email'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'deletedAt';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -85,6 +93,10 @@ export namespace QueryResolvers {
   }
   export interface ProductWhere {
     deleted: boolean | null;
+  }
+  export interface UserOrderBy {
+    field: UserField | null;
+    direction: ORDER | null;
   }
 
   export interface ArgsComment {
@@ -137,8 +149,7 @@ export namespace QueryResolvers {
   export interface ArgsUsers {
     search: string | null;
     pagination: Pagination | null;
-    orderBy: string | null;
-    direction: ORDER | null;
+    orderBy: UserOrderBy | null;
     deleted: boolean | null;
   }
 

@@ -10,8 +10,7 @@ type Query {
   users(
     search: String
     pagination: Pagination = { first: 10 }
-    orderBy: String = "id"
-    direction: ORDER = ASC
+    orderBy: UserOrderBy = { field: username, direction: ASC }
     deleted: Boolean = false
   ): UserConnection
 }
@@ -26,4 +25,19 @@ type UserConnection {
 type UserEdge {
   node: User!
   cursor: String!
+}
+
+input UserOrderBy {
+  field: UserField
+  direction: ORDER
+}
+
+enum UserField {
+  firstName
+  lastName
+  username
+  email
+  createdAt
+  updatedAt
+  deletedAt
 }
