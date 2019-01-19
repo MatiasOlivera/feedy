@@ -1080,6 +1080,13 @@ export namespace CommentConnectionResolvers {
     info: GraphQLResolveInfo
   ) => CommentEdge[] | Promise<CommentEdge[]>;
 
+  export type CountResolver = (
+    parent: CommentConnection,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => number | null | Promise<number | null>;
+
   export type TotalResolver = (
     parent: CommentConnection,
     args: {},
@@ -1101,6 +1108,13 @@ export namespace CommentConnectionResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => CommentEdge[] | Promise<CommentEdge[]>;
+
+    count: (
+      parent: CommentConnection,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => number | null | Promise<number | null>;
 
     total: (
       parent: CommentConnection,

@@ -1,8 +1,6 @@
-import gql from 'gql-tag';
-
-import { CommentOrderByInput } from '../../../database/prisma-client';
-import { Connection } from '../../models.types';
+import { CommentOrderByInput, CommentWhereInput } from '../../../database/prisma-client';
 import { QueryResolvers } from '../../resolvers.types';
+import { getDeletedArgument } from '../../utils/filterDeleted';
 import { getPaginationArguments } from '../../utils/pagination';
 import { getSortingArguments } from '../../utils/sorting';
 
@@ -17,70 +15,27 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
     throw err;
   }
 
+  const deleted = getDeletedArgument(args.where.deleted);
+  const where: CommentWhereInput = { ...deleted };
   const orderBy: CommentOrderByInput = getSortingArguments(args.orderBy);
 
-  const deleted = args.where.deleted ? 'deletedAt_not' : 'deletedAt';
+  const result = await ctx.db.commentsConnection({
+    ...pagination,
+    where,
+    orderBy
+  });
 
-  const query = gql`
-    query getComments(
-      $first: Int
-      $after: String
-      $last: Int
-      $before: String
-      $orderBy: CommentOrderByInput
-      $deletedAt: DateTime
-    ) {
-      commentsConnection(
-        first: $first
-        after: $after
-        last: $last
-        before: $before
-        orderBy: $orderBy
-        where: { ${deleted}: $deletedAt }
-      ) {
-        edges {
-          cursor
-          node {
-            id
-            body
-            createdAt
-            updatedAt
-            deletedAt
-          }
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
-        }
-        aggregate {
-          count
-        }
-      }
-    }
-  `;
-  const variables = { ...pagination, orderBy, deletedAt: null as null };
+  const total: number = await ctx.db
+    .commentsConnection({ where: { ...deleted } })
+    .aggregate()
+    .count();
 
-  const response = await ctx.client.request<QueryResponse>(query, variables);
+  const count: number = await ctx.db
+    .commentsConnection({ where })
+    .aggregate()
+    .count();
 
-  return {
-    edges: response.commentsConnection.edges,
-    pageInfo: response.commentsConnection.pageInfo,
-    total: response.commentsConnection.aggregate.count
-  };
+  return { ...result, count, total };
 };
-
-export interface QueryResponse {
-  commentsConnection: Connection<Comment>;
-}
-
-export interface Comment {
-  id: string;
-  body: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-}
 
 export default { Query: { comment, comments } };

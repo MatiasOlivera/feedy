@@ -17,6 +17,7 @@ type Query {
 type CommentConnection {
   pageInfo: PageInfo!
   edges: [CommentEdge]!
+  count: Int
   total: Int
 }
 
