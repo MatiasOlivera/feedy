@@ -1,4 +1,5 @@
 import { UserError } from 'graphql-errors';
+import { isEmpty } from 'lodash';
 
 import { QueryResolvers } from '../resolvers.types';
 
@@ -10,13 +11,13 @@ export function getPaginationArguments(
 
   // If default pagination was not specified in the schema
   // return a fallback response
-  if (!pagination) return defaultPagination;
+  if (!pagination || isEmpty(pagination)) return defaultPagination;
 
   const { first, after, last, before } = pagination;
   const minLimit = 0;
   const maxLimit = 20;
 
-  if (first || first === minLimit || after) {
+  if (first || first === minLimit) {
     if (first <= minLimit) {
       throw new UserError(`First must be a number greater than ${minLimit}`);
     }
@@ -27,10 +28,14 @@ export function getPaginationArguments(
       );
     }
 
-    return { first: first || itemsPerPage, after };
+    return { first, after };
   }
 
-  if (last || last === minLimit || before) {
+  if (after) {
+    return { first: itemsPerPage, after };
+  }
+
+  if (last || last === minLimit) {
     if (last <= minLimit) {
       throw new UserError(`Last must be a number greater than ${minLimit}`);
     }
@@ -41,7 +46,11 @@ export function getPaginationArguments(
       );
     }
 
-    return { last: last || itemsPerPage, before };
+    return { last, before };
+  }
+
+  if (before) {
+    return { last: itemsPerPage, before };
   }
 
   return defaultPagination;
