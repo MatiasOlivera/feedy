@@ -21,13 +21,16 @@
     "@types/express-graphql": "^0.6.2",
     "@types/graphql": "^14.0.3",
     "@types/graphql-errors": "^2.1.1",
+    "@types/jest": "^23.3.13",
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.12",
     "@types/validatorjs": "^3.7.1",
     "@types/ws": "^6.0.1",
     "graphqlgen": "^0.4.0",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.8",
-    "prisma": "^1.23.2"
+    "prisma": "^1.23.2",
+    "ts-jest": "^23.10.5"
   },
   "dependencies": {
     "cors": "^2.8.5",
