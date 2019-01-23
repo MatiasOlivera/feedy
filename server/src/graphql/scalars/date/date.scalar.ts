@@ -1,7 +1,7 @@
 import { UserError } from 'graphql-errors';
 import { Kind } from 'graphql/language';
 
-function validateDate(value: string): void {
+export function validateDate(value: string): void {
   const date = Date.parse(value);
   // eslint-disable-next-line no-restricted-globals
   if (isNaN(date)) {
@@ -9,7 +9,7 @@ function validateDate(value: string): void {
   }
 }
 
-const DateScalar = {
+export const DateScalar = {
   parseValue(value: string) {
     validateDate(value);
     return new Date(value);
