@@ -12,7 +12,9 @@
     "schema:merge": "node scripts/merge.schema.js",
     "schema:generate": "npm run schema:merge && graphqlgen",
     "prisma:deploy": "prisma deploy",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@types/cors": "^2.8.4",
