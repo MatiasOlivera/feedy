@@ -58,4 +58,4 @@ const updateOrganization: MutationResolvers.UpdateOrganizationResolver = async (
   }
 };
 
-export default { Mutation: { updateOrganization } };
+export default updateOrganization;

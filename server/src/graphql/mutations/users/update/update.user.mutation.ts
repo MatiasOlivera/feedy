@@ -56,4 +56,4 @@ const updateUser: MutationResolvers.UpdateUserResolver = async (
   }
 };
 
-export default { Mutation: { updateUser } };
+export default updateUser;

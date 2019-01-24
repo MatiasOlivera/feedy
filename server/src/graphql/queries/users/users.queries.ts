@@ -39,4 +39,4 @@ const users: QueryResolvers.UsersResolver = async (parent, args, ctx) => {
   return { ...result, count, total };
 };
 
-export default { Query: { user, users } };
+export default { user, users };

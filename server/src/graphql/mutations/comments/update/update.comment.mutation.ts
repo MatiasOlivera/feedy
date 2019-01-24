@@ -50,4 +50,4 @@ const updateComment: MutationResolvers.UpdateCommentResolver = async (
   }
 };
 
-export default { Mutation: { updateComment } };
+export default updateComment;

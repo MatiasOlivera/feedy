@@ -41,4 +41,4 @@ const createOrganization: MutationResolvers.CreateOrganizationResolver = async (
   }
 };
 
-export default { Mutation: { createOrganization } };
+export default createOrganization;

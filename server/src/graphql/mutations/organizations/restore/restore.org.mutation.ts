@@ -39,4 +39,4 @@ const restoreOrganization: MutationResolvers.RestoreOrganizationResolver = async
   }
 };
 
-export default { Mutation: { restoreOrganization } };
+export default restoreOrganization;

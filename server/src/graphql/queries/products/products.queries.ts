@@ -39,4 +39,4 @@ const products: QueryResolvers.ProductsResolver = async (parent, args, ctx) => {
   return { ...result, count, total };
 };
 
-export default { Query: { product, products } };
+export default { product, products };

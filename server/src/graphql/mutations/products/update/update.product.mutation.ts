@@ -53,4 +53,4 @@ const updateProduct: MutationResolvers.UpdateProductResolver = async (
   }
 };
 
-export default { Mutation: { updateProduct } };
+export default updateProduct;

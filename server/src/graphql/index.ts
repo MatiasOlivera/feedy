@@ -2,24 +2,10 @@ import { existsSync, readFileSync } from 'fs';
 import { GraphQLSchema } from 'graphql';
 import { maskErrors } from 'graphql-errors';
 import { ILogger, IResolvers, ITypeDefinitions, makeExecutableSchema } from 'graphql-tools';
-import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
 import { join } from 'path';
 
 import { logger } from '../services/log.service';
-
-function mergeResolverFunctions(
-  path: string,
-  directories: string[]
-): IResolvers[] {
-  const resolvers = directories.map((directory) => {
-    return fileLoader(join(__dirname, path, directory), {
-      extensions: ['.js'],
-      recursive: true
-    });
-  });
-
-  return mergeResolvers(resolvers);
-}
+import resolverDefs from './resolvers';
 
 async function createSchema(): Promise<GraphQLSchema> {
   try {
@@ -35,14 +21,7 @@ async function createSchema(): Promise<GraphQLSchema> {
     }
 
     const typeDefs: ITypeDefinitions = readFileSync(schemaPath, 'utf8');
-
-    const resolvers: IResolvers[] = mergeResolverFunctions('.', [
-      'queries',
-      'mutations',
-      'types',
-      'scalars',
-      'unions'
-    ]);
+    const resolvers = (resolverDefs as unknown) as IResolvers;
 
     const loggerHandler: ILogger = {
       log: (err) =>

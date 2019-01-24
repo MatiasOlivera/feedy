@@ -39,4 +39,4 @@ const restoreUser: MutationResolvers.RestoreUserResolver = async (
   }
 };
 
-export default { Mutation: { restoreUser } };
+export default restoreUser;

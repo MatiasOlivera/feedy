@@ -40,4 +40,4 @@ const createComment: MutationResolvers.CreateCommentResolver = async (
   }
 };
 
-export default { Mutation: { createComment } };
+export default createComment;

@@ -12,4 +12,4 @@ export const Organization: OrganizationResolvers.Type = {
   }
 };
 
-export default { Organization };
+export default Organization;

@@ -5,4 +5,4 @@ function __resolveType(parent: User | Organization): 'User' | 'Organization' {
   return parent.hasOwnProperty('username') ? 'User' : 'Organization';
 }
 
-export default { ProductOwner: { __resolveType } };
+export default { __resolveType };

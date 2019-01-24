@@ -39,4 +39,4 @@ const deleteUser: MutationResolvers.DeleteUserResolver = async (
   }
 };
 
-export default { Mutation: { deleteUser } };
+export default deleteUser;

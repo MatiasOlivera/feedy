@@ -16,4 +16,4 @@ const Issue: IssueResolvers.Type = {
   }
 };
 
-export default { Issue };
+export default Issue;

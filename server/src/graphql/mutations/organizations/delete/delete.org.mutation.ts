@@ -39,4 +39,4 @@ const deleteOrganization: MutationResolvers.DeleteOrganizationResolver = async (
   }
 };
 
-export default { Mutation: { deleteOrganization } };
+export default deleteOrganization;

@@ -24,4 +24,4 @@ const User: UserResolvers.Type = {
   }
 };
 
-export default { User };
+export default User;

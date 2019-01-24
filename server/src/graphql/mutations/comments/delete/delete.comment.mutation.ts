@@ -35,4 +35,4 @@ const deleteComment: MutationResolvers.DeleteCommentResolver = async (
   }
 };
 
-export default { Mutation: { deleteComment } };
+export default deleteComment;

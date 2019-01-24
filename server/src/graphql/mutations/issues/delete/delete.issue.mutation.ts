@@ -35,4 +35,4 @@ const deleteIssue: MutationResolvers.DeleteIssueResolver = async (
   }
 };
 
-export default { Mutation: { deleteIssue } };
+export default deleteIssue;

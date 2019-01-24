@@ -37,4 +37,4 @@ const createUser: MutationResolvers.CreateUserResolver = async (
   }
 };
 
-export default { Mutation: { createUser } };
+export default createUser;

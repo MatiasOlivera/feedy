@@ -35,4 +35,4 @@ const createProduct: MutationResolvers.CreateProductResolver = async (
   }
 };
 
-export default { Mutation: { createProduct } };
+export default createProduct;

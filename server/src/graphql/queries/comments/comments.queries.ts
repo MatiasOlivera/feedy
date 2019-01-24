@@ -38,4 +38,4 @@ const comments: QueryResolvers.CommentsResolver = async (parent, args, ctx) => {
   return { ...result, count, total };
 };
 
-export default { Query: { comment, comments } };
+export default { comment, comments };

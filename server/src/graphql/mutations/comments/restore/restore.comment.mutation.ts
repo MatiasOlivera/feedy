@@ -35,4 +35,4 @@ const restoreComment: MutationResolvers.RestoreCommentResolver = async (
   }
 };
 
-export default { Mutation: { restoreComment } };
+export default restoreComment;

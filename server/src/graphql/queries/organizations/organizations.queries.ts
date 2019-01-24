@@ -48,4 +48,4 @@ const organizations: QueryResolvers.OrganizationsResolver = async (
   return { ...result, count, total };
 };
 
-export default { Query: { organization, organizations } };
+export default { organization, organizations };

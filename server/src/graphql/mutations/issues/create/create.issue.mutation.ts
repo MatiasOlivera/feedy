@@ -40,4 +40,4 @@ const createIssue: MutationResolvers.CreateIssueResolver = async (
   }
 };
 
-export default { Mutation: { createIssue } };
+export default createIssue;

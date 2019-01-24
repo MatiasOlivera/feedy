@@ -38,4 +38,4 @@ const restoreProduct: MutationResolvers.RestoreProductResolver = async (
   }
 };
 
-export default { Mutation: { restoreProduct } };
+export default restoreProduct;

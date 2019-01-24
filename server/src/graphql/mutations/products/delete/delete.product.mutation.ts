@@ -35,4 +35,4 @@ const deleteProduct: MutationResolvers.DeleteProductResolver = async (
   }
 };
 
-export default { Mutation: { deleteProduct } };
+export default deleteProduct;

@@ -35,4 +35,4 @@ const restoreIssue: MutationResolvers.RestoreIssueResolver = async (
   }
 };
 
-export default { Mutation: { restoreIssue } };
+export default restoreIssue;

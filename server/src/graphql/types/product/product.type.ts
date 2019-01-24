@@ -15,4 +15,4 @@ export const Product: ProductResolvers.Type = {
   }
 };
 
-export default { Product };
+export default Product;

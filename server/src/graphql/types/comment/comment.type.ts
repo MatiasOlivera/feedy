@@ -20,4 +20,4 @@ const Comment: CommentResolvers.Type = {
   }
 };
 
-export default { Comment };
+export default Comment;

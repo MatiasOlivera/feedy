@@ -41,4 +41,4 @@ const issues: QueryResolvers.IssuesResolver = async (parent, args, ctx) => {
   return { ...result, count, total };
 };
 
-export default { Query: { issue, issues } };
+export default { issue, issues };

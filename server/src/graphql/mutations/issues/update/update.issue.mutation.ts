@@ -50,4 +50,4 @@ const updateIssue: MutationResolvers.UpdateIssueResolver = async (
   }
 };
 
-export default { Mutation: { updateIssue } };
+export default updateIssue;
