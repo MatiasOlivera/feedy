@@ -8,7 +8,7 @@
     "start": "node dist/app.js",
     "node:watch": "nodemon dist/app.js",
     "ts:build": "tsc --build tsconfig.build.json",
-    "ts:watch": "tsc -w --build tsconfig.build.json",
+    "ts:watch": "tsc --build tsconfig.build.json --watch",
     "schema:merge": "node scripts/merge.schema.js",
     "schema:generate": "npm run schema:merge && graphqlgen",
     "prisma:deploy": "prisma deploy",
