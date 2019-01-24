@@ -19,14 +19,20 @@ function writeSchema(path, typeDefs) {
   writeFileSync(join(__dirname, path), typeDefs);
 }
 
-function mergeSchemaAndWriteToFile(typeDefsPath, schemaPath) {
+function mergeSchemaAndWriteToFile(typeDefsPath, schemaOutputPaths) {
   try {
-    clearSchema(schemaPath);
-    writeSchema(schemaPath, mergeTypeDefinitions(typeDefsPath));
+    schemaOutputPaths.forEach((path) => {
+      clearSchema(path);
+      writeSchema(path, mergeTypeDefinitions(typeDefsPath));
+    });
+
     return true;
   } catch (err) {
     throw err;
   }
 }
 
-mergeSchemaAndWriteToFile('../src/graphql', '../dist/graphql/schema.graphql');
+mergeSchemaAndWriteToFile('../src/graphql', [
+  '../dist/graphql/schema.graphql',
+  '../src/graphql/schema.graphql'
+]);

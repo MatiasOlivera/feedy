@@ -49,6 +49,9 @@ typings/
 # Graphqlgen output
 src/graphql/tmp-resolvers
 
+# GraphQL generated schema
+src/graphql/schema.graphql
+
 # Optional npm cache directory
 .npm
 
