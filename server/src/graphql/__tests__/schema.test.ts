@@ -1,44 +1,21 @@
 import { readFileSync } from 'fs';
-import gql from 'gql-tag';
-import { addMockFunctionsToSchema, makeExecutableSchema, mockServer } from 'graphql-tools';
+import { makeExecutableSchema } from 'graphql-tools';
 import { join } from 'path';
 
 import resolvers from '../resolvers';
 
 describe('Schema', () => {
-  const typeDefs = readFileSync(join(__dirname, '../schema.graphql'), 'utf8');
-  const options: { typeDefs: string; resolvers: any } = { typeDefs, resolvers };
+  test('should be a valid GraphQL Schema', async () => {
+    const typeDefs = readFileSync(join(__dirname, '../schema.graphql'), 'utf8');
+    const options: Options = { typeDefs, resolvers };
+    const schema = () => makeExecutableSchema(options);
 
-  const schema = makeExecutableSchema(options);
-  addMockFunctionsToSchema({ schema });
-
-  const server = mockServer(typeDefs, {});
-
-  test('has valid type definitions', async () => {
-    const schemaQuery = async () =>
-      server.query(gql`
-        query {
-          __schema {
-            types {
-              name
-            }
-            queryType {
-              name
-            }
-            mutationType {
-              name
-            }
-            subscriptionType {
-              name
-            }
-            directives {
-              name
-            }
-          }
-        }
-      `);
-
-    expect(schemaQuery).not.toThrow();
-    expect(await schemaQuery()).toMatchSnapshot();
+    expect(schema).not.toThrow();
+    expect(typeDefs).toMatchSnapshot();
   });
 });
+
+interface Options {
+  typeDefs: string;
+  resolvers: any;
+}

@@ -1,267 +1,1294 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Schema has valid type definitions 1`] = `
-Object {
-  "data": Object {
-    "__schema": Object {
-      "directives": Array [
-        Object {
-          "name": "skip",
-        },
-        Object {
-          "name": "include",
-        },
-        Object {
-          "name": "deprecated",
-        },
-      ],
-      "mutationType": Object {
-        "name": "Mutation",
-      },
-      "queryType": Object {
-        "name": "Query",
-      },
-      "subscriptionType": null,
-      "types": Array [
-        Object {
-          "name": "Query",
-        },
-        Object {
-          "name": "ID",
-        },
-        Object {
-          "name": "Comment",
-        },
-        Object {
-          "name": "String",
-        },
-        Object {
-          "name": "Date",
-        },
-        Object {
-          "name": "User",
-        },
-        Object {
-          "name": "Product",
-        },
-        Object {
-          "name": "ProductOwner",
-        },
-        Object {
-          "name": "Organization",
-        },
-        Object {
-          "name": "Issue",
-        },
-        Object {
-          "name": "Pagination",
-        },
-        Object {
-          "name": "Int",
-        },
-        Object {
-          "name": "CommentOrderBy",
-        },
-        Object {
-          "name": "CommentField",
-        },
-        Object {
-          "name": "ORDER",
-        },
-        Object {
-          "name": "CommentWhere",
-        },
-        Object {
-          "name": "Boolean",
-        },
-        Object {
-          "name": "CommentConnection",
-        },
-        Object {
-          "name": "PageInfo",
-        },
-        Object {
-          "name": "CommentEdge",
-        },
-        Object {
-          "name": "IssueOrderBy",
-        },
-        Object {
-          "name": "IssueField",
-        },
-        Object {
-          "name": "IssueWhere",
-        },
-        Object {
-          "name": "IssueConnection",
-        },
-        Object {
-          "name": "IssueEdge",
-        },
-        Object {
-          "name": "OrganizationOrderBy",
-        },
-        Object {
-          "name": "OrganizationField",
-        },
-        Object {
-          "name": "OrganizationWhere",
-        },
-        Object {
-          "name": "OrganizationConnection",
-        },
-        Object {
-          "name": "OrganizationEdge",
-        },
-        Object {
-          "name": "ProductOrderBy",
-        },
-        Object {
-          "name": "ProductField",
-        },
-        Object {
-          "name": "ProductWhere",
-        },
-        Object {
-          "name": "ProductConnection",
-        },
-        Object {
-          "name": "ProductEdge",
-        },
-        Object {
-          "name": "UserOrderBy",
-        },
-        Object {
-          "name": "UserField",
-        },
-        Object {
-          "name": "UserWhere",
-        },
-        Object {
-          "name": "UserConnection",
-        },
-        Object {
-          "name": "UserEdge",
-        },
-        Object {
-          "name": "Mutation",
-        },
-        Object {
-          "name": "CreateCommentInput",
-        },
-        Object {
-          "name": "CreateCommentPayload",
-        },
-        Object {
-          "name": "Operation",
-        },
-        Object {
-          "name": "CreateCommentValidation",
-        },
-        Object {
-          "name": "SimpleCommentPayload",
-        },
-        Object {
-          "name": "UpdateCommentInput",
-        },
-        Object {
-          "name": "UpdateCommentPayload",
-        },
-        Object {
-          "name": "UpdateCommentValidation",
-        },
-        Object {
-          "name": "CreateIssueInput",
-        },
-        Object {
-          "name": "IssuePayload",
-        },
-        Object {
-          "name": "IssueValidation",
-        },
-        Object {
-          "name": "SimpleIssuePayload",
-        },
-        Object {
-          "name": "UpdateIssueInput",
-        },
-        Object {
-          "name": "CreateOrganizationInput",
-        },
-        Object {
-          "name": "OrganizationPayload",
-        },
-        Object {
-          "name": "OrganizationValidation",
-        },
-        Object {
-          "name": "SimpleOrganizationPayload",
-        },
-        Object {
-          "name": "UpdateOrganizationInput",
-        },
-        Object {
-          "name": "CreateProductInput",
-        },
-        Object {
-          "name": "ProductPayload",
-        },
-        Object {
-          "name": "ProductValidation",
-        },
-        Object {
-          "name": "SimpleProductPayload",
-        },
-        Object {
-          "name": "UpdateProductInput",
-        },
-        Object {
-          "name": "CreateUserInput",
-        },
-        Object {
-          "name": "CreateUserPayload",
-        },
-        Object {
-          "name": "CreateUserValidation",
-        },
-        Object {
-          "name": "SimpleUserPayload",
-        },
-        Object {
-          "name": "UpdateUserInput",
-        },
-        Object {
-          "name": "UpdateUserPayload",
-        },
-        Object {
-          "name": "UpdateUserValidation",
-        },
-        Object {
-          "name": "__Schema",
-        },
-        Object {
-          "name": "__Type",
-        },
-        Object {
-          "name": "__TypeKind",
-        },
-        Object {
-          "name": "__Field",
-        },
-        Object {
-          "name": "__InputValue",
-        },
-        Object {
-          "name": "__EnumValue",
-        },
-        Object {
-          "name": "__Directive",
-        },
-        Object {
-          "name": "__DirectiveLocation",
-        },
-      ],
-    },
-  },
+exports[`Schema should be a valid GraphQL Schema 1`] = `
+"schema {
+  query: Query
+  mutation: Mutation
 }
+
+type Query {
+  # Fetch a comment by its id
+  \\"\\"\\"
+  Fetch a comment by its id
+  \\"\\"\\"
+  comment(id: ID!): Comment
+  # Fetch a list of comments
+  \\"\\"\\"
+  Fetch a list of comments
+  \\"\\"\\"
+  comments(pagination: Pagination = {first: 10}, orderBy: CommentOrderBy = {field: createdAt, direction: DESC}, where: CommentWhere = {deleted: false}): CommentConnection
+  # Fetch an issue by its id
+  \\"\\"\\"
+  Fetch an issue by its id
+  \\"\\"\\"
+  issue(id: ID!): Issue
+  # Fetch a list of issues
+  \\"\\"\\"
+  Fetch a list of issues
+  \\"\\"\\"
+  issues(search: String, pagination: Pagination = {first: 10}, orderBy: IssueOrderBy = {field: createdAt, direction: DESC}, where: IssueWhere = {deleted: false}): IssueConnection
+  # Fetch an organization by its id
+  \\"\\"\\"
+  Fetch an organization by its id
+  \\"\\"\\"
+  organization(id: ID!): Organization
+  # Fetch a list of organizations
+  \\"\\"\\"
+  Fetch a list of organizations
+  \\"\\"\\"
+  organizations(search: String, pagination: Pagination = {first: 10}, orderBy: OrganizationOrderBy = {field: name, direction: ASC}, where: OrganizationWhere = {deleted: false}): OrganizationConnection
+  # Fetch a product by its id
+  \\"\\"\\"
+  Fetch a product by its id
+  \\"\\"\\"
+  product(id: ID!): Product
+  # Fetch a list of products
+  \\"\\"\\"
+  Fetch a list of products
+  \\"\\"\\"
+  products(search: String, pagination: Pagination = {first: 10}, orderBy: ProductOrderBy = {field: name, direction: ASC}, where: ProductWhere = {deleted: false}): ProductConnection
+  # Fetch a user by his id
+  \\"\\"\\"
+  Fetch a user by his id
+  \\"\\"\\"
+  user(id: ID!): User
+  # Fetch a list of users
+  \\"\\"\\"
+  Fetch a list of users
+  \\"\\"\\"
+  users(search: String, pagination: Pagination = {first: 10}, orderBy: UserOrderBy = {field: username, direction: ASC}, where: UserWhere = {deleted: false}): UserConnection
+}
+
+type Mutation {
+  # Create a new comment
+  \\"\\"\\"
+  Create a new comment
+  \\"\\"\\"
+  createComment(comment: CreateCommentInput!): CreateCommentPayload
+  # Delete an existing comment
+  \\"\\"\\"
+  Delete an existing comment
+  \\"\\"\\"
+  deleteComment(id: ID!): SimpleCommentPayload
+  # Restore a deleted comment
+  \\"\\"\\"
+  Restore a deleted comment
+  \\"\\"\\"
+  restoreComment(id: ID!): SimpleCommentPayload
+  # Update an existing comment
+  \\"\\"\\"
+  Update an existing comment
+  \\"\\"\\"
+  updateComment(id: ID!, comment: UpdateCommentInput!): UpdateCommentPayload
+  # Create a new issue
+  \\"\\"\\"
+  Create a new issue
+  \\"\\"\\"
+  createIssue(issue: CreateIssueInput!): IssuePayload
+  # Delete an existing issue
+  \\"\\"\\"
+  Delete an existing issue
+  \\"\\"\\"
+  deleteIssue(id: ID!): SimpleIssuePayload
+  # Restore a deleted issue
+  \\"\\"\\"
+  Restore a deleted issue
+  \\"\\"\\"
+  restoreIssue(id: ID!): SimpleIssuePayload
+  # Update an existing issue
+  \\"\\"\\"
+  Update an existing issue
+  \\"\\"\\"
+  updateIssue(id: ID!, issue: UpdateIssueInput!): IssuePayload
+  # Create a new organization
+  \\"\\"\\"
+  Create a new organization
+  \\"\\"\\"
+  createOrganization(org: CreateOrganizationInput!): OrganizationPayload
+  # Delete an existing organization
+  \\"\\"\\"
+  Delete an existing organization
+  \\"\\"\\"
+  deleteOrganization(id: ID!): SimpleOrganizationPayload
+  # Restore a deleted organization
+  \\"\\"\\"
+  Restore a deleted organization
+  \\"\\"\\"
+  restoreOrganization(id: ID!): SimpleOrganizationPayload
+  # Update an existing organization
+  \\"\\"\\"
+  Update an existing organization
+  \\"\\"\\"
+  updateOrganization(id: ID!, org: UpdateOrganizationInput!): OrganizationPayload
+  # Create a new product
+  \\"\\"\\"
+  Create a new product
+  \\"\\"\\"
+  createProduct(product: CreateProductInput!): ProductPayload
+  # Delete an existing product
+  \\"\\"\\"
+  Delete an existing product
+  \\"\\"\\"
+  deleteProduct(id: ID!): SimpleProductPayload
+  # Restore a deleted product
+  \\"\\"\\"
+  Restore a deleted product
+  \\"\\"\\"
+  restoreProduct(id: ID!): SimpleProductPayload
+  # Update an existing product
+  \\"\\"\\"
+  Update an existing product
+  \\"\\"\\"
+  updateProduct(id: ID!, product: UpdateProductInput!): ProductPayload
+  # Create a new user
+  \\"\\"\\"
+  Create a new user
+  \\"\\"\\"
+  createUser(user: CreateUserInput!): CreateUserPayload
+  # Delete an existing user
+  \\"\\"\\"
+  Delete an existing user
+  \\"\\"\\"
+  deleteUser(id: ID!): SimpleUserPayload
+  # Restore a deleted user
+  \\"\\"\\"
+  Restore a deleted user
+  \\"\\"\\"
+  restoreUser(id: ID!): SimpleUserPayload
+  # Update an existing user
+  \\"\\"\\"
+  Update an existing user
+  \\"\\"\\"
+  updateUser(id: ID!, user: UpdateUserInput!): UpdateUserPayload
+}
+
+\\"\\"\\"
+The result of a mutation or query
+\\"\\"\\"
+type Operation {
+  # The operation was completed or not
+  \\"\\"\\"
+  The operation was completed or not
+  \\"\\"\\"
+  status: Boolean!
+  # A message describing the operation result
+  \\"\\"\\"
+  A message describing the operation result
+  \\"\\"\\"
+  message: String!
+}
+
+\\"\\"\\"
+The sort direction
+\\"\\"\\"
+enum ORDER {
+  # Ascending
+  \\"\\"\\"
+  Ascending
+  \\"\\"\\"
+  ASC
+  # Descending
+  \\"\\"\\"
+  Descending
+  \\"\\"\\"
+  DESC
+}
+
+input Pagination {
+  first: Int
+  after: ID
+  last: Int
+  before: ID
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+\\"\\"\\"
+The payload returned when a comment is deleted or restored
+\\"\\"\\"
+type SimpleCommentPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The comment
+  \\"\\"\\"
+  The comment
+  \\"\\"\\"
+  comment: Comment
+}
+
+\\"\\"\\"
+The properties needed to create a new comment
+\\"\\"\\"
+input CreateCommentInput {
+  # The body
+  \\"\\"\\"
+  The body
+  \\"\\"\\"
+  body: String!
+  # The author identifier
+  \\"\\"\\"
+  The author identifier
+  \\"\\"\\"
+  userId: ID!
+  # The issue identifier
+  \\"\\"\\"
+  The issue identifier
+  \\"\\"\\"
+  issueId: ID!
+  # The parent identifier
+  \\"\\"\\"
+  The parent identifier
+  \\"\\"\\"
+  parentId: ID
+}
+
+\\"\\"\\"
+The payload returned when a new comment is created
+\\"\\"\\"
+type CreateCommentPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The created comment
+  \\"\\"\\"
+  The created comment
+  \\"\\"\\"
+  comment: Comment
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: CreateCommentValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when creating a comment
+\\"\\"\\"
+type CreateCommentValidation {
+  # The validation error of the body
+  \\"\\"\\"
+  The validation error of the body
+  \\"\\"\\"
+  body: String
+  # The validation error of the author's identifier
+  \\"\\"\\"
+  The validation error of the author's identifier
+  \\"\\"\\"
+  userId: String
+  # The validation error of the issue's identifier
+  \\"\\"\\"
+  The validation error of the issue's identifier
+  \\"\\"\\"
+  issueId: String
+  # The validation error of the parent's identifier
+  \\"\\"\\"
+  The validation error of the parent's identifier
+  \\"\\"\\"
+  parentId: String
+}
+
+\\"\\"\\"
+The properties used to update an existing comment
+\\"\\"\\"
+input UpdateCommentInput {
+  # The body
+  \\"\\"\\"
+  The body
+  \\"\\"\\"
+  body: String!
+}
+
+\\"\\"\\"
+The payload returned when a comment is updated
+\\"\\"\\"
+type UpdateCommentPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The updated comment
+  \\"\\"\\"
+  The updated comment
+  \\"\\"\\"
+  comment: Comment
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: UpdateCommentValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when updating a comment
+\\"\\"\\"
+type UpdateCommentValidation {
+  # The validation error of the body
+  \\"\\"\\"
+  The validation error of the body
+  \\"\\"\\"
+  body: String
+}
+
+\\"\\"\\"
+The properties needed to create a new issue
+\\"\\"\\"
+input CreateIssueInput {
+  # The title
+  \\"\\"\\"
+  The title
+  \\"\\"\\"
+  title: String!
+  # The body
+  \\"\\"\\"
+  The body
+  \\"\\"\\"
+  body: String!
+  # The user's identifier
+  \\"\\"\\"
+  The user's identifier
+  \\"\\"\\"
+  userId: String!
+  # The product's identifier
+  \\"\\"\\"
+  The product's identifier
+  \\"\\"\\"
+  productId: String!
+}
+
+\\"\\"\\"
+The payload returned when a new issue is created or updated
+\\"\\"\\"
+type IssuePayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The created or updated issue
+  \\"\\"\\"
+  The created or updated issue
+  \\"\\"\\"
+  issue: Issue
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: IssueValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when creating or updating an issue
+\\"\\"\\"
+type IssueValidation {
+  # The validation error of the title
+  \\"\\"\\"
+  The validation error of the title
+  \\"\\"\\"
+  title: String
+  # The validation error of the body
+  \\"\\"\\"
+  The validation error of the body
+  \\"\\"\\"
+  body: String
+  # The validation error of the user's identifier
+  \\"\\"\\"
+  The validation error of the user's identifier
+  \\"\\"\\"
+  userId: String
+  # The validation error of the product's identifier
+  \\"\\"\\"
+  The validation error of the product's identifier
+  \\"\\"\\"
+  productId: String
+}
+
+\\"\\"\\"
+The payload returned when an issue is deleted or restored
+\\"\\"\\"
+type SimpleIssuePayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The issue
+  \\"\\"\\"
+  The issue
+  \\"\\"\\"
+  issue: Issue
+}
+
+\\"\\"\\"
+The properties needed to update an existing issue
+\\"\\"\\"
+input UpdateIssueInput {
+  # The title
+  \\"\\"\\"
+  The title
+  \\"\\"\\"
+  title: String
+  # The body
+  \\"\\"\\"
+  The body
+  \\"\\"\\"
+  body: String
+  # The user's identifier
+  \\"\\"\\"
+  The user's identifier
+  \\"\\"\\"
+  userId: String
+  # The product's identifier
+  \\"\\"\\"
+  The product's identifier
+  \\"\\"\\"
+  productId: String
+}
+
+\\"\\"\\"
+The properties needed to create a new organization
+\\"\\"\\"
+input CreateOrganizationInput {
+  # The name
+  \\"\\"\\"
+  The name
+  \\"\\"\\"
+  name: String!
+  # The biography
+  \\"\\"\\"
+  The biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The payload returned when a new organization is created or updated
+\\"\\"\\"
+type OrganizationPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The created or updated organization
+  \\"\\"\\"
+  The created or updated organization
+  \\"\\"\\"
+  organization: Organization
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: OrganizationValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when creating or updating an organization
+\\"\\"\\"
+type OrganizationValidation {
+  # The validation error of the name
+  \\"\\"\\"
+  The validation error of the name
+  \\"\\"\\"
+  name: String
+  # The validation error of the biography
+  \\"\\"\\"
+  The validation error of the biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The payload returned when a organization is deleted or restored
+\\"\\"\\"
+type SimpleOrganizationPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The organization
+  \\"\\"\\"
+  The organization
+  \\"\\"\\"
+  organization: Organization
+}
+
+\\"\\"\\"
+The properties used to update an existing organization
+\\"\\"\\"
+input UpdateOrganizationInput {
+  # The name
+  \\"\\"\\"
+  The name
+  \\"\\"\\"
+  name: String
+  # The biography
+  \\"\\"\\"
+  The biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The properties needed to create a new product
+\\"\\"\\"
+input CreateProductInput {
+  # The name
+  \\"\\"\\"
+  The name
+  \\"\\"\\"
+  name: String!
+  # The description
+  \\"\\"\\"
+  The description
+  \\"\\"\\"
+  description: String
+  # The owner's identifier
+  \\"\\"\\"
+  The owner's identifier
+  \\"\\"\\"
+  ownerId: ID!
+}
+
+\\"\\"\\"
+The payload returned when a new product is created or updated
+\\"\\"\\"
+type ProductPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The created or updated product
+  \\"\\"\\"
+  The created or updated product
+  \\"\\"\\"
+  product: Product
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: ProductValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when creating or updating a product
+\\"\\"\\"
+type ProductValidation {
+  # The validation error of the name
+  \\"\\"\\"
+  The validation error of the name
+  \\"\\"\\"
+  name: String
+  # The validation error of the description
+  \\"\\"\\"
+  The validation error of the description
+  \\"\\"\\"
+  description: String
+  # The validation error of the owner's identifier
+  \\"\\"\\"
+  The validation error of the owner's identifier
+  \\"\\"\\"
+  ownerId: String
+}
+
+\\"\\"\\"
+The payload returned when a product is deleted or restored
+\\"\\"\\"
+type SimpleProductPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The product
+  \\"\\"\\"
+  The product
+  \\"\\"\\"
+  product: Product
+}
+
+\\"\\"\\"
+The properties used to update an existing product
+\\"\\"\\"
+input UpdateProductInput {
+  # The name
+  \\"\\"\\"
+  The name
+  \\"\\"\\"
+  name: String
+  # The description
+  \\"\\"\\"
+  The description
+  \\"\\"\\"
+  description: String
+  # The owner's identifier
+  \\"\\"\\"
+  The owner's identifier
+  \\"\\"\\"
+  ownerId: ID
+}
+
+\\"\\"\\"
+The properties needed to create a new user
+\\"\\"\\"
+input CreateUserInput {
+  # The first name
+  \\"\\"\\"
+  The first name
+  \\"\\"\\"
+  firstName: String!
+  # The last name
+  \\"\\"\\"
+  The last name
+  \\"\\"\\"
+  lastName: String!
+  # The gender
+  \\"\\"\\"
+  The gender
+  \\"\\"\\"
+  gender: String!
+  # The username
+  \\"\\"\\"
+  The username
+  \\"\\"\\"
+  username: String!
+  # The password
+  \\"\\"\\"
+  The password
+  \\"\\"\\"
+  password: String!
+  # The password confirmation
+  \\"\\"\\"
+  The password confirmation
+  \\"\\"\\"
+  passwordConfirmation: String!
+  # The email address
+  \\"\\"\\"
+  The email address
+  \\"\\"\\"
+  email: String!
+  # The biography
+  \\"\\"\\"
+  The biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The payload returned when a new user is created
+\\"\\"\\"
+type CreateUserPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The created user
+  \\"\\"\\"
+  The created user
+  \\"\\"\\"
+  user: User
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: CreateUserValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when creating a user
+\\"\\"\\"
+type CreateUserValidation {
+  # The validation error of the first name
+  \\"\\"\\"
+  The validation error of the first name
+  \\"\\"\\"
+  firstName: String
+  # The validation error of the last name
+  \\"\\"\\"
+  The validation error of the last name
+  \\"\\"\\"
+  lastName: String
+  # The validation error of the gender
+  \\"\\"\\"
+  The validation error of the gender
+  \\"\\"\\"
+  gender: String
+  # The validation error of the username
+  \\"\\"\\"
+  The validation error of the username
+  \\"\\"\\"
+  username: String
+  # The validation error of the password
+  \\"\\"\\"
+  The validation error of the password
+  \\"\\"\\"
+  password: String
+  # The validation error of the password confirmation
+  \\"\\"\\"
+  The validation error of the password confirmation
+  \\"\\"\\"
+  passwordConfirmation: String
+  # The validation error of the email
+  \\"\\"\\"
+  The validation error of the email
+  \\"\\"\\"
+  email: String
+  # The validation error of the biography
+  \\"\\"\\"
+  The validation error of the biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The properties used to update an existing user
+\\"\\"\\"
+input UpdateUserInput {
+  # The first name
+  \\"\\"\\"
+  The first name
+  \\"\\"\\"
+  firstName: String
+  # The last name
+  \\"\\"\\"
+  The last name
+  \\"\\"\\"
+  lastName: String
+  # The gender
+  \\"\\"\\"
+  The gender
+  \\"\\"\\"
+  gender: String
+  # The username
+  \\"\\"\\"
+  The username
+  \\"\\"\\"
+  username: String
+  # The email address
+  \\"\\"\\"
+  The email address
+  \\"\\"\\"
+  email: String
+  # The biography
+  \\"\\"\\"
+  The biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The payload returned when a user is updated
+\\"\\"\\"
+type UpdateUserPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The updated user
+  \\"\\"\\"
+  The updated user
+  \\"\\"\\"
+  user: User
+  # The validation errors
+  \\"\\"\\"
+  The validation errors
+  \\"\\"\\"
+  errors: UpdateUserValidation
+}
+
+\\"\\"\\"
+The possible validation errors returned when updating a user
+\\"\\"\\"
+type UpdateUserValidation {
+  # The validation error of the first name
+  \\"\\"\\"
+  The validation error of the first name
+  \\"\\"\\"
+  firstName: String
+  # The validation error of the last name
+  \\"\\"\\"
+  The validation error of the last name
+  \\"\\"\\"
+  lastName: String
+  # The validation error of the gender
+  \\"\\"\\"
+  The validation error of the gender
+  \\"\\"\\"
+  gender: String
+  # The validation error of the username
+  \\"\\"\\"
+  The validation error of the username
+  \\"\\"\\"
+  username: String
+  # The validation error of the email
+  \\"\\"\\"
+  The validation error of the email
+  \\"\\"\\"
+  email: String
+  # The validation error of the biography
+  \\"\\"\\"
+  The validation error of the biography
+  \\"\\"\\"
+  bio: String
+}
+
+\\"\\"\\"
+The payload returned when a user is deleted or restored
+\\"\\"\\"
+type SimpleUserPayload {
+  # The status of the operation
+  \\"\\"\\"
+  The status of the operation
+  \\"\\"\\"
+  operation: Operation!
+  # The user
+  \\"\\"\\"
+  The user
+  \\"\\"\\"
+  user: User
+}
+
+type CommentConnection {
+  pageInfo: PageInfo!
+  edges: [CommentEdge]!
+  count: Int
+  total: Int
+}
+
+type CommentEdge {
+  node: Comment!
+  cursor: String!
+}
+
+input CommentOrderBy {
+  field: CommentField
+  direction: ORDER
+}
+
+enum CommentField {
+  body
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input CommentWhere {
+  deleted: Boolean
+}
+
+type IssueConnection {
+  pageInfo: PageInfo!
+  edges: [IssueEdge!]!
+  count: Int
+  total: Int
+}
+
+type IssueEdge {
+  node: Issue!
+  cursor: String!
+}
+
+input IssueOrderBy {
+  field: IssueField
+  direction: ORDER
+}
+
+enum IssueField {
+  title
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input IssueWhere {
+  deleted: Boolean
+}
+
+type OrganizationConnection {
+  pageInfo: PageInfo!
+  edges: [OrganizationEdge!]!
+  count: Int
+  total: Int
+}
+
+type OrganizationEdge {
+  node: Organization!
+  cursor: String!
+}
+
+input OrganizationOrderBy {
+  field: OrganizationField
+  direction: ORDER
+}
+
+enum OrganizationField {
+  name
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input OrganizationWhere {
+  deleted: Boolean
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge!]!
+  count: Int
+  total: Int
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+input ProductOrderBy {
+  field: ProductField
+  direction: ORDER
+}
+
+enum ProductField {
+  name
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input ProductWhere {
+  deleted: Boolean
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+  count: Int
+  total: Int
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+input UserOrderBy {
+  field: UserField
+  direction: ORDER
+}
+
+enum UserField {
+  firstName
+  lastName
+  username
+  email
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+input UserWhere {
+  deleted: Boolean
+}
+
+\\"\\"\\"
+A date
+\\"\\"\\"
+scalar Date
+
+\\"\\"\\"
+A comment created by a user
+\\"\\"\\"
+type Comment {
+  # The identifier
+  \\"\\"\\"
+  The identifier
+  \\"\\"\\"
+  id: ID!
+  # The comment itself
+  \\"\\"\\"
+  The comment itself
+  \\"\\"\\"
+  body: String!
+  # The date it was created in ISO8601 format
+  \\"\\"\\"
+  The date it was created in ISO8601 format
+  \\"\\"\\"
+  createdAt: Date!
+  # The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  updatedAt: Date!
+  # The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  deletedAt: Date
+  # The user who wrote the comment
+  \\"\\"\\"
+  The user who wrote the comment
+  \\"\\"\\"
+  author: User!
+  # The thread to which it belongs
+  \\"\\"\\"
+  The thread to which it belongs
+  \\"\\"\\"
+  issue: Issue
+  # The comment that is being answered
+  \\"\\"\\"
+  The comment that is being answered
+  \\"\\"\\"
+  parent: Comment
+  # Comments that respond to this comment
+  \\"\\"\\"
+  Comments that respond to this comment
+  \\"\\"\\"
+  children: [Comment!]
+}
+
+\\"\\"\\"
+A thread created by a user
+\\"\\"\\"
+type Issue {
+  # The identifier
+  \\"\\"\\"
+  The identifier
+  \\"\\"\\"
+  id: ID!
+  # The title of the issue
+  \\"\\"\\"
+  The title of the issue
+  \\"\\"\\"
+  title: String!
+  # The detailed explanation of the issue
+  \\"\\"\\"
+  The detailed explanation of the issue
+  \\"\\"\\"
+  body: String!
+  # The date it was created in ISO8601 format
+  \\"\\"\\"
+  The date it was created in ISO8601 format
+  \\"\\"\\"
+  createdAt: Date!
+  # The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  updatedAt: Date!
+  # The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  deletedAt: Date
+  # The user who started the thread
+  \\"\\"\\"
+  The user who started the thread
+  \\"\\"\\"
+  author: User!
+  # The product that is discussed in the issue
+  \\"\\"\\"
+  The product that is discussed in the issue
+  \\"\\"\\"
+  product: Product!
+  # The comments made by users
+  \\"\\"\\"
+  The comments made by users
+  \\"\\"\\"
+  comments: [Comment!]
+}
+
+\\"\\"\\"
+An organization. Eg. a company
+\\"\\"\\"
+type Organization {
+  # The identifier
+  \\"\\"\\"
+  The identifier
+  \\"\\"\\"
+  id: ID!
+  # The name. Eg. Tesla Motors
+  \\"\\"\\"
+  The name. Eg. Tesla Motors
+  \\"\\"\\"
+  name: String!
+  # The main activity. Eg. Manufacturer of electric vehicles
+  \\"\\"\\"
+  The main activity. Eg. Manufacturer of electric vehicles
+  \\"\\"\\"
+  bio: String
+  # The date it was created in ISO8601 format
+  \\"\\"\\"
+  The date it was created in ISO8601 format
+  \\"\\"\\"
+  createdAt: Date!
+  # The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  updatedAt: Date!
+  # The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  deletedAt: Date
+  # The products or services that belong to the organization
+  \\"\\"\\"
+  The products or services that belong to the organization
+  \\"\\"\\"
+  products: [Product!]
+  # Users who are members of the organization
+  \\"\\"\\"
+  Users who are members of the organization
+  \\"\\"\\"
+  members: [User!]
+}
+
+\\"\\"\\"
+A product or a service
+\\"\\"\\"
+type Product {
+  # The identifier
+  \\"\\"\\"
+  The identifier
+  \\"\\"\\"
+  id: ID!
+  # The name. Eg. Model S
+  \\"\\"\\"
+  The name. Eg. Model S
+  \\"\\"\\"
+  name: String!
+  # The description. Eg. High-end electric liftback
+  \\"\\"\\"
+  The description. Eg. High-end electric liftback
+  \\"\\"\\"
+  description: String
+  # The date it was created in ISO8601 format
+  \\"\\"\\"
+  The date it was created in ISO8601 format
+  \\"\\"\\"
+  createdAt: Date!
+  # The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  updatedAt: Date!
+  # The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  deletedAt: Date
+  # The user or organization that owns the product
+  \\"\\"\\"
+  The user or organization that owns the product
+  \\"\\"\\"
+  owner: ProductOwner!
+  # The issues of the product
+  \\"\\"\\"
+  The issues of the product
+  \\"\\"\\"
+  issues: [Issue!]
+}
+
+\\"\\"\\"
+An user
+\\"\\"\\"
+type User {
+  # The identifier
+  \\"\\"\\"
+  The identifier
+  \\"\\"\\"
+  id: ID!
+  # The first name. Eg. John
+  \\"\\"\\"
+  The first name. Eg. John
+  \\"\\"\\"
+  firstName: String!
+  # The last name. Eg. Doe
+  \\"\\"\\"
+  The last name. Eg. Doe
+  \\"\\"\\"
+  lastName: String!
+  # The full name. Eg. John Doe
+  \\"\\"\\"
+  The full name. Eg. John Doe
+  \\"\\"\\"
+  fullName: String!
+  # The gender. Eg. Male
+  \\"\\"\\"
+  The gender. Eg. Male
+  \\"\\"\\"
+  gender: String!
+  # The username. Eg. JohnDoe
+  \\"\\"\\"
+  The username. Eg. JohnDoe
+  \\"\\"\\"
+  username: String!
+  # The email adress. Eg. johndoe@email.com
+  \\"\\"\\"
+  The email adress. Eg. johndoe@email.com
+  \\"\\"\\"
+  email: String!
+  # The biography or presentation. Eg. I am a developer
+  \\"\\"\\"
+  The biography or presentation. Eg. I am a developer
+  \\"\\"\\"
+  bio: String
+  # The date it was created in ISO8601 format
+  \\"\\"\\"
+  The date it was created in ISO8601 format
+  \\"\\"\\"
+  createdAt: Date!
+  # The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  The date it was last updated in ISO8601 format
+  \\"\\"\\"
+  updatedAt: Date!
+  # The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  The date it was soft deleted in ISO8601 format
+  \\"\\"\\"
+  deletedAt: Date
+  # The products or services that belong to the user
+  \\"\\"\\"
+  The products or services that belong to the user
+  \\"\\"\\"
+  products: [Product!]
+  # The organizations to which the user belongs
+  \\"\\"\\"
+  The organizations to which the user belongs
+  \\"\\"\\"
+  organizations: [Organization!]
+  # The issues initialized by the user
+  \\"\\"\\"
+  The issues initialized by the user
+  \\"\\"\\"
+  issues: [Issue!]
+  # The comments written by the user
+  \\"\\"\\"
+  The comments written by the user
+  \\"\\"\\"
+  comments: [Comment!]
+}
+
+# The owner of a product
+\\"\\"\\"
+The owner of a product
+\\"\\"\\"
+union ProductOwner = User | Organization
+"
 `;
