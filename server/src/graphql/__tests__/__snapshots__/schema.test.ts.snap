@@ -1,0 +1,267 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Schema has valid type definitions 1`] = `
+Object {
+  "data": Object {
+    "__schema": Object {
+      "directives": Array [
+        Object {
+          "name": "skip",
+        },
+        Object {
+          "name": "include",
+        },
+        Object {
+          "name": "deprecated",
+        },
+      ],
+      "mutationType": Object {
+        "name": "Mutation",
+      },
+      "queryType": Object {
+        "name": "Query",
+      },
+      "subscriptionType": null,
+      "types": Array [
+        Object {
+          "name": "Query",
+        },
+        Object {
+          "name": "ID",
+        },
+        Object {
+          "name": "Comment",
+        },
+        Object {
+          "name": "String",
+        },
+        Object {
+          "name": "Date",
+        },
+        Object {
+          "name": "User",
+        },
+        Object {
+          "name": "Product",
+        },
+        Object {
+          "name": "ProductOwner",
+        },
+        Object {
+          "name": "Organization",
+        },
+        Object {
+          "name": "Issue",
+        },
+        Object {
+          "name": "Pagination",
+        },
+        Object {
+          "name": "Int",
+        },
+        Object {
+          "name": "CommentOrderBy",
+        },
+        Object {
+          "name": "CommentField",
+        },
+        Object {
+          "name": "ORDER",
+        },
+        Object {
+          "name": "CommentWhere",
+        },
+        Object {
+          "name": "Boolean",
+        },
+        Object {
+          "name": "CommentConnection",
+        },
+        Object {
+          "name": "PageInfo",
+        },
+        Object {
+          "name": "CommentEdge",
+        },
+        Object {
+          "name": "IssueOrderBy",
+        },
+        Object {
+          "name": "IssueField",
+        },
+        Object {
+          "name": "IssueWhere",
+        },
+        Object {
+          "name": "IssueConnection",
+        },
+        Object {
+          "name": "IssueEdge",
+        },
+        Object {
+          "name": "OrganizationOrderBy",
+        },
+        Object {
+          "name": "OrganizationField",
+        },
+        Object {
+          "name": "OrganizationWhere",
+        },
+        Object {
+          "name": "OrganizationConnection",
+        },
+        Object {
+          "name": "OrganizationEdge",
+        },
+        Object {
+          "name": "ProductOrderBy",
+        },
+        Object {
+          "name": "ProductField",
+        },
+        Object {
+          "name": "ProductWhere",
+        },
+        Object {
+          "name": "ProductConnection",
+        },
+        Object {
+          "name": "ProductEdge",
+        },
+        Object {
+          "name": "UserOrderBy",
+        },
+        Object {
+          "name": "UserField",
+        },
+        Object {
+          "name": "UserWhere",
+        },
+        Object {
+          "name": "UserConnection",
+        },
+        Object {
+          "name": "UserEdge",
+        },
+        Object {
+          "name": "Mutation",
+        },
+        Object {
+          "name": "CreateCommentInput",
+        },
+        Object {
+          "name": "CreateCommentPayload",
+        },
+        Object {
+          "name": "Operation",
+        },
+        Object {
+          "name": "CreateCommentValidation",
+        },
+        Object {
+          "name": "SimpleCommentPayload",
+        },
+        Object {
+          "name": "UpdateCommentInput",
+        },
+        Object {
+          "name": "UpdateCommentPayload",
+        },
+        Object {
+          "name": "UpdateCommentValidation",
+        },
+        Object {
+          "name": "CreateIssueInput",
+        },
+        Object {
+          "name": "IssuePayload",
+        },
+        Object {
+          "name": "IssueValidation",
+        },
+        Object {
+          "name": "SimpleIssuePayload",
+        },
+        Object {
+          "name": "UpdateIssueInput",
+        },
+        Object {
+          "name": "CreateOrganizationInput",
+        },
+        Object {
+          "name": "OrganizationPayload",
+        },
+        Object {
+          "name": "OrganizationValidation",
+        },
+        Object {
+          "name": "SimpleOrganizationPayload",
+        },
+        Object {
+          "name": "UpdateOrganizationInput",
+        },
+        Object {
+          "name": "CreateProductInput",
+        },
+        Object {
+          "name": "ProductPayload",
+        },
+        Object {
+          "name": "ProductValidation",
+        },
+        Object {
+          "name": "SimpleProductPayload",
+        },
+        Object {
+          "name": "UpdateProductInput",
+        },
+        Object {
+          "name": "CreateUserInput",
+        },
+        Object {
+          "name": "CreateUserPayload",
+        },
+        Object {
+          "name": "CreateUserValidation",
+        },
+        Object {
+          "name": "SimpleUserPayload",
+        },
+        Object {
+          "name": "UpdateUserInput",
+        },
+        Object {
+          "name": "UpdateUserPayload",
+        },
+        Object {
+          "name": "UpdateUserValidation",
+        },
+        Object {
+          "name": "__Schema",
+        },
+        Object {
+          "name": "__Type",
+        },
+        Object {
+          "name": "__TypeKind",
+        },
+        Object {
+          "name": "__Field",
+        },
+        Object {
+          "name": "__InputValue",
+        },
+        Object {
+          "name": "__EnumValue",
+        },
+        Object {
+          "name": "__Directive",
+        },
+        Object {
+          "name": "__DirectiveLocation",
+        },
+      ],
+    },
+  },
+}
+`;
