@@ -18,7 +18,7 @@ class BaseValidator<Value = any, Args = any> {
     this.registerCustomRules(customRules);
   }
 
-  registerCustomRule(customRule: CustomRule): void {
+  protected registerCustomRule(customRule: CustomRule): void {
     if (customRule.type === 'async') {
       this.validator.registerAsync(
         customRule.name,
@@ -34,16 +34,16 @@ class BaseValidator<Value = any, Args = any> {
     }
   }
 
-  registerCustomRules(customRules: Array<CustomRule>): void {
+  protected registerCustomRules(customRules: Array<CustomRule>): void {
     customRules.forEach((rule) => this.registerCustomRule(rule));
   }
 
   // eslint-disable-next-line class-methods-use-this
-  rules(): Rules {
+  protected rules(): Rules {
     return {};
   }
 
-  validate(value: Value, args?: Args): Promise<FlatValidationErrors> {
+  public validate(value: Value, args?: Args): Promise<FlatValidationErrors> {
     this.args = args;
 
     return new Promise((resolve, reject) => {
