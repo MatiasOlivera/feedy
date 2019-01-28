@@ -83,7 +83,7 @@ describe('validate()', () => {
     const validator = new PersonValidator();
     const person = { name: 'John', age: 25 };
     const result = await validator.validate(person);
-    expect(result).toBeUndefined();
+    expect(result).toEqual({});
   });
 
   test('should fails the sync validation', async () => {
@@ -115,7 +115,7 @@ describe('validate()', () => {
   test('should pass the async validation', async () => {
     const personValidator = new PersonValidatorAsync();
     const result = await personValidator.validate({ age: 19 });
-    expect(result).toBeUndefined();
+    expect(result).toEqual({});
   });
 
   test('should fails the async validation', async () => {

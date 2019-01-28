@@ -49,6 +49,7 @@ class BaseValidator<Value = any, Args = any> {
     return new Promise((resolve, reject) => {
       const validator = new Validator(value, this.rules());
 
+      const onSuccess = () => resolve({});
       const onFails = () => {
         const errors = validator.errors.all();
         const formattedErrors = this.formatErrors(errors);
@@ -57,12 +58,12 @@ class BaseValidator<Value = any, Args = any> {
 
       // Asynchronous handler
       if (validator.hasAsync) {
-        validator.passes(() => resolve());
+        validator.passes(() => onSuccess());
         validator.fails(() => onFails());
       }
 
       // Synchronous handler
-      validator.passes() ? resolve() : onFails();
+      validator.passes() ? onSuccess() : onFails();
     });
   }
 
