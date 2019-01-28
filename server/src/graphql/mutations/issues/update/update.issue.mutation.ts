@@ -21,8 +21,8 @@ const updateIssue: MutationResolvers.UpdateIssueResolver = async (
 
   try {
     const inputIssue = { id: args.id, ...args.issue };
-    const validator = new UpdateIssueValidator(inputIssue);
-    await validator.validate();
+    const validator = new UpdateIssueValidator();
+    await validator.validate(inputIssue);
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },

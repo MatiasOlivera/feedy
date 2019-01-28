@@ -9,8 +9,8 @@ const createUser: MutationResolvers.CreateUserResolver = async (
   const { user } = args;
 
   try {
-    const validator = new CreateUserValidator(user);
-    await validator.validate();
+    const validator = new CreateUserValidator();
+    await validator.validate(user);
   } catch (err) {
     return {
       operation: {

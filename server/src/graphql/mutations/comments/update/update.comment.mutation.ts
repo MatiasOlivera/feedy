@@ -21,8 +21,8 @@ const updateComment: MutationResolvers.UpdateCommentResolver = async (
 
   try {
     const inputComment = { id: args.id, ...args.comment };
-    const validator = new UpdateCommentValidator(inputComment);
-    await validator.validate();
+    const validator = new UpdateCommentValidator();
+    await validator.validate(inputComment);
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },

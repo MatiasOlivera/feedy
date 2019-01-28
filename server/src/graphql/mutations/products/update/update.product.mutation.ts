@@ -24,8 +24,8 @@ const updateProduct: MutationResolvers.UpdateProductResolver = async (
 
   try {
     const inputProduct = { id: args.id, ...args.product };
-    const validator = new UpdateProductValidator(inputProduct);
-    await validator.validate();
+    const validator = new UpdateProductValidator();
+    await validator.validate(inputProduct);
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },

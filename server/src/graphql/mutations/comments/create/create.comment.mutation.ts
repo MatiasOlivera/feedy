@@ -9,8 +9,8 @@ const createComment: MutationResolvers.CreateCommentResolver = async (
   const { comment } = args;
 
   try {
-    const validator = new CreateCommentValidator(comment);
-    await validator.validate();
+    const validator = new CreateCommentValidator();
+    await validator.validate(comment);
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },

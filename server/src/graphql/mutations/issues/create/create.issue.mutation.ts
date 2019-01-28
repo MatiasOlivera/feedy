@@ -9,8 +9,8 @@ const createIssue: MutationResolvers.CreateIssueResolver = async (
   const { issue } = args;
 
   try {
-    const validator = new CreateIssueValidator(issue);
-    await validator.validate();
+    const validator = new CreateIssueValidator();
+    await validator.validate(issue);
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },

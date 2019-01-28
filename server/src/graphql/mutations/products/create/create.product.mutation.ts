@@ -9,8 +9,8 @@ const createProduct: MutationResolvers.CreateProductResolver = async (
   const { product } = args;
 
   try {
-    const validator = new CreateProductValidator(product);
-    await validator.validate();
+    const validator = new CreateProductValidator();
+    await validator.validate(product);
   } catch (err) {
     return {
       operation: { status: false, message: 'There are validation errors' },

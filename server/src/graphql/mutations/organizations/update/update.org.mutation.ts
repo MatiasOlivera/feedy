@@ -24,10 +24,8 @@ const updateOrganization: MutationResolvers.UpdateOrganizationResolver = async (
   }
 
   try {
-    const validator = new UpdateOrganizationValidator(args.org, {
-      id: args.id
-    });
-    await validator.validate();
+    const validator = new UpdateOrganizationValidator();
+    await validator.validate(args.org, { id: args.id });
   } catch (err) {
     return {
       operation: {

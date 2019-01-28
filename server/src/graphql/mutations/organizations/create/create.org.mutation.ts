@@ -9,8 +9,8 @@ const createOrganization: MutationResolvers.CreateOrganizationResolver = async (
   const { org } = args;
 
   try {
-    const validator = new CreateOrganizationValidator(org);
-    await validator.validate();
+    const validator = new CreateOrganizationValidator();
+    await validator.validate(org);
   } catch (err) {
     return {
       operation: {
