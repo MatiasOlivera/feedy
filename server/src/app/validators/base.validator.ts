@@ -48,7 +48,8 @@ class BaseValidator<Value = any, Args = any> {
 
     return new Promise((resolve, reject) => {
       const validator = new Validator(value, this.rules());
-      const handleFails = () => {
+
+      const onFails = () => {
         const errors = validator.errors.all();
         const formattedErrors = this.formatErrors(errors);
         reject(formattedErrors);
@@ -57,16 +58,11 @@ class BaseValidator<Value = any, Args = any> {
       // Asynchronous handler
       if (validator.hasAsync) {
         validator.passes(() => resolve());
-        validator.fails(() => handleFails());
-      } else {
-        // Synchronous handler
-        // eslint-disable-next-line no-lonely-if
-        if (validator.passes()) {
-          resolve();
-        } else {
-          handleFails();
-        }
+        validator.fails(() => onFails());
       }
+
+      // Synchronous handler
+      validator.passes() ? resolve() : onFails();
     });
   }
 
