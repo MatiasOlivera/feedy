@@ -1,19 +1,19 @@
 import { isEmpty } from 'lodash';
+import { RegisterAsyncCallback } from 'validatorjs';
 
 import { prisma } from '../../../database/prisma-client';
 import { logger } from '../../../services/log.service';
 
 const name: string = 'unique';
-
 const message: string = 'The value has already been taken.';
 
 // eslint-disable-next-line consistent-return
-const callback = async (
-  value: number | string,
-  args: string,
-  attribute: string,
-  passes: Function
-): Promise<Function> => {
+const callback: RegisterAsyncCallback = async (
+  value,
+  args,
+  attribute,
+  passes
+) => {
   const hasMultipleArgs = args.includes(',');
   let model: string = null;
   let field: string = null;

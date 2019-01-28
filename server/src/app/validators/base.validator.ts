@@ -1,5 +1,5 @@
 import { Dictionary } from 'lodash';
-import Validator from 'validatorjs';
+import Validator, { Rules, ValidationErrors } from 'validatorjs';
 
 import customRules from './custom_rules';
 
@@ -29,7 +29,7 @@ class BaseValidator<Value = any, Args = any> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  rules(): ValidationRule {
+  rules(): Rules {
     return {};
   }
 
@@ -39,7 +39,7 @@ class BaseValidator<Value = any, Args = any> {
     return new Promise((resolve, reject) => {
       const validator = new Validator(value, this.rules());
       const handleFails = () => {
-        this.errors = validator.errors.all() as any;
+        this.errors = validator.errors.all();
         reject(this.formattedErrors);
       };
 
@@ -69,14 +69,6 @@ class BaseValidator<Value = any, Args = any> {
 
     return errorsDict;
   }
-}
-
-interface ValidationRule {
-  [field: string]: string | string[] | ValidationRule;
-}
-
-interface ValidationErrors {
-  [field: string]: [string];
 }
 
 type FlatValidationErrors = Dictionary<string>;
