@@ -3,18 +3,10 @@ import Validator from 'validatorjs';
 
 import customRules from './custom_rules';
 
-interface ValidationRule {
-  [field: string]: string | string[] | ValidationRule;
-}
-
-interface ValidationErrors {
-  [field: string]: [string];
-}
-
-class BaseValidator<T, U = any> {
+class BaseValidator<T, Args = any> {
   private errors: ValidationErrors;
 
-  constructor(protected data: T, protected args?: U) {
+  constructor(protected data: T, protected args?: Args) {
     this.errors = null;
     this.registerCustomRules();
   }
@@ -40,7 +32,7 @@ class BaseValidator<T, U = any> {
     return {};
   }
 
-  validate(): Promise<void> {
+  validate(): Promise<FlatValidationErrors> {
     return new Promise((resolve, reject) => {
       const validator = new Validator(this.data, this.rules());
       const handleFails = () => {
@@ -64,10 +56,10 @@ class BaseValidator<T, U = any> {
     });
   }
 
-  get formattedErrors(): Dictionary<string> {
+  get formattedErrors(): FlatValidationErrors {
     if (!this.errors) return null;
 
-    let errorsDict: Dictionary<string> = {};
+    let errorsDict: FlatValidationErrors = {};
 
     const errors = Object.entries(this.errors);
     errors.forEach(([attr, msg]) => (errorsDict[attr] = msg[0]));
@@ -75,5 +67,15 @@ class BaseValidator<T, U = any> {
     return errorsDict;
   }
 }
+
+interface ValidationRule {
+  [field: string]: string | string[] | ValidationRule;
+}
+
+interface ValidationErrors {
+  [field: string]: [string];
+}
+
+type FlatValidationErrors = Dictionary<string>;
 
 export default BaseValidator;
