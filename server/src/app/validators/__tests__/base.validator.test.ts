@@ -1,4 +1,5 @@
 import BaseValidator from '../base.validator';
+import { isOfLegalAgeAsync, isOfLegalAgeSync } from './__mocks__/custom.rules.mocks';
 
 test('should create an instance of base validator', () => {
   const createValidator = () => new BaseValidator();
@@ -11,7 +12,62 @@ test('should return an empty rules object', () => {
   expect(rules).toEqual({});
 });
 
-describe('Validate()', () => {
+describe('registerCustomRule()', () => {
+  test('should register and use a sync custom rule', async () => {
+    // register the rule
+    const validator = new BaseValidator();
+    const register = () => validator.registerCustomRule(isOfLegalAgeSync);
+    expect(register).not.toThrow();
+
+    // use the rule
+    class PersonValidator extends BaseValidator {
+      // eslint-disable-next-line class-methods-use-this
+      rules() {
+        return { age: 'isOfLegalAgeSync:18' };
+      }
+    }
+
+    try {
+      const personValidator = new PersonValidator();
+      await personValidator.validate({ age: 17 });
+    } catch (error) {
+      expect(error).toEqual({ age: 'It is not of legal age' });
+    }
+  });
+
+  test('should register and use an async custom rule', async () => {
+    // register the rule
+    const validator = new BaseValidator();
+    const register = () => validator.registerCustomRule(isOfLegalAgeAsync);
+    expect(register).not.toThrow();
+
+    // use the rule
+    class PersonValidator extends BaseValidator {
+      // eslint-disable-next-line class-methods-use-this
+      rules() {
+        return { age: 'isOfLegalAgeAsync:18' };
+      }
+    }
+
+    try {
+      const personValidator = new PersonValidator();
+      await personValidator.validate({ age: 17 });
+    } catch (error) {
+      expect(error).toEqual({ age: 'It is not of legal age' });
+    }
+  });
+});
+
+describe('registerCustomRules()', () => {
+  test('should register several rules', () => {
+    const validator = new BaseValidator();
+    const rules = [isOfLegalAgeSync, isOfLegalAgeAsync];
+    const register = () => validator.registerCustomRules(rules);
+    expect(register).not.toThrow();
+  });
+});
+
+describe('validate()', () => {
   class PersonValidator extends BaseValidator {
     // eslint-disable-next-line class-methods-use-this
     rules() {

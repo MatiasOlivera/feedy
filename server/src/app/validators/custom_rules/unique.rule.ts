@@ -3,7 +3,9 @@ import { RegisterAsyncCallback } from 'validatorjs';
 
 import { prisma } from '../../../database/prisma-client';
 import { logger } from '../../../services/log.service';
+import { CustomAsyncRule, RuleType } from '../rules.types';
 
+const type: RuleType = 'async';
 const name: string = 'unique';
 const message: string = 'The value has already been taken.';
 
@@ -56,4 +58,5 @@ const callback: RegisterAsyncCallback = async (
   }
 };
 
-export default { name, callback, message };
+const rule: CustomAsyncRule = { type, name, callback, message };
+export default rule;

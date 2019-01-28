@@ -2,30 +2,42 @@ import { Dictionary } from 'lodash';
 import Validator, { Rules, ValidationErrors } from 'validatorjs';
 
 import customRules from './custom_rules';
+import { CustomRule } from './rules.types';
+
+const defaultRules: Array<CustomRule> = [
+  customRules.existsRule,
+  customRules.uniqueRule
+];
 
 class BaseValidator<Value = any, Args = any> {
+  private validator: Validator.ValidatorStatic;
   private errors: ValidationErrors;
   protected args: Args;
 
-  constructor() {
+  constructor(customRules: Array<CustomRule> = defaultRules) {
     this.errors = null;
-    this.registerCustomRules();
+    this.validator = Validator;
+    this.registerCustomRules(customRules);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  registerCustomRules(): void {
-    const { uniqueRule, existsRule } = customRules;
+  registerCustomRule(customRule: CustomRule): void {
+    if (customRule.type === 'async') {
+      this.validator.registerAsync(
+        customRule.name,
+        customRule.callback,
+        customRule.message
+      );
+    } else {
+      this.validator.register(
+        customRule.name,
+        customRule.callback,
+        customRule.message
+      );
+    }
+  }
 
-    Validator.registerAsync(
-      uniqueRule.name,
-      uniqueRule.callback,
-      uniqueRule.message
-    );
-    Validator.registerAsync(
-      existsRule.name,
-      existsRule.callback,
-      existsRule.message
-    );
+  registerCustomRules(customRules: Array<CustomRule>): void {
+    customRules.forEach((rule) => this.registerCustomRule(rule));
   }
 
   // eslint-disable-next-line class-methods-use-this
