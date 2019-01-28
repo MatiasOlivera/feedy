@@ -99,4 +99,32 @@ describe('validate()', () => {
       expect(error).toEqual(errors);
     }
   });
+
+  class PersonValidatorAsync extends BaseValidator {
+    constructor() {
+      super();
+      this.registerCustomRule(isOfLegalAgeAsync);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    rules() {
+      return { age: 'isOfLegalAgeAsync:18' };
+    }
+  }
+
+  test('should pass the async validation', async () => {
+    const personValidator = new PersonValidatorAsync();
+    const result = await personValidator.validate({ age: 19 });
+    expect(result).toBeUndefined();
+  });
+
+  test('should fails the async validation', async () => {
+    try {
+      const personValidator = new PersonValidatorAsync();
+      await personValidator.validate({ age: 17 });
+    } catch (error) {
+      const errors = { age: 'It is not of legal age' };
+      expect(error).toEqual(errors);
+    }
+  });
 });
