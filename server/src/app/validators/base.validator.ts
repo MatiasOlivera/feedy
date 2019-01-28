@@ -11,11 +11,9 @@ const defaultRules: Array<CustomRule> = [
 
 class BaseValidator<Value = any, Args = any> {
   private validator: Validator.ValidatorStatic;
-  private errors: ValidationErrors;
   protected args: Args;
 
   constructor(customRules: Array<CustomRule> = defaultRules) {
-    this.errors = null;
     this.validator = Validator;
     this.registerCustomRules(customRules);
   }
@@ -51,8 +49,9 @@ class BaseValidator<Value = any, Args = any> {
     return new Promise((resolve, reject) => {
       const validator = new Validator(value, this.rules());
       const handleFails = () => {
-        this.errors = validator.errors.all();
-        reject(this.formattedErrors);
+        const errors = validator.errors.all();
+        const formattedErrors = this.formatErrors(errors);
+        reject(formattedErrors);
       };
 
       // Asynchronous handler
@@ -71,15 +70,12 @@ class BaseValidator<Value = any, Args = any> {
     });
   }
 
-  get formattedErrors(): FlatValidationErrors {
-    if (!this.errors) return null;
-
-    let errorsDict: FlatValidationErrors = {};
-
-    const errors = Object.entries(this.errors);
-    errors.forEach(([attr, msg]) => (errorsDict[attr] = msg[0]));
-
-    return errorsDict;
+  private formatErrors(originalErrors: ValidationErrors): FlatValidationErrors {
+    const errors = Object.entries(originalErrors);
+    const formattedErrors = errors.reduce((obj, [field, messages]) => {
+      return { ...obj, [field]: messages[0] };
+    }, {});
+    return formattedErrors;
   }
 }
 
