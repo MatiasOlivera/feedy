@@ -1,5 +1,5 @@
-import { UpdateOrganizationValidator } from '../../../../app/validators';
 import { MutationResolvers } from '../../../resolvers.types';
+import { UpdateOrganizationValidator } from '../../../validators';
 
 const updateOrganization: MutationResolvers.UpdateOrganizationResolver = async (
   parent,

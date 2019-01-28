@@ -1,5 +1,5 @@
-import { CreateOrganizationValidator } from '../../../../app/validators';
 import { MutationResolvers } from '../../../resolvers.types';
+import { CreateOrganizationValidator } from '../../../validators';
 
 const createOrganization: MutationResolvers.CreateOrganizationResolver = async (
   parent,

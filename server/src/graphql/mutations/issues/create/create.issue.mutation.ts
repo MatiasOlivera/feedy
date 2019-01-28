@@ -1,5 +1,5 @@
-import { CreateIssueValidator } from '../../../../app/validators';
 import { MutationResolvers } from '../../../resolvers.types';
+import { CreateIssueValidator } from '../../../validators';
 
 const createIssue: MutationResolvers.CreateIssueResolver = async (
   parent,

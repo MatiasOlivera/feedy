@@ -1,5 +1,5 @@
-import { CreateCommentValidator } from '../../../../app/validators';
 import { MutationResolvers } from '../../../resolvers.types';
+import { CreateCommentValidator } from '../../../validators';
 
 const createComment: MutationResolvers.CreateCommentResolver = async (
   parent,

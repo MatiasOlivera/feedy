@@ -1,5 +1,5 @@
-import { CreateUserValidator } from '../../../../app/validators';
 import { MutationResolvers } from '../../../resolvers.types';
+import { CreateUserValidator } from '../../../validators';
 
 const createUser: MutationResolvers.CreateUserResolver = async (
   parent,
