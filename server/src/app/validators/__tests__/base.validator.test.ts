@@ -128,3 +128,21 @@ describe('validate()', () => {
     }
   });
 });
+
+describe('formatErrors()', () => {
+  test('should convert validation errors from an array to a string', () => {
+    const validator = new BaseValidator();
+    const errors = {
+      age: ['The age must be an integer.'],
+      name: ['The name must be a string.']
+    };
+    const formattedErrors = validator.formatErrors(errors);
+
+    const expected = {
+      age: 'The age must be an integer.',
+      name: 'The name must be a string.'
+    };
+
+    expect(formattedErrors).toEqual(expected);
+  });
+});
