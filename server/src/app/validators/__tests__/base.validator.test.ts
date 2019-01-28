@@ -79,16 +79,16 @@ describe('validate()', () => {
     }
   }
 
-  const validator = new PersonValidator();
-
   test('should pass the sync validation', async () => {
+    const validator = new PersonValidator();
     const person = { name: 'John', age: 25 };
-    const messages = await validator.validate(person);
-    expect(messages).toBeUndefined();
+    const result = await validator.validate(person);
+    expect(result).toBeUndefined();
   });
 
   test('should fails the sync validation', async () => {
     try {
+      const validator = new PersonValidator();
       const person = { name: 1234, age: 'John' };
       await validator.validate(person);
     } catch (error) {
