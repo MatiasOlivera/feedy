@@ -40,7 +40,7 @@ class BaseValidator<Value = any, Args = any> {
     this.args = args;
 
     return new Promise((resolve, reject) => {
-      const validator = new Validator(value, this.rules());
+      const validator = new this.validator(value, this.rules());
 
       const onSuccess = () => resolve({});
       const onFails = () => {
