@@ -2,7 +2,7 @@ import { CustomRule } from '../../rules.types';
 
 export function runTestCases(
   name: string,
-  validator: typeof BaseValidator,
+  validator: any,
   cases: Array<TestCase>
 ) {
   describe(name, () => {
