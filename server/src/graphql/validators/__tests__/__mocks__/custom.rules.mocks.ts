@@ -14,3 +14,17 @@ export const isOfLegalAgeAsync: CustomAsyncRule = {
     value >= args ? passes() : passes(false, 'It is not of legal age'),
   message: 'It is not of legal age'
 };
+
+export const existsRuleMock: CustomAsyncRule = {
+  name: 'exists',
+  type: 'async',
+  callback: (value, args, attribute, passes) => passes(),
+  message: ''
+};
+
+export const uniqueRuleMock: CustomAsyncRule = {
+  name: 'unique',
+  type: 'async',
+  callback: (value, args, attribute, passes) => passes(),
+  message: ''
+};
