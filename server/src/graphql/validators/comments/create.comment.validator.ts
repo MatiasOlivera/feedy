@@ -1,9 +1,16 @@
 import { MutationResolvers } from '../../../graphql/resolvers.types';
+import existsRule from '../custom_rules/exists.rule';
+import { CustomRule } from '../rules.types';
 import CommentValidator from './comment.validator';
 
 class CreateCommentValidator extends CommentValidator<
   MutationResolvers.CreateCommentInput
 > {
+  constructor(customRules: Array<CustomRule> = [existsRule]) {
+    super();
+    this.registerCustomRules(customRules);
+  }
+
   rules() {
     return {
       ...super.rules(),
