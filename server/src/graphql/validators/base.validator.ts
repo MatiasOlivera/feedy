@@ -3,9 +3,9 @@ import Validator, { Rules, ValidationErrors } from 'validatorjs';
 
 import { CustomRule } from './rules.types';
 
-class BaseValidator<Value = any, Args = any> {
+class BaseValidator<Value = any> {
   private validator: Validator.ValidatorStatic;
-  protected args: Args;
+  protected value: Value;
 
   constructor() {
     this.validator = Validator;
@@ -36,11 +36,10 @@ class BaseValidator<Value = any, Args = any> {
     return {};
   }
 
-  public validate(value: Value, args?: Args): Promise<FlatValidationErrors> {
-    this.args = args;
-
+  public validate(value: Value): Promise<FlatValidationErrors> {
     return new Promise((resolve, reject) => {
-      const validator = new this.validator(value, this.rules());
+      this.value = value;
+      const validator = new this.validator(this.value, this.rules());
 
       const onSuccess = () => resolve({});
       const onFails = () => {
