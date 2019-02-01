@@ -1,20 +1,41 @@
 import { startCase } from 'lodash';
-import { RegisterAsyncCallback } from 'validatorjs';
 
 import { prisma } from '../../../database/prisma-client';
 import { logger } from '../../../services/log.service';
-import { CustomAsyncRule, RuleType } from '../rules.types';
+import {
+  AsyncCallback,
+  CustomAsyncRule,
+  RuleType,
+  Params
+} from '../rules.types';
 
 const type: RuleType = 'async';
 const name: string = 'exists';
 const message: string = 'The resource does not exists.';
 
+export async function searchModelInTheDatabase(
+  params: Params,
+  db = prisma
+): Promise<any> {
+  const { model, field, value } = params;
+
+  const query = `
+      query {
+        ${model}( where: { ${field}: "${value}" }) {
+          id
+        }
+      }
+    `;
+  return db.$graphql(query);
+}
+
 // eslint-disable-next-line consistent-return
-const callback: RegisterAsyncCallback = async (
+const callback: AsyncCallback = async (
   value,
   args,
   attribute,
-  passes
+  passes,
+  searchModel = searchModelInTheDatabase
 ) => {
   const hasMultipleArgs = args.includes(',');
   let model: string = null;
@@ -24,20 +45,14 @@ const callback: RegisterAsyncCallback = async (
     [model, field] = args.split(',');
   } else {
     model = args;
+    field = attribute;
   }
 
   if (!model) throw new Error('The model name must be specified.');
   if (!field) throw new Error('The field name must be specified.');
 
   try {
-    const query = `
-      query {
-        ${model}( where: { ${field}: "${value}" }) {
-          id
-        }
-      }
-    `;
-    const data = await prisma.$graphql(query);
+    const data = await searchModel({ model, field, value });
 
     if (data && data[model]) {
       return passes();
