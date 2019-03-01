@@ -3,18 +3,48 @@ import { RegisterAsyncCallback } from 'validatorjs';
 
 import { prisma } from '../../../database/prisma-client';
 import { logger } from '../../../services/log.service';
-import { CustomAsyncRule, RuleType } from '../rules.types';
+import { CustomAsyncRule, RuleType, Params } from '../rules.types';
 
 const type: RuleType = 'async';
 const name: string = 'unique';
 const message: string = 'The value has already been taken.';
+
+export async function searchModelInTheDatabase(
+  params: UniqueParams,
+  db = prisma
+): Promise<any> {
+  const { model, field, value, idField, except } = params;
+
+  const exception = idField && except ? `${idField}_not: "${except}"` : '';
+
+  const query = `
+      query {
+        ${model}(where: {
+          AND: {
+            ${field}: "${value}"
+            ${exception}
+          }
+        }) {
+          id
+        }
+      }
+    `;
+
+  return db.$graphql(query);
+}
+
+type UniqueParams = Params & {
+  idField?: string;
+  except?: string;
+};
 
 // eslint-disable-next-line consistent-return
 const callback: RegisterAsyncCallback = async (
   value,
   args,
   attribute,
-  passes
+  passes,
+  searchModel = searchModelInTheDatabase
 ) => {
   const hasMultipleArgs = args.includes(',');
   let model: string = null;
@@ -30,23 +60,10 @@ const callback: RegisterAsyncCallback = async (
   }
 
   if (!model) throw new Error('The model name must be specified.');
+  if (!field) throw new Error('The field name must be specified.');
 
   try {
-    const exception = idField && except ? `${idField}_not: "${except}"` : '';
-
-    const query = `
-      query {
-        ${model}(where: {
-          AND: {
-            ${field}: "${value}"
-            ${exception}
-          }
-        }) {
-          id
-        }
-      }
-    `;
-    const data = await prisma.$graphql(query);
+    const data = await searchModel({ model, field, value, idField, except });
 
     if (data && data[model] && !isEmpty(data[model])) {
       return passes(false, `The ${field} has already been taken.`);
